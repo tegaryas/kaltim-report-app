@@ -30,7 +30,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       _i9.AuthBloc(authRepository: get<_i3.AuthRepositoryInterface>()));
   gh.factory<_i10.LoginBloc>(() => _i10.LoginBloc(
       loginRepository: get<_i5.LoginRepositoryInterface>(),
-      authRepository: get<_i3.AuthRepositoryInterface>()));
+      authRepository: get<_i3.AuthRepositoryInterface>(),
+      registerRepository: get<_i7.RegisterRepositoryInterface>()));
   gh.factory<_i11.RegisterBloc>(() => _i11.RegisterBloc(
       registerRepository: get<_i7.RegisterRepositoryInterface>(),
       authRepository: get<_i3.AuthRepositoryInterface>()));

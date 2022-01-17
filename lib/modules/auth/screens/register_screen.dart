@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/core/bloc/auth_bloc.dart';
 import 'package:kaltim_report/modules/auth/blocs/login/login_bloc.dart';
 import 'package:kaltim_report/modules/auth/blocs/register/register_bloc.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
@@ -31,16 +32,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RegisterBloc>(
-            create: (context) => getIt.get<RegisterBloc>())
+            create: (context) => getIt.get<RegisterBloc>()),
+        BlocProvider<LoginBloc>(create: (context) => getIt.get<LoginBloc>())
       ],
-      child: BlocListener<RegisterBloc, RegisterState>(
-        listener: (context, state) {
-          if (state is RegisterAlreadyRegistered) {
-            context.router.replaceAll([const LoginRoute()]);
-          } else if (state is RegisterUser) {
-            context.router.push(RegisterUserDataRoute(email: state.email));
-          }
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<RegisterBloc, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterAlreadyRegistered) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text("Email ${state.email} telah digunakan"),
+                    ),
+                  );
+              } else if (state is RegisterUser) {
+                context.router.push(RegisterUserDataRoute(email: state.email));
+              }
+            },
+          ),
+          BlocListener<LoginBloc, LoginState>(
+            listener: (context, state) {
+              if (state is LoginSuccess) {
+                context.read<AuthBloc>().add(AuthStarted());
+              } else if (state is AuthFailure) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    const SnackBar(
+                      content: Text("Ups, terjadi kesalahan saat Login"),
+                    ),
+                  );
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
             final bool isLoading = state is LoginLoading;
@@ -133,12 +160,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      SocialCustomButton(
-                        text: 'Login dengan Google',
-                        imageUrl: "assets/sosial/google.png",
-                        type: CustomButtonType.outline,
-                        onTap: () {
-                          context.read<LoginBloc>().add(LoginStartWithGoogle());
+                      BlocBuilder<LoginBloc, LoginState>(
+                        builder: (context, state) {
+                          bool isLoadingGoogle = state is LoginLoading;
+                          return SocialCustomButton(
+                            text: 'Login dengan Google',
+                            imageUrl: "assets/sosial/google.png",
+                            isLoading: isLoadingGoogle,
+                            type: CustomButtonType.outline,
+                            onTap: () {
+                              context
+                                  .read<LoginBloc>()
+                                  .add(LoginStartWithGoogle());
+                            },
+                          );
                         },
                       ),
                       SizedBox(

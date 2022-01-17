@@ -35,7 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             context.read<AuthBloc>().add(AuthStarted());
           } else if (state is AuthFailure) {
-            print('FAILED');
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text("Ups, terjadi kesalahan saat Login"),
+                ),
+              );
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(
@@ -164,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: 'Login dengan Google',
                         imageUrl: "assets/sosial/google.png",
                         type: CustomButtonType.outline,
+                        isLoading: isLoading,
                         onTap: () {
                           context.read<LoginBloc>().add(LoginStartWithGoogle());
                         },

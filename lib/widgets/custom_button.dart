@@ -72,17 +72,19 @@ class SocialCustomButton extends StatelessWidget {
     this.type = CustomButtonType.solid,
     required this.onTap,
     required this.imageUrl,
+    this.isLoading = false,
   }) : super(key: key);
 
   final String text;
   final CustomButtonType type;
   final Function() onTap;
   final String imageUrl;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Container(
         height: 5.5.h,
         width: 100.w,
