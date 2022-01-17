@@ -1,44 +1,47 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:sizer/sizer.dart';
-import 'package:auto_route/auto_route.dart';
-
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/auth/blocs/login/login_bloc.dart';
+import 'package:kaltim_report/modules/auth/blocs/register/register_bloc.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:kaltim_report/widgets/custom_text_field.dart';
+import 'package:sizer/sizer.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String? email;
+
   String? password;
+  String? passwordConfirm;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(create: (context) => getIt.get<LoginBloc>())
+        BlocProvider<RegisterBloc>(
+            create: (context) => getIt.get<RegisterBloc>())
       ],
-      child: BlocListener<LoginBloc, LoginState>(
+      child: BlocListener<RegisterBloc, RegisterState>(
         listener: (context, state) {
-          if (state is LoginSuccess) {
-            context.read<AuthBloc>().add(AuthStarted());
-          } else if (state is AuthFailure) {
-            print('FAILED');
+          if (state is RegisterAlreadyRegistered) {
+            context.router.replaceAll([const LoginRoute()]);
+          } else if (state is RegisterUser) {
+            context.router.push(RegisterUserDataRoute(email: state.email));
           }
         },
-        child: BlocBuilder<LoginBloc, LoginState>(
+        child: BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
             final bool isLoading = state is LoginLoading;
             return Scaffold(
@@ -64,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 0.5.h,
                       ),
                       Text(
-                        "Silahkan masuk untuk mengakses aplikasi",
+                        "Silahkan registerasi untuk mengakses aplikasi",
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.normal,
@@ -86,47 +89,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 3.h,
-                      ),
-                      PasswordTextField(
-                        label: 'Password',
-                        hint: "Masukkan Password",
-                        validator: MultiValidator([
-                          RequiredValidator(
-                              errorText: "Harap Masukkan Password mu"),
-                        ]),
-                        onSaved: (val) {
-                          password = val;
-                        },
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              "Lupa Password",
-                              style: TextStyle(
-                                fontSize: 10.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
                         height: 5.h,
                       ),
                       CustomButton(
-                        text: 'Login',
+                        text: 'Daftar',
                         isLoading: isLoading,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            context.read<LoginBloc>().add(
-                                LoginStart(email: email!, password: password!));
+                            context.read<RegisterBloc>().add(RegisterStarted(
+                                  email: email!,
+                                ));
                           }
                         },
                       ),
@@ -190,8 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        context.router
-                                            .push(const RegisterRoute());
+                                        //TODO: Add Register Screen
                                       },
                                   ),
                                 ]),
