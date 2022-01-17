@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/auth/repositories/login_repository_interface.dart';
 
 @Injectable(as: LoginRepositoryInterface)
 class LoginRepository implements LoginRepositoryInterface {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Future<void> logInWithEmailAndPassword(String email, String password) async {
@@ -13,6 +15,21 @@ class LoginRepository implements LoginRepositoryInterface {
         email: email,
         password: password,
       );
+    } on FirebaseAuthException catch (e) {
+      print("ERROR: $e");
+    }
+  }
+
+  @override
+  Future<void> logInWithGoogle() async {
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      final googleAuth = await googleUser!.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await _firebaseAuth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       print("ERROR: $e");
     }

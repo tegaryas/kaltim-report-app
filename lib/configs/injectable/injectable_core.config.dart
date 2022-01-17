@@ -10,7 +10,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../../core/bloc/auth_bloc.dart' as _i7;
 import '../../core/repositories/auth_repositories.dart' as _i4;
 import '../../core/repositories/auth_repositories_interface.dart' as _i3;
-import '../../modules/auth/blocs/bloc/login_bloc.dart' as _i8;
+import '../../modules/auth/blocs/login/login_bloc.dart' as _i8;
 import '../../modules/auth/repositories/login_repository.dart' as _i6;
 import '../../modules/auth/repositories/login_repository_interface.dart'
     as _i5; // ignore_for_file: unnecessary_lambdas

@@ -29,6 +29,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(LoginFailed(error: e));
         }
       }
+      if (event is LoginStartWithGoogle) {
+        try {
+          emit(LoginLoading());
+          await loginRepository.logInWithGoogle();
+          bool isSignedIn = authRepository.isLoggedIn();
+          if (isSignedIn) {
+            emit(LoginSuccess());
+          } else {
+            emit(const LoginFailed(error: "Error"));
+          }
+        } catch (e) {
+          emit(LoginFailed(error: e));
+        }
+      }
     });
   }
 }
