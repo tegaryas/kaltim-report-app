@@ -2,8 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:kaltim_report/modules/auth/screens/login_screen.dart';
 import 'package:kaltim_report/modules/auth/screens/register_screen.dart';
 import 'package:kaltim_report/modules/auth/screens/register_user_data.dart';
+import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
+import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
+import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
+import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
@@ -12,7 +17,29 @@ import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
     AutoRoute(path: "/login", page: LoginScreen),
     AutoRoute(path: "/register", page: RegisterScreen),
     AutoRoute(path: "/register-data", page: RegisterUserDataScreen),
-    AutoRoute(path: "/home", page: HomeScreen),
+    AutoRoute(path: "/report", page: ReportScreen),
+    AutoRoute(
+      path: "/menu",
+      page: NavigationScreen,
+      children: [
+        AutoRoute(
+          path: "home",
+          page: HomeScreen,
+        ),
+        AutoRoute(
+          path: "news",
+          page: NewsScreen,
+        ),
+        AutoRoute(
+          path: "call",
+          page: CallScreen,
+        ),
+        AutoRoute(
+          path: "profile",
+          page: ProfileScreen,
+        ),
+      ],
+    ),
   ],
 )
 class $AppRouter {}

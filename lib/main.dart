@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
               BlocListener<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state is AuthAuthenticated) {
-                    router.replaceAll([const HomeRoute()]);
+                    router.replaceAll([const NavigationRoute()]);
                   } else if (state is AuthUnauthenticated) {
                     router.replaceAll([const OnboardingRoute()]);
                   }
