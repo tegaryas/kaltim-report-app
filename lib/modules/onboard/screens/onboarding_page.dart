@@ -5,14 +5,14 @@ import 'package:kaltim_report/modules/auth/screens/login_screen.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
 
-class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   int _selectedIndex = 0;
 
   @override

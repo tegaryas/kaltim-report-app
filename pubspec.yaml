@@ -29,7 +29,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  #state management
   get: ^4.6.1
+  get_it: ^7.2.0
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  injectable: ^1.5.3
+
+  #routes
+  auto_route: ^3.2.1
 
   #UI
   carousel_slider: ^4.0.0
@@ -39,11 +47,19 @@ dependencies:
   ionicons: ^0.1.2
   sizer: ^2.0.15
 
+  #firebase
+  cloud_firestore: ^3.1.6
+  firebase_auth: ^3.3.5
+  firebase_core: ^1.11.0
+
 dev_dependencies:
+  auto_route_generator: ^3.2.1
+  build_runner: ^2.1.7
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
   lints: ^1.0.1
+  injectable_generator: ^1.5.3
   change_app_package_name: ^1.0.0
 
 # For information on the generic Dart part of this file, see the

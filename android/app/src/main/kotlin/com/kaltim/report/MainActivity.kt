@@ -1,4 +1,4 @@
-package com.kaltim.report.public
+package com.kaltim.report
 
 import io.flutter.embedding.android.FlutterActivity
 

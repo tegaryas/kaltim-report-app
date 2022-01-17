@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780404867144",
+    "project_id": "kaltim-report",
+    "storage_bucket": "kaltim-report.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780404867144:android:c33d910fee62400c54187d",
+        "android_client_info": {
+          "package_name": "com.kaltim.report"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780404867144-faqb1fohqkeqr9vim8bs50bj3lb3ugs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMNY7Bdqv_EQua9pfnoz_faMFDMBFIByI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780404867144-faqb1fohqkeqr9vim8bs50bj3lb3ugs0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
