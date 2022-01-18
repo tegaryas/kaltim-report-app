@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
@@ -48,6 +49,21 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildDotIndicator(),
           SizedBox(
             height: 2.h,
+          ),
+          GestureDetector(
+            onTap: () {
+              context.router.push(const ReportRoute());
+            },
+            child: Center(
+              child: Text(
+                'To Report Screen',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
           ),
         ],
       ),

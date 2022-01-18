@@ -136,8 +136,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           SizedBox(
                             child: Icon(
                               tabsRouter.activeIndex == 1
-                                  ? Iconsax.activity
-                                  : Iconsax.activity,
+                                  ? Iconsax.call
+                                  : Iconsax.call,
                               color: tabsRouter.activeIndex == 1
                                   ? Colors.blueGrey
                                   : Colors.grey,
@@ -148,7 +148,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             height: 5,
                           ),
                           Text(
-                            'Laporan',
+                            'Telpon',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,

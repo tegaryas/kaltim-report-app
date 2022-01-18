@@ -49,6 +49,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               username: currentUser.displayName!,
               password: currentUser.uid,
               idToken: currentUser.uid,
+              profilePic: currentUser.photoURL,
             ));
 
             emit(LoginSuccess());
