@@ -6,10 +6,12 @@ part 'emergency_call_model.g.dart';
 class EmergencyCallModel {
   final String name;
   final int numberPhone;
+  final String imageUrl;
 
   EmergencyCallModel({
     required this.name,
     required this.numberPhone,
+    required this.imageUrl,
   });
 
   factory EmergencyCallModel.fromJson(Map<String, dynamic> json) =>

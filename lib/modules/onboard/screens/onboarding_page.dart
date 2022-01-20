@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:kaltim_report/modules/auth/screens/login_screen.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -53,10 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               CustomButton(
                 text: "Masuk",
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
+                  context.router.push(const LoginRoute());
                 },
               ),
               SizedBox(
@@ -65,7 +63,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               CustomButton(
                 text: "Belum ada akun? daftar dulu",
                 type: CustomButtonType.outline,
-                onTap: () {},
+                onTap: () {
+                  context.router.push(const RegisterRoute());
+                },
               ),
               SizedBox(
                 height: 2.h,

@@ -2,7 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
+import 'package:kaltim_report/modules/home/models/feature_model.dart';
+import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
-          'SIGEL',
+          'SIGAP',
           style: TextStyle(
             fontSize: 14.sp,
             color: Colors.blueGrey,
@@ -48,21 +52,115 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildCarouselSlider(),
           _buildDotIndicator(),
           SizedBox(
-            height: 2.h,
+            height: 4.h,
           ),
-          GestureDetector(
-            onTap: () {
-              context.router.push(const ReportRoute());
+          BlocBuilder<FeatureBloc, FeatureState>(
+            builder: (context, state) {
+              if (state is FeatureLoaded) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      state.feature.length,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          if (state.feature[index].type ==
+                              FeatureType.siLapor) {
+                            context.router.push(const ReportRoute());
+                          }
+                          if (state.feature[index].type ==
+                              FeatureType.siBerita) {
+                            context.navigateTo(const NewsRoute());
+                          }
+                        },
+                        child: _buildFeatureContainer(
+                          state.feature[index],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              if (state is FeatureLoading) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      4,
+                      (index) => _buildFeatureLoading(),
+                    ),
+                  ),
+                );
+              }
+              if (state is FeatureFailed) {
+                return Container();
+              }
+              return Container();
             },
-            child: Center(
-              child: Text(
-                'To Report Screen',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeatureContainer(FeatureModel feature) {
+    return SizedBox(
+      width: 20.w,
+      height: 10.h,
+      child: Column(
+        children: [
+          ImageNetworkBuild(
+            imageUrl: feature.imageUrl,
+            height: 5.5.h,
+            width: 5.5.h,
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Text(
+            feature.name,
+            style: TextStyle(
+              fontSize: 10.sp,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFeatureLoading() {
+    return SizedBox(
+      width: 20.w,
+      height: 10.h,
+      child: Column(
+        children: [
+          Container(
+            height: 6.h,
+            width: 6.h,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              shape: BoxShape.circle,
+            ),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Container(
+            height: 0.6.h,
+            width: 6.h,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
             ),
           ),
         ],

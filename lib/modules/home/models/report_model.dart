@@ -7,7 +7,8 @@ part 'report_model.g.dart';
 class ReportModel {
   final String id;
   final String imageUrl;
-  final ReportLocation location;
+  @JsonKey(fromJson: _fromJsonGeoPoint, toJson: _toJsonGeoPoint)
+  final GeoPoint location;
   final String problem;
   final String userId;
   final String? description;
@@ -37,19 +38,12 @@ class ReportModel {
 
   static int? _dateTimeToEpochUs(DateTime? dateTime) =>
       dateTime?.microsecondsSinceEpoch;
-}
 
-@JsonSerializable()
-class ReportLocation {
-  final String latitude;
-  final String longitude;
+  static GeoPoint _fromJsonGeoPoint(GeoPoint geoPoint) {
+    return geoPoint;
+  }
 
-  ReportLocation({
-    required this.latitude,
-    required this.longitude,
-  });
-
-  factory ReportLocation.fromJson(Map<String, dynamic> json) =>
-      _$ReportLocationFromJson(json);
-  Map<String, dynamic> toJson() => _$ReportLocationToJson(this);
+  static GeoPoint _toJsonGeoPoint(GeoPoint geoPoint) {
+    return geoPoint;
+  }
 }

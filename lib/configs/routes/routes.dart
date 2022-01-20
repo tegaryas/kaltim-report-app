@@ -8,6 +8,9 @@ import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart'
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
 import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
+import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/location_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 
 @MaterialAutoRouter(
@@ -18,6 +21,9 @@ import 'package:kaltim_report/modules/report/screens/report_screen.dart';
     AutoRoute(path: "/register", page: RegisterScreen),
     AutoRoute(path: "/register-data", page: RegisterUserDataScreen),
     AutoRoute(path: "/report", page: ReportScreen),
+    AutoRoute(path: "/add-report", page: AddReportScreen),
+    AutoRoute(path: "/detail-report", page: DetailReportScreen),
+    AutoRoute(path: "/location-maps", page: ReportLocationScreen),
     AutoRoute(
       path: "/menu",
       page: NavigationScreen,

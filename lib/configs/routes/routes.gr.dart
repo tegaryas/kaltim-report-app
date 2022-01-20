@@ -10,85 +10,113 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i12;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:flutter/material.dart' as _i15;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as _i17;
 
 import '../../modules/auth/screens/login_screen.dart' as _i2;
 import '../../modules/auth/screens/register_screen.dart' as _i3;
 import '../../modules/auth/screens/register_user_data.dart' as _i4;
-import '../../modules/call/screens/call_screen.dart' as _i9;
-import '../../modules/home/screens/home_screen.dart' as _i7;
-import '../../modules/navigation/screens/navigation_screen.dart' as _i6;
-import '../../modules/news/screens/news_screen.dart' as _i8;
+import '../../modules/call/screens/call_screen.dart' as _i12;
+import '../../modules/home/models/report_model.dart' as _i16;
+import '../../modules/home/screens/home_screen.dart' as _i10;
+import '../../modules/navigation/screens/navigation_screen.dart' as _i9;
+import '../../modules/news/screens/news_screen.dart' as _i11;
 import '../../modules/onboard/screens/onboarding_page.dart' as _i1;
-import '../../modules/profile/screens/profile_screen.dart' as _i10;
+import '../../modules/profile/screens/profile_screen.dart' as _i13;
+import '../../modules/report/screens/add_report_screen.dart' as _i6;
+import '../../modules/report/screens/detail_report_screen.dart' as _i7;
+import '../../modules/report/screens/location_report_screen.dart' as _i8;
 import '../../modules/report/screens/report_screen.dart' as _i5;
 
-class AppRouter extends _i11.RootStackRouter {
-  AppRouter([_i12.GlobalKey<_i12.NavigatorState>? navigatorKey])
+class AppRouter extends _i14.RootStackRouter {
+  AppRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i14.PageFactory> pagesMap = {
     OnboardingRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.OnboardingScreen());
     },
     LoginRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.LoginScreen());
     },
     RegisterRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.RegisterScreen());
     },
     RegisterUserDataRoute.name: (routeData) {
       final args = routeData.argsAs<RegisterUserDataRouteArgs>();
-      return _i11.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i4.RegisterUserDataScreen(key: args.key, email: args.email));
     },
     ReportRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
+      return _i14.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.ReportScreen());
     },
+    AddReportRoute.name: (routeData) {
+      final args = routeData.argsAs<AddReportRouteArgs>(
+          orElse: () => const AddReportRouteArgs());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i6.AddReportScreen(
+              key: args.key, reportTitle: args.reportTitle));
+    },
+    DetailReportRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailReportRouteArgs>();
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i7.DetailReportScreen(key: args.key, report: args.report));
+    },
+    ReportLocationRoute.name: (routeData) {
+      final args = routeData.argsAs<ReportLocationRouteArgs>();
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i8.ReportLocationScreen(key: args.key, latLng: args.latLng));
+    },
     NavigationRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.NavigationScreen());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i9.NavigationScreen());
     },
     HomeRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i7.HomeScreen());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i10.HomeScreen());
     },
     NewsRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.NewsScreen());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i11.NewsScreen());
     },
     CallRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.CallScreen());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i12.CallScreen());
     },
     ProfileRoute.name: (routeData) {
-      return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.ProfileScreen());
+      return _i14.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i13.ProfileScreen());
     }
   };
 
   @override
-  List<_i11.RouteConfig> get routes => [
-        _i11.RouteConfig(OnboardingRoute.name, path: '/onboarding'),
-        _i11.RouteConfig(LoginRoute.name, path: '/login'),
-        _i11.RouteConfig(RegisterRoute.name, path: '/register'),
-        _i11.RouteConfig(RegisterUserDataRoute.name, path: '/register-data'),
-        _i11.RouteConfig(ReportRoute.name, path: '/report'),
-        _i11.RouteConfig(NavigationRoute.name, path: '/menu', children: [
-          _i11.RouteConfig(HomeRoute.name,
+  List<_i14.RouteConfig> get routes => [
+        _i14.RouteConfig(OnboardingRoute.name, path: '/onboarding'),
+        _i14.RouteConfig(LoginRoute.name, path: '/login'),
+        _i14.RouteConfig(RegisterRoute.name, path: '/register'),
+        _i14.RouteConfig(RegisterUserDataRoute.name, path: '/register-data'),
+        _i14.RouteConfig(ReportRoute.name, path: '/report'),
+        _i14.RouteConfig(AddReportRoute.name, path: '/add-report'),
+        _i14.RouteConfig(DetailReportRoute.name, path: '/detail-report'),
+        _i14.RouteConfig(ReportLocationRoute.name, path: '/location-maps'),
+        _i14.RouteConfig(NavigationRoute.name, path: '/menu', children: [
+          _i14.RouteConfig(HomeRoute.name,
               path: 'home', parent: NavigationRoute.name),
-          _i11.RouteConfig(NewsRoute.name,
+          _i14.RouteConfig(NewsRoute.name,
               path: 'news', parent: NavigationRoute.name),
-          _i11.RouteConfig(CallRoute.name,
+          _i14.RouteConfig(CallRoute.name,
               path: 'call', parent: NavigationRoute.name),
-          _i11.RouteConfig(ProfileRoute.name,
+          _i14.RouteConfig(ProfileRoute.name,
               path: 'profile', parent: NavigationRoute.name)
         ])
       ];
@@ -96,7 +124,7 @@ class AppRouter extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.OnboardingScreen]
-class OnboardingRoute extends _i11.PageRouteInfo<void> {
+class OnboardingRoute extends _i14.PageRouteInfo<void> {
   const OnboardingRoute() : super(OnboardingRoute.name, path: '/onboarding');
 
   static const String name = 'OnboardingRoute';
@@ -104,7 +132,7 @@ class OnboardingRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoginScreen]
-class LoginRoute extends _i11.PageRouteInfo<void> {
+class LoginRoute extends _i14.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: '/login');
 
   static const String name = 'LoginRoute';
@@ -112,7 +140,7 @@ class LoginRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.RegisterScreen]
-class RegisterRoute extends _i11.PageRouteInfo<void> {
+class RegisterRoute extends _i14.PageRouteInfo<void> {
   const RegisterRoute() : super(RegisterRoute.name, path: '/register');
 
   static const String name = 'RegisterRoute';
@@ -121,8 +149,8 @@ class RegisterRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.RegisterUserDataScreen]
 class RegisterUserDataRoute
-    extends _i11.PageRouteInfo<RegisterUserDataRouteArgs> {
-  RegisterUserDataRoute({_i12.Key? key, required String email})
+    extends _i14.PageRouteInfo<RegisterUserDataRouteArgs> {
+  RegisterUserDataRoute({_i15.Key? key, required String email})
       : super(RegisterUserDataRoute.name,
             path: '/register-data',
             args: RegisterUserDataRouteArgs(key: key, email: email));
@@ -133,7 +161,7 @@ class RegisterUserDataRoute
 class RegisterUserDataRouteArgs {
   const RegisterUserDataRouteArgs({this.key, required this.email});
 
-  final _i12.Key? key;
+  final _i15.Key? key;
 
   final String email;
 
@@ -145,48 +173,120 @@ class RegisterUserDataRouteArgs {
 
 /// generated route for
 /// [_i5.ReportScreen]
-class ReportRoute extends _i11.PageRouteInfo<void> {
+class ReportRoute extends _i14.PageRouteInfo<void> {
   const ReportRoute() : super(ReportRoute.name, path: '/report');
 
   static const String name = 'ReportRoute';
 }
 
 /// generated route for
-/// [_i6.NavigationScreen]
-class NavigationRoute extends _i11.PageRouteInfo<void> {
-  const NavigationRoute({List<_i11.PageRouteInfo>? children})
+/// [_i6.AddReportScreen]
+class AddReportRoute extends _i14.PageRouteInfo<AddReportRouteArgs> {
+  AddReportRoute({_i15.Key? key, String? reportTitle})
+      : super(AddReportRoute.name,
+            path: '/add-report',
+            args: AddReportRouteArgs(key: key, reportTitle: reportTitle));
+
+  static const String name = 'AddReportRoute';
+}
+
+class AddReportRouteArgs {
+  const AddReportRouteArgs({this.key, this.reportTitle});
+
+  final _i15.Key? key;
+
+  final String? reportTitle;
+
+  @override
+  String toString() {
+    return 'AddReportRouteArgs{key: $key, reportTitle: $reportTitle}';
+  }
+}
+
+/// generated route for
+/// [_i7.DetailReportScreen]
+class DetailReportRoute extends _i14.PageRouteInfo<DetailReportRouteArgs> {
+  DetailReportRoute({_i15.Key? key, required _i16.ReportModel report})
+      : super(DetailReportRoute.name,
+            path: '/detail-report',
+            args: DetailReportRouteArgs(key: key, report: report));
+
+  static const String name = 'DetailReportRoute';
+}
+
+class DetailReportRouteArgs {
+  const DetailReportRouteArgs({this.key, required this.report});
+
+  final _i15.Key? key;
+
+  final _i16.ReportModel report;
+
+  @override
+  String toString() {
+    return 'DetailReportRouteArgs{key: $key, report: $report}';
+  }
+}
+
+/// generated route for
+/// [_i8.ReportLocationScreen]
+class ReportLocationRoute extends _i14.PageRouteInfo<ReportLocationRouteArgs> {
+  ReportLocationRoute({_i15.Key? key, required _i17.LatLng latLng})
+      : super(ReportLocationRoute.name,
+            path: '/location-maps',
+            args: ReportLocationRouteArgs(key: key, latLng: latLng));
+
+  static const String name = 'ReportLocationRoute';
+}
+
+class ReportLocationRouteArgs {
+  const ReportLocationRouteArgs({this.key, required this.latLng});
+
+  final _i15.Key? key;
+
+  final _i17.LatLng latLng;
+
+  @override
+  String toString() {
+    return 'ReportLocationRouteArgs{key: $key, latLng: $latLng}';
+  }
+}
+
+/// generated route for
+/// [_i9.NavigationScreen]
+class NavigationRoute extends _i14.PageRouteInfo<void> {
+  const NavigationRoute({List<_i14.PageRouteInfo>? children})
       : super(NavigationRoute.name, path: '/menu', initialChildren: children);
 
   static const String name = 'NavigationRoute';
 }
 
 /// generated route for
-/// [_i7.HomeScreen]
-class HomeRoute extends _i11.PageRouteInfo<void> {
+/// [_i10.HomeScreen]
+class HomeRoute extends _i14.PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: 'home');
 
   static const String name = 'HomeRoute';
 }
 
 /// generated route for
-/// [_i8.NewsScreen]
-class NewsRoute extends _i11.PageRouteInfo<void> {
+/// [_i11.NewsScreen]
+class NewsRoute extends _i14.PageRouteInfo<void> {
   const NewsRoute() : super(NewsRoute.name, path: 'news');
 
   static const String name = 'NewsRoute';
 }
 
 /// generated route for
-/// [_i9.CallScreen]
-class CallRoute extends _i11.PageRouteInfo<void> {
+/// [_i12.CallScreen]
+class CallRoute extends _i14.PageRouteInfo<void> {
   const CallRoute() : super(CallRoute.name, path: 'call');
 
   static const String name = 'CallRoute';
 }
 
 /// generated route for
-/// [_i10.ProfileScreen]
-class ProfileRoute extends _i11.PageRouteInfo<void> {
+/// [_i13.ProfileScreen]
+class ProfileRoute extends _i14.PageRouteInfo<void> {
   const ProfileRoute() : super(ProfileRoute.name, path: 'profile');
 
   static const String name = 'ProfileRoute';

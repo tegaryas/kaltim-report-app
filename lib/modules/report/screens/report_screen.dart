@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/report/report_bloc.dart';
 import 'package:kaltim_report/modules/report/components/report_card_list.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +26,7 @@ class ReportScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 14.sp,
               color: Colors.black,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
@@ -35,8 +36,7 @@ class ReportScreen extends StatelessWidget {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            }
-            if (state is ReportLoaded) {
+            } else if (state is ReportLoaded) {
               return ListView.separated(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20.0,
@@ -44,7 +44,14 @@ class ReportScreen extends StatelessWidget {
                 itemCount: state.reports.length,
                 itemBuilder: (context, index) {
                   var report = state.reports[index];
-                  return ReportCardOnList(report: report);
+                  return ReportCardOnList(
+                    report: report,
+                    onTap: () {
+                      context.router.push(
+                        DetailReportRoute(report: report),
+                      );
+                    },
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(

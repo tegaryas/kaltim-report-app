@@ -184,13 +184,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Text.rich(
                             TextSpan(
-                                text: "Belum Punya Akun? ",
+                                text: "Sudah Punya Akun? ",
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: "Buat Akun",
+                                    text: "Masuk",
                                     style: TextStyle(
                                       color: Colors.blueGrey,
                                       fontWeight: FontWeight.w600,
@@ -198,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        //TODO: Add Register Screen
+                                        context.router.push(const LoginRoute());
                                       },
                                   ),
                                 ]),

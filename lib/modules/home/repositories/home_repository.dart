@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/modules/home/models/feature_model.dart';
 import 'package:kaltim_report/modules/home/models/report_model.dart';
 import 'package:kaltim_report/modules/home/providers/home_provider_interface.dart';
 import 'package:kaltim_report/modules/home/repositories/home_repository_interface.dart';
@@ -11,5 +12,10 @@ class HomeRepository implements HomeRepositoryInterface {
   @override
   Stream<List<ReportModel>> getReportList() {
     return homeProvider.getReportList();
+  }
+
+  @override
+  Stream<List<FeatureModel>> getFeatureList() {
+    return homeProvider.getFeatureList();
   }
 }

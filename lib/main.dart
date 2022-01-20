@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,10 +13,11 @@ import 'package:kaltim_report/core/bloc/auth_bloc.dart';
 import 'configs/injectable/injectable_core.dart';
 import 'configs/routes/routes.gr.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await configureDependencies();
+  await configureDependencies(Environment.dev);
+
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -27,6 +29,7 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
+
   runApp(const MyApp());
 }
 

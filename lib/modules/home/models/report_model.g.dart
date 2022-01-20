@@ -9,8 +9,7 @@ part of 'report_model.dart';
 ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
       id: json['id'] as String,
       imageUrl: json['imageUrl'] as String,
-      location:
-          ReportLocation.fromJson(json['location'] as Map<String, dynamic>),
+      location: ReportModel._fromJsonGeoPoint(json['location'] as GeoPoint),
       problem: json['problem'] as String,
       userId: json['userId'] as String,
       description: json['description'] as String?,
@@ -24,23 +23,11 @@ Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'imageUrl': instance.imageUrl,
-      'location': instance.location,
+      'location': ReportModel._toJsonGeoPoint(instance.location),
       'problem': instance.problem,
       'userId': instance.userId,
       'description': instance.description,
       'dateInput': ReportModel._dateTimeToEpochUs(instance.dateInput),
       'address': instance.address,
       'category': instance.category,
-    };
-
-ReportLocation _$ReportLocationFromJson(Map<String, dynamic> json) =>
-    ReportLocation(
-      latitude: json['latitude'] as String,
-      longitude: json['longitude'] as String,
-    );
-
-Map<String, dynamic> _$ReportLocationToJson(ReportLocation instance) =>
-    <String, dynamic>{
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
     };

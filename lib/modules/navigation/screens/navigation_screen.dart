@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -36,25 +39,32 @@ class _NavigationScreenState extends State<NavigationScreen> {
       return false;
     }
 
-    return AutoTabsScaffold(
-      routes: const [
-        HomeRoute(),
-        CallRoute(),
-        NewsRoute(),
-        ProfileRoute(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FeatureBloc>(
+          create: (context) => getIt.get<FeatureBloc>()..add(FeatureFetching()),
+        ),
       ],
-      bottomNavigationBuilder: (_, tabsRouter) {
-        return WillPopScope(
-          onWillPop: () async {
-            if (onTabsWillPop(tabsRouter)) {
-              return onWillPop();
-            } else {
-              return false;
-            }
-          },
-          child: _customNavBar(tabsRouter),
-        );
-      },
+      child: AutoTabsScaffold(
+        routes: const [
+          HomeRoute(),
+          CallRoute(),
+          NewsRoute(),
+          ProfileRoute(),
+        ],
+        bottomNavigationBuilder: (_, tabsRouter) {
+          return WillPopScope(
+            onWillPop: () async {
+              if (onTabsWillPop(tabsRouter)) {
+                return onWillPop();
+              } else {
+                return false;
+              }
+            },
+            child: _customNavBar(tabsRouter),
+          );
+        },
+      ),
     );
   }
 
@@ -261,7 +271,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.router.push(const ReportRoute());
+                  context.router.push(AddReportRoute(reportTitle: "Report"));
                 },
                 child: Stack(
                   alignment: Alignment.center,

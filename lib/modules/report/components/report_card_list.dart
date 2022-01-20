@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kaltim_report/modules/home/models/report_model.dart';
+import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportCardOnList extends StatelessWidget {
@@ -20,17 +21,12 @@ class ReportCardOnList extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  report.imageUrl,
-                ),
-                fit: BoxFit.cover,
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: ImageNetworkBuild(
+              imageUrl: report.imageUrl,
+              height: 12.h,
+              width: 12.h,
             ),
           ),
           SizedBox(
@@ -73,7 +69,9 @@ class ReportCardOnList extends StatelessWidget {
                   height: 0.5.h,
                 ),
                 Text(
-                  DateFormat.MMMMEEEEd().format(report.dateInput),
+                  DateFormat.MMMMEEEEd(
+                          Localizations.localeOf(context).toString())
+                      .format(report.dateInput),
                   style: TextStyle(
                     fontSize: 10.sp,
                     color: Colors.grey,

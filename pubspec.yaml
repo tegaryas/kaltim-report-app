@@ -41,6 +41,7 @@ dependencies:
   auto_route: ^3.2.1
 
   #UI
+  another_flushbar: ^1.10.28
   carousel_slider: ^4.0.0
   dots_indicator: ^2.0.0
   fluttertoast: ^8.0.8
@@ -50,6 +51,7 @@ dependencies:
   intl: ^0.17.0
   ionicons: ^0.1.2
   url_launcher: ^6.0.18
+  skeletons: ^0.0.3
   sizer: ^2.0.15
 
   #firebase
@@ -57,10 +59,22 @@ dependencies:
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
   google_sign_in: ^5.2.3
+  nanoid: ^1.0.0
 
   #json
   json_serializable: ^6.1.4
   json_annotation: ^4.4.0
+
+  #maps
+  geolocator: ^8.0.3
+  google_maps_flutter: ^2.1.1
+  
+  #etc
+  copy_with_extension: ^4.0.0
+  image_picker: ^0.8.4+4
+  package_info_plus: ^1.3.0
+  permission_handler: ^8.3.0
+  universal_platform: ^1.0.0+1
 
 dev_dependencies:
   auto_route_generator: ^3.2.1
