@@ -37,28 +37,38 @@ class ReportScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is ReportLoaded) {
-              return ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                itemCount: state.reports.length,
-                itemBuilder: (context, index) {
-                  var report = state.reports[index];
-                  return ReportCardOnList(
-                    report: report,
-                    onTap: () {
-                      context.router.push(
-                        DetailReportRoute(report: report),
-                      );
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 4.5.h,
-                  );
-                },
-              );
+              if (state.reports.isNotEmpty) {
+                return ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20.0,
+                  ),
+                  itemCount: state.reports.length,
+                  itemBuilder: (context, index) {
+                    var report = state.reports[index];
+                    return ReportCardOnList(
+                      report: report,
+                      onTap: () {
+                        context.router.push(
+                          DetailReportRoute(report: report),
+                        );
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 4.5.h,
+                    );
+                  },
+                );
+              } else {
+                //TODO: Implement Laporan Kosong
+                return const Center(
+                  child: Text(
+                    'LAPORAN KOSONG',
+                  ),
+                );
+              }
             } else {
               return Text('Something Wrong');
             }

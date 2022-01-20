@@ -7,11 +7,28 @@ abstract class ReportFormEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReportFormAdd extends ReportFormEvent {
+class ReportFormAddAll extends ReportFormEvent {
   final ReportFormModel form;
+  final String imageUrl;
 
-  const ReportFormAdd({required this.form});
+  const ReportFormAddAll({
+    required this.form,
+    required this.imageUrl,
+  });
 
   @override
-  List<Object> get props => [form];
+  List<Object> get props => [form, imageUrl];
+}
+
+class ReportFormAdd extends ReportFormEvent {
+  final ReportFormModel form;
+  final XFile imageFile;
+
+  const ReportFormAdd({
+    required this.form,
+    required this.imageFile,
+  });
+
+  @override
+  List<Object> get props => [form, imageFile];
 }

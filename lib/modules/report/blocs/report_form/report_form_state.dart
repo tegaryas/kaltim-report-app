@@ -11,14 +11,7 @@ class ReportFormInitial extends ReportFormState {}
 
 class ReportFormLoading extends ReportFormState {}
 
-class ReportFormAddedSucess extends ReportFormState {
-  final ReportFormModel form;
-
-  const ReportFormAddedSucess({required this.form});
-
-  @override
-  List<Object> get props => [form];
-}
+class ReportFormAddedSucess extends ReportFormState {}
 
 class ReportFormFailure extends ReportFormState {
   final Object error;

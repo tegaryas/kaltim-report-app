@@ -19,8 +19,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         _reportSubsription?.cancel();
         try {
           emit(ReportLoading());
-          var _reportSubsription =
-              homeRepository.getReportList().listen((event) {
+          homeRepository.getReportList().listen((event) {
             add(ReportUpdate(reports: event));
           });
         } catch (e) {
@@ -31,5 +30,11 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         emit(ReportLoaded(reports: event.reports));
       }
     });
+  }
+
+  @override
+  Future<void> close() {
+    _reportSubsription?.cancel();
+    return super.close();
   }
 }

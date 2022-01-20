@@ -72,8 +72,10 @@ class _AddReportScreenState extends State<AddReportScreen> {
             FlushbarHelper.createSuccess(
               message: 'Berhasil Menambahkan Laporan',
               title: 'Sukses',
+              duration: const Duration(seconds: 2),
             ).show(context).then((value) => context.popRoute());
           }
+          //TODO: Add Error Modal
         },
         child: Scaffold(
           appBar: AppBar(
@@ -94,39 +96,48 @@ class _AddReportScreenState extends State<AddReportScreen> {
               horizontal: 20,
               vertical: 10,
             ),
-            child: BlocBuilder<GeolocationBloc, GeolocationState>(
+            child: BlocBuilder<ReportFormBloc, ReportFormState>(
               builder: (context, state) {
-                if (state is GeolocationLoaded) {
-                  return CustomButton(
-                    text: 'Simpan Laporan',
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
+                final isLoading = state is ReportFormLoading;
+                return BlocBuilder<GeolocationBloc, GeolocationState>(
+                  builder: (context, state) {
+                    if (state is GeolocationLoaded) {
+                      return CustomButton(
+                        text: 'Simpan Laporan',
+                        isLoading: isLoading,
+                        onTap: () {
+                          if (_formKey.currentState!.validate() &&
+                              _selectedImage != null) {
+                            _formKey.currentState!.save();
 
-                        context.read<ReportFormBloc>().add(
-                              ReportFormAdd(
-                                form: ReportFormModel(
-                                  id: GenerateUID.generateVeryUniqueID(),
-                                  imageUrl: "",
-                                  location: GeoPoint(state.position.latitude,
-                                      state.position.longitude),
-                                  problem: permasalahText!,
-                                  dateInput: DateTime.now(),
-                                  address: lokasiText!,
-                                  category: "Bebas",
-                                  description: tambahanText,
-                                ),
-                              ),
-                            );
-                      }
-                    },
-                  );
-                } else {
-                  return CustomButton(
-                    text: 'Simpan Laporan',
-                    onTap: () {},
-                  );
-                }
+                            context.read<ReportFormBloc>().add(
+                                  ReportFormAdd(
+                                    form: ReportFormModel(
+                                      id: GenerateUID.generateVeryUniqueID(),
+                                      imageUrl: "",
+                                      location: GeoPoint(
+                                          state.position.latitude,
+                                          state.position.longitude),
+                                      problem: permasalahText!,
+                                      dateInput: DateTime.now(),
+                                      address: lokasiText!,
+                                      category: "Bebas",
+                                      description: tambahanText,
+                                    ),
+                                    imageFile: _selectedImage!,
+                                  ),
+                                );
+                          }
+                        },
+                      );
+                    } else {
+                      return CustomButton(
+                        text: 'Simpan Laporan',
+                        onTap: () {},
+                      );
+                    }
+                  },
+                );
               },
             ),
           ),
@@ -154,7 +165,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         setState(() {
                           _selectedImage = image;
                         });
-                        XFile imageToUpload = XFile(_selectedImage!.path);
                       }
                     },
                     child: _selectedImage != null
