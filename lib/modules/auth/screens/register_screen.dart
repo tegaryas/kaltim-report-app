@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           BlocListener<RegisterBloc, RegisterState>(
             listener: (context, state) {
               if (state is RegisterAlreadyRegistered) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text("Email ${state.email} telah digunakan"),
-                    ),
-                  );
+                FlushbarHelper.createError(
+                  message: 'Email ${state.email} telah digunakan',
+                  title: "Gagal Daftar",
+                  duration: const Duration(seconds: 2),
+                ).show(context);
               } else if (state is RegisterUser) {
                 context.router.push(RegisterUserDataRoute(email: state.email));
               }

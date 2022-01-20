@@ -73,7 +73,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
               message: 'Berhasil Menambahkan Laporan',
               title: 'Sukses',
               duration: const Duration(seconds: 2),
-            ).show(context).then((value) => context.popRoute());
+            ).show(context);
           }
           //TODO: Add Error Modal
         },
@@ -331,21 +331,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
         style: TextStyle(
           fontSize: 10.sp,
           fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  _buildHintText(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 20.0,
-      ),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 9.sp,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,14 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             context.read<AuthBloc>().add(AuthStarted());
-          } else if (state is AuthFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  content: Text("Ups, terjadi kesalahan saat Login"),
-                ),
-              );
+          } else if (state is LoginFailed) {
+            FlushbarHelper.createError(
+              message:
+                  'Login ${state.error.toString()}, kamu bisa coba login beberapa saat lagi',
+              title: "Ups gagal",
+              duration: const Duration(seconds: 2),
+            ).show(context);
           }
         },
         child: BlocBuilder<LoginBloc, LoginState>(

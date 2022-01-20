@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,11 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
             context.router.replaceAll([const LoginRoute()]);
           }
           if (state is RegisterFailed) {
-            print("Failed");
+            FlushbarHelper.createError(
+              message: 'Gagal Daftar',
+              title: state.error.toString(),
+              duration: const Duration(seconds: 2),
+            ).show(context);
           }
         },
         builder: (context, state) {
