@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class ImageNetworkBuild extends StatelessWidget {
   const ImageNetworkBuild({

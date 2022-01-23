@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/home/models/report_model.dart';
@@ -12,29 +11,28 @@ part 'report_state.dart';
 @injectable
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
   final HomeRepositoryInterface homeRepository;
-  StreamSubscription? _reportSubsription;
-  ReportBloc({required this.homeRepository}) : super(ReportInitial()) {
-    on<ReportEvent>((event, emit) {
-      if (event is ReportFetching) {
-        _reportSubsription?.cancel();
+  List<DocumentSnapshot>? documentList;
+  ReportBloc(this.homeRepository) : super(ReportInitial()) {
+    on<ReportEvent>((event, emit) async {
+      if (event is FetchReportList) {
         try {
           emit(ReportLoading());
-          homeRepository.getReportList().listen((event) {
-            add(ReportUpdate(reports: event));
-          });
+
+          documentList = await homeRepository.getReportList();
+          if (documentList!.isEmpty) {
+            emit(ReportFailed());
+          }
         } catch (e) {
           emit(ReportFailed());
         }
       }
-      if (event is ReportUpdate) {
-        emit(ReportLoaded(reports: event.reports));
+      if (event is FetchNextReportList) {
+        try {
+          emit(ReportLoading());
+        } catch (e) {
+          emit(ReportFailed());
+        }
       }
     });
-  }
-
-  @override
-  Future<void> close() {
-    _reportSubsription?.cancel();
-    return super.close();
   }
 }

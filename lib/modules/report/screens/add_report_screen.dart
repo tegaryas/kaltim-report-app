@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

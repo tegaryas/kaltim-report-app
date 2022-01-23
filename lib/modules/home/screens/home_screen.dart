@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           if (state.feature[index].type ==
                               FeatureType.siLapor) {
-                            context.router.push(const ReportRoute());
+                            context.router.push(const ReportRouter());
                           }
                           if (state.feature[index].type ==
                               FeatureType.siBerita) {

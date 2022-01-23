@@ -12,6 +12,7 @@ import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/location_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
@@ -20,7 +21,15 @@ import 'package:kaltim_report/modules/report/screens/report_screen.dart';
     AutoRoute(path: "/login", page: LoginScreen),
     AutoRoute(path: "/register", page: RegisterScreen),
     AutoRoute(path: "/register-data", page: RegisterUserDataScreen),
-    AutoRoute(path: "/report", page: ReportScreen),
+    AutoRoute(
+      path: "report",
+      name: "ReportRouter",
+      page: ReportWrapperScreem,
+      children: [
+        AutoRoute(path: "", page: ReportScreen),
+        RedirectRoute(path: '*', redirectTo: ''),
+      ],
+    ),
     AutoRoute(path: "/add-report", page: AddReportScreen),
     AutoRoute(path: "/detail-report", page: DetailReportScreen),
     AutoRoute(path: "/location-maps", page: ReportLocationScreen),

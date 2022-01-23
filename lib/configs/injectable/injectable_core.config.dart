@@ -24,7 +24,6 @@ import '../../modules/call/providers/call_provider_interface.dart' as _i5;
 import '../../modules/call/repositories/call_repository.dart' as _i8;
 import '../../modules/call/repositories/call_repository_interface.dart' as _i7;
 import '../../modules/home/blocs/feature/feature_bloc.dart' as _i31;
-import '../../modules/home/blocs/report/report_bloc.dart' as _i24;
 import '../../modules/home/providers/home_provider.dart' as _i13;
 import '../../modules/home/providers/home_provider_interface.dart' as _i12;
 import '../../modules/home/repositories/home_repository.dart' as _i15;
@@ -38,6 +37,7 @@ import '../../modules/profile/repositories/profile_repository.dart' as _i21;
 import '../../modules/profile/repositories/profile_repository_interface.dart'
     as _i20;
 import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i32;
+import '../../modules/report/blocs/report/report_bloc.dart' as _i24;
 import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i36;
 import '../../modules/report/providers/report_provider.dart' as _i26;
 import '../../modules/report/providers/report_provider_interface.dart' as _i25;
@@ -73,8 +73,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i20.ProfileRepositoryInterface>(() => _i21.ProfileRepository(
       profileProvider: get<_i18.ProfileProviderInterface>()));
   gh.factory<_i22.RegisterRepositoryInterface>(() => _i23.RegisterRepository());
-  gh.factory<_i24.ReportBloc>(() =>
-      _i24.ReportBloc(homeRepository: get<_i14.HomeRepositoryInterface>()));
+  gh.factory<_i24.ReportBloc>(
+      () => _i24.ReportBloc(get<_i14.HomeRepositoryInterface>()));
   gh.factory<_i25.ReportProviderInterface>(() => _i26.ReportProvider());
   gh.factory<_i27.ReportRepositoryInterface>(() => _i28.ReportRepository(
       reportProvider: get<_i25.ReportProviderInterface>()));

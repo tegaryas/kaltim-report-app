@@ -7,19 +7,18 @@ abstract class ReportState extends Equatable {
   List<Object> get props => [];
 }
 
-class ReportLoading extends ReportState {}
-
 class ReportInitial extends ReportState {}
 
-class ReportLoaded extends ReportState {
-  final List<ReportModel> reports;
+class ReportLoading extends ReportState {}
 
-  const ReportLoaded({
-    required this.reports,
-  });
+class ReportLoaded extends ReportState {
+  final ReportModel reports;
+  final bool? hasReachedMax;
+
+  const ReportLoaded({required this.reports, this.hasReachedMax});
 
   @override
-  List<Object> get props => [reports];
+  List<Object> get props => [reports, hasReachedMax!];
 }
 
 class ReportFailed extends ReportState {}
