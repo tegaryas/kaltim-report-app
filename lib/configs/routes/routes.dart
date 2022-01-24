@@ -11,6 +11,7 @@ import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
 import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/location_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/my_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 
@@ -33,6 +34,7 @@ import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart'
     AutoRoute(path: "/add-report", page: AddReportScreen),
     AutoRoute(path: "/detail-report", page: DetailReportScreen),
     AutoRoute(path: "/location-maps", page: ReportLocationScreen),
+    AutoRoute(path: "/my-report", page: MyReportScreen),
     AutoRoute(
       path: "/menu",
       page: NavigationScreen,

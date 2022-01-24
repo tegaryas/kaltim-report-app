@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/modules/home/models/report_model.dart';
 
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/providers/report_provider_interface.dart';
@@ -20,5 +21,10 @@ class ReportRepository implements ReportRepositoryInterface {
   @override
   UploadTask? uploadReportImage(XFile file) {
     return reportProvider.uploadReportImage(file);
+  }
+
+  @override
+  Stream<List<ReportModel>> getCurrentUserReport() {
+    return reportProvider.getCurrentUserReport();
   }
 }

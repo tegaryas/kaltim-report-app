@@ -34,6 +34,13 @@ class _ReportScreenState extends State<ReportScreen> {
       child: Scaffold(
           appBar: AppBar(
             elevation: 0,
+            leading: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.arrow_back,
+                size: 18.sp,
+              ),
+            ),
             title: Text(
               'SiLapor',
               style: TextStyle(
@@ -48,6 +55,7 @@ class _ReportScreenState extends State<ReportScreen> {
               itemBuilder: (context, documentSnapshots, index) {
                 final report = ReportModel.fromJson(
                     documentSnapshots[index].data() as Map<String, dynamic>);
+
                 return ReportCardOnList(
                   report: report,
                   onTap: () {
@@ -55,6 +63,13 @@ class _ReportScreenState extends State<ReportScreen> {
                   },
                 );
               },
+              bottomLoader: Center(
+                child: SizedBox(
+                  height: 5.h,
+                  width: 5.h,
+                  child: const CircularProgressIndicator(),
+                ),
+              ),
               query: FirebaseFirestore.instance
                   .collection('Report')
                   .orderBy('dateInput', descending: true),

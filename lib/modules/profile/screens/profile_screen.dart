@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/report/blocs/my_report/my_report_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -16,8 +19,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final envModel = getIt.get<EnvironmentModel>();
-    return BlocProvider<ProfileBloc>(
-      create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProfileBloc>(
+          create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -57,7 +64,9 @@ class ProfileScreen extends StatelessWidget {
               title: "Akun",
             ),
             _buidlListTile(
-              onTap: () {},
+              onTap: () {
+                context.router.push(const MyReportRoute());
+              },
               icon: Iconsax.chart,
               title: "Laporan",
             ),
@@ -105,7 +114,7 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Version ${envModel.appVersion}",
+                    "Version //${envModel.appVersion}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 10.sp,
