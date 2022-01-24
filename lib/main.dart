@@ -40,19 +40,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt.get<AppRouter>();
 
-    Map<int, Color> colorCodes = {
-      50: const Color.fromRGBO(147, 205, 72, .1),
-      100: const Color.fromRGBO(147, 205, 72, .2),
-      200: const Color.fromRGBO(147, 205, 72, .3),
-      300: const Color.fromRGBO(147, 205, 72, .4),
-      400: const Color.fromRGBO(147, 205, 72, .5),
-      500: const Color.fromRGBO(147, 205, 72, .6),
-      600: const Color.fromRGBO(147, 205, 72, .7),
-      700: const Color.fromRGBO(147, 205, 72, .8),
-      800: const Color.fromRGBO(147, 205, 72, .9),
-      900: const Color.fromRGBO(147, 205, 72, 1),
-    };
-
     return Sizer(builder: (_, __, ___) {
       return MultiBlocProvider(
         providers: [
@@ -85,7 +72,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            primarySwatch: MaterialColor(0xFF00DCA7, colorCodes),
+            primarySwatch: Colors.blueGrey,
             primaryColor: const Color(0xFF00DCA7),
             scaffoldBackgroundColor: const Color(0xFFFAFAFA),
             textTheme: GoogleFonts.montserratTextTheme(
@@ -106,32 +93,6 @@ class MyApp extends StatelessWidget {
             ],
             child: child!,
           ),
-          // home: BlocListener<AuthBloc, AuthState>(
-          //   listener: (context, state) {
-          //     if (state is AuthAuthenticated) {
-          //       _navigatorKey.currentState?.pushAndRemoveUntil(
-          //           MaterialPageRoute(builder: (context) => const HomeScreen()),
-          //           (Route<dynamic> route) => false);
-          //     } else if (state is AuthUnauthenticated) {
-          //       _navigatorKey.currentState?.pushAndRemoveUntil(
-          //           MaterialPageRoute(
-          //               builder: (context) => const OnboardingPage()),
-          //           (Route<dynamic> route) => false);
-          //     }
-          //   },
-          //   child: BlocBuilder<AuthBloc, AuthState>(
-          //     builder: (context, state) {
-          //       if (state is AuthAuthenticated) {
-          //         return const HomeScreen();
-          //       } else if (state is AuthUnauthenticated) {
-          //         return const OnboardingPage();
-          //       } else if (state is AuthUninitalized) {
-          //         return const OnboardingPage();
-          //       }
-          //       return const Scaffold();
-          //     },
-          //   ),
-          // ),
         ),
       );
     });
