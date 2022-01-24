@@ -83,20 +83,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Selamat Datang",
+                        "Hello,",
                         style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                       SizedBox(
                         height: 0.5.h,
                       ),
                       Text(
-                        "Silahkan registerasi untuk mengakses aplikasi",
+                        "Silahkan Register",
                         style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.normal,
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Text(
+                        "Silahkan register disini untuk mengakses aplikasi",
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w500,
+                          height: 1.5,
                         ),
                       ),
                       SizedBox(
@@ -191,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   TextSpan(
                                     text: "Masuk",
                                     style: TextStyle(
-                                      color: Colors.blueGrey,
+                                      color: Theme.of(context).primaryColor,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
                                     ),
