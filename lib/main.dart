@@ -40,6 +40,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt.get<AppRouter>();
 
+    Map<int, Color> colorCodes = {
+      50: const Color.fromRGBO(147, 205, 72, .1),
+      100: const Color.fromRGBO(147, 205, 72, .2),
+      200: const Color.fromRGBO(147, 205, 72, .3),
+      300: const Color.fromRGBO(147, 205, 72, .4),
+      400: const Color.fromRGBO(147, 205, 72, .5),
+      500: const Color.fromRGBO(147, 205, 72, .6),
+      600: const Color.fromRGBO(147, 205, 72, .7),
+      700: const Color.fromRGBO(147, 205, 72, .8),
+      800: const Color.fromRGBO(147, 205, 72, .9),
+      900: const Color.fromRGBO(147, 205, 72, 1),
+    };
+
     return Sizer(builder: (_, __, ___) {
       return MultiBlocProvider(
         providers: [
@@ -65,7 +78,6 @@ class MyApp extends StatelessWidget {
             Locale('id'),
           ],
           theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
             appBarTheme: const AppBarTheme(
               backgroundColor: Color(0xFFFAFAFA),
               elevation: 0,
@@ -73,6 +85,8 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
+            primarySwatch: MaterialColor(0xFF00DCA7, colorCodes),
+            primaryColor: const Color(0xFF00DCA7),
             scaffoldBackgroundColor: const Color(0xFFFAFAFA),
             textTheme: GoogleFonts.montserratTextTheme(
               Theme.of(context).textTheme,
