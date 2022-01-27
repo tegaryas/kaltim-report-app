@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 1.h,
                       ),
                       Text(
-                        "Silahkan register disini untuk mengakses aplikasi",
+                        "Register dahulu untuk dapat mengakses aplikasi",
                         style: TextStyle(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w500,
@@ -203,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   TextSpan(
                                     text: "Masuk",
                                     style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.blueGrey,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
                                     ),

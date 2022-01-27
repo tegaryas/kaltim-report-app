@@ -37,8 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             context.read<AuthBloc>().add(AuthStarted());
           } else if (state is LoginFailed) {
             FlushbarHelper.createError(
-              message:
-                  'Login ${state.error.toString()}, kamu bisa coba login beberapa saat lagi',
+              message: state.error.toString(),
               title: "Ups gagal",
               duration: const Duration(seconds: 2),
             ).show(context);
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1.h,
                       ),
                       Text(
-                        "Silahkan masuk disini untuk mengakses aplikasi",
+                        "Yuk masuk untuk dapat mengakses aplikasi",
                         style: TextStyle(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.w500,
@@ -203,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextSpan(
                                     text: "Buat Akun",
                                     style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.blueGrey,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
                                     ),

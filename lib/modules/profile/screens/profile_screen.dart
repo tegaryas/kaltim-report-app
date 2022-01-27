@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/modules/report/blocs/my_report/my_report_bloc.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -59,7 +59,9 @@ class ProfileScreen extends StatelessWidget {
               height: 1.h,
             ),
             _buidlListTile(
-              onTap: () {},
+              onTap: () {
+                context.router.push(const DetailProfileRoute());
+              },
               icon: Iconsax.profile_circle,
               title: "Akun",
             ),
@@ -114,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Version //${envModel.appVersion}",
+                    "Version ${envModel.appVersion}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 10.sp,
@@ -182,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: ProfileImageNetworkBuild(
-              imageUrl: state.profile.profilePic!,
+              imageUrl: state.profile.profilePic ?? "",
               height: 40.sp,
               width: 40.sp,
             ),

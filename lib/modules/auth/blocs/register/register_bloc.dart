@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repositories_interface.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
@@ -12,6 +13,7 @@ part 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterRepositoryInterface registerRepository;
   final AuthRepositoryInterface authRepository;
+  String? errorMessage;
   RegisterBloc({
     required this.registerRepository,
     required this.authRepository,
@@ -28,8 +30,22 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           } else {
             emit(RegisterUser(email: event.email));
           }
-        } catch (e, s) {
-          emit(RegisterFailed(error: e, stackTrace: s));
+        } on FirebaseAuthException catch (e) {
+          switch (e.code) {
+            case "weak-password":
+              errorMessage = "Password yang anda masukkan masih lemah";
+              break;
+            case "email-already-in-use":
+              errorMessage = "Akun kamu dinonaktifkan sementara";
+              break;
+            case "invalid-email":
+              errorMessage = "Email kamu tidak valid nih";
+              break;
+            default:
+              errorMessage = "An undefined Error happened.";
+          }
+
+          emit(RegisterFailed(error: errorMessage!));
         }
       }
       if (event is RegisterCompleteData) {
@@ -55,8 +71,22 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
             emit(RegisterSuccess());
           }
-        } catch (e, s) {
-          emit(RegisterFailed(error: e, stackTrace: s));
+        } on FirebaseAuthException catch (e) {
+          switch (e.code) {
+            case "weak-password":
+              errorMessage = "Password yang anda masukkan masih lemah";
+              break;
+            case "email-already-in-use":
+              errorMessage = "Akun kamu dinonaktifkan sementara";
+              break;
+            case "invalid-email":
+              errorMessage = "Email kamu tidak valid nih";
+              break;
+            default:
+              errorMessage = "An undefined Error happened.";
+          }
+
+          emit(RegisterFailed(error: errorMessage!));
         }
       }
     });

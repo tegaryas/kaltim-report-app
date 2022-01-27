@@ -2,8 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/modules/home/models/report_model.dart';
+
 import 'package:kaltim_report/modules/home/repositories/home_repository_interface.dart';
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 part 'report_event.dart';
 part 'report_state.dart';

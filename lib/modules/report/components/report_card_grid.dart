@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kaltim_report/modules/home/models/report_model.dart';
+
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportCardOnGrid extends StatelessWidget {

@@ -13,23 +13,15 @@ class RegisterRepository implements RegisterRepositoryInterface {
   @override
   Future<void> registerWithEmailAndPassword(
       String email, String password) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      print("ERROR: $e");
-    }
+    await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   @override
   Future<void> registerUserData(RegisterModel data) async {
-    try {
-      await users.doc(data.idToken).set(data.toJson());
-    } on FirebaseAuthException catch (e) {
-      print("ERROR: $e");
-    }
+    await users.doc(data.idToken).set(data.toJson());
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/modules/home/models/report_model.dart';
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
@@ -97,7 +97,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                   Text(
                     'Permasalahan',
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -118,7 +118,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                   Text(
                     'Lokasi',
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -172,14 +172,14 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 1.5.h,
+                    height: 2.h,
                   ),
                   _buildDetailLaporan(
                     title: "Nomor Laporan",
                     value: widget.report.id,
                   ),
                   SizedBox(
-                    height: 1.5.h,
+                    height: 2.h,
                   ),
                   _buildDetailLaporan(
                     title: "Tanggal Masuk",
@@ -187,7 +187,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                         widget.report.dateInput, context),
                   ),
                   SizedBox(
-                    height: 1.5.h,
+                    height: 2.h,
                   ),
                   _buildDetailLaporan(
                     title: "Kategori",
@@ -312,7 +312,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 8.sp,
+            fontSize: 10.sp,
             fontWeight: FontWeight.w400,
           ),
         ),

@@ -11,6 +11,7 @@ class RegisterModel {
   final String? phoneNumber;
   final String? profilePic;
   final String? idToken;
+  final String? address;
 
   const RegisterModel({
     required this.name,
@@ -20,6 +21,7 @@ class RegisterModel {
     this.phoneNumber,
     this.profilePic,
     this.idToken,
+    this.address,
   });
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) =>

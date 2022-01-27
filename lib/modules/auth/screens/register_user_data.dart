@@ -41,8 +41,8 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
           }
           if (state is RegisterFailed) {
             FlushbarHelper.createError(
-              message: 'Gagal Daftar',
-              title: state.error.toString(),
+              message: state.error.toString(),
+              title: "Ups Gagal Daftar",
               duration: const Duration(seconds: 2),
             ).show(context);
           }

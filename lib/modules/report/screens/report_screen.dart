@@ -3,8 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/modules/home/models/report_model.dart';
+
 import 'package:kaltim_report/modules/report/components/report_card_list.dart';
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:sizer/sizer.dart';
@@ -35,7 +36,9 @@ class _ReportScreenState extends State<ReportScreen> {
           appBar: AppBar(
             elevation: 0,
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.router.pop();
+              },
               icon: Icon(
                 Icons.arrow_back,
                 size: 18.sp,
@@ -63,13 +66,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   },
                 );
               },
-              bottomLoader: Center(
-                child: SizedBox(
-                  height: 5.h,
-                  width: 5.h,
-                  child: const CircularProgressIndicator(),
-                ),
-              ),
+              bottomLoader: const BottomLoader(),
               query: FirebaseFirestore.instance
                   .collection('Report')
                   .orderBy('dateInput', descending: true),
@@ -95,48 +92,21 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 }
 
+class BottomLoader extends StatelessWidget {
+  const BottomLoader({
+    Key? key,
+  }) : super(key: key);
 
-// BlocBuilder<ReportBloc, ReportState>(
-//           builder: (context, state) {
-//             if (state is ReportLoading) {
-//               return const Center(
-//                 child: CircularProgressIndicator(),
-//               );
-//             } else if (state is ReportLoaded) {
-//               if (state.reports.isNotEmpty) {
-//                 return ListView.separated(
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 20.0,
-//                     vertical: 20.0,
-//                   ),
-//                   itemCount: state.reports.,
-//                   itemBuilder: (context, index) {
-//                     var report = state.reports[index];
-//                     return ReportCardOnList(
-//                       report: report,
-//                       onTap: () {
-//                         context.router.push(
-//                           DetailReportRoute(report: report),
-//                         );
-//                       },
-//                     );
-//                   },
-//                   separatorBuilder: (context, index) {
-//                     return SizedBox(
-//                       height: 4.5.h,
-//                     );
-//                   },
-//                 );
-//               } else {
-//                 //TODO: Implement Laporan Kosong
-//                 return const Center(
-//                   child: Text(
-//                     'LAPORAN KOSONG',
-//                   ),
-//                 );
-//               }
-//             } else {
-//               return Text('Something Wrong');
-//             }
-//           },
-//         ),
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: 3.h,
+        width: 3.h,
+        child: const CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
+      ),
+    );
+  }
+}

@@ -34,7 +34,29 @@ class MyReportScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is MyReportLoaded) {
                 if (state.myReports!.isEmpty) {
-                  return const Center(child: Text('Kosong'));
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Kamu Belum Melakukan Pelaporan',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 0.5.h,
+                      ),
+                      Text(
+                        'Laporan kamu nanti akan kami tampilkan disini',
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 10.sp,
+                        ),
+                      ),
+                    ],
+                  ));
                 }
                 return ListView.separated(
                     padding: const EdgeInsets.symmetric(
@@ -59,7 +81,7 @@ class MyReportScreen extends StatelessWidget {
               }
 
               if (state is MyReportFailed) {
-                return Text('Gagal Memuat Laporan');
+                return const Center(child: Text('Gagal Memuat Laporan'));
               }
               return const Center(
                 child: CircularProgressIndicator(),

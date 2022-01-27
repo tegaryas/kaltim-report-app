@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repositories_interface.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
@@ -14,6 +15,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRepositoryInterface loginRepository;
   final AuthRepositoryInterface authRepository;
   final RegisterRepositoryInterface registerRepository;
+
+  String? errorMessage;
   LoginBloc({
     required this.loginRepository,
     required this.authRepository,
@@ -29,10 +32,27 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           if (isSignedIn) {
             emit(LoginSuccess());
           } else {
-            emit(const LoginFailed(error: "Error"));
+            emit(const LoginFailed(error: "Harap login beberapa saat lagi"));
           }
-        } catch (e) {
-          emit(LoginFailed(error: e));
+        } on FirebaseAuthException catch (e) {
+          switch (e.code) {
+            case "wrong-password":
+              errorMessage = "Password yang anda masukkan salah";
+              break;
+            case "user-disabled":
+              errorMessage = "Akun kamu dinonaktifkan sementara";
+              break;
+            case "user-not-found":
+              errorMessage = "Nampaknya email kamu belum didaftarkan";
+              break;
+            case "invalid-email":
+              errorMessage = "Email kamu tidak valid nih";
+              break;
+            default:
+              errorMessage = "An undefined Error happened.";
+          }
+
+          emit(LoginFailed(error: errorMessage!));
         }
       }
       if (event is LoginStartWithGoogle) {
@@ -56,8 +76,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           } else {
             emit(const LoginFailed(error: "Error"));
           }
-        } catch (e) {
-          emit(LoginFailed(error: e));
+        } on FirebaseAuthException catch (e) {
+          switch (e.code) {
+            case "wrong-password":
+              errorMessage = "Password yang anda masukkan salah";
+              break;
+            case "user-disabled":
+              errorMessage = "Akun kamu dinonaktifkan sementara";
+              break;
+            case "user-not-found":
+              errorMessage = "Nampaknya email kamu belum didaftarkan";
+              break;
+            case "invalid-email":
+              errorMessage = "Email kamu tidak valid nih";
+              break;
+            default:
+              errorMessage = "An undefined Error happened.";
+          }
+
+          emit(LoginFailed(error: errorMessage!));
         }
       }
     });

@@ -1,7 +1,9 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_model.g.dart';
 
+@CopyWith()
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ProfileModel {
   final String name;
@@ -11,6 +13,7 @@ class ProfileModel {
   final String? phoneNumber;
   final String? profilePic;
   final String? idToken;
+  final String? address;
 
   const ProfileModel({
     required this.name,
@@ -20,6 +23,7 @@ class ProfileModel {
     this.phoneNumber,
     this.profilePic,
     this.idToken,
+    this.address,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
