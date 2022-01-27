@@ -29,14 +29,16 @@ class CustomButton extends StatelessWidget {
         width: 100.w,
         decoration: type == CustomButtonType.solid
             ? BoxDecoration(
-                color: isLoading ? Colors.blueGrey.shade200 : Colors.blueGrey,
+                color: isLoading
+                    ? const Color(0xFF1E9E9C).withOpacity(0.3)
+                    : const Color(0xFF1E9E9C),
                 borderRadius: BorderRadius.circular(50),
               )
             : BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(
-                  color: Colors.blueGrey,
+                  color: const Color(0xFF1E9E9C),
                 ),
               ),
         child: Center(
@@ -56,7 +58,7 @@ class CustomButton extends StatelessWidget {
                     fontSize: 10.sp,
                     color: type == CustomButtonType.solid
                         ? Colors.white
-                        : Colors.blueGrey,
+                        : const Color(0xFF1E9E9C),
                   ),
                 ),
         ),
@@ -90,14 +92,14 @@ class SocialCustomButton extends StatelessWidget {
         width: 100.w,
         decoration: type == CustomButtonType.solid
             ? BoxDecoration(
-                color: Colors.blueGrey,
+                color: const Color(0xFF1E9E9C),
                 borderRadius: BorderRadius.circular(50),
               )
             : BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(
-                  color: Colors.blueGrey,
+                  color: const Color(0xFF1E9E9C),
                 ),
               ),
         child: Center(
@@ -119,7 +121,7 @@ class SocialCustomButton extends StatelessWidget {
                   fontSize: 10.sp,
                   color: type == CustomButtonType.solid
                       ? Colors.white
-                      : Colors.blueGrey,
+                      : const Color(0xFF1E9E9C),
                 ),
               ),
             ],

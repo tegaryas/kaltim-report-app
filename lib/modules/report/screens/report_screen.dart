@@ -73,7 +73,7 @@ class _ReportScreenState extends State<ReportScreen> {
               listeners: [
                 refreshChangeListener,
               ],
-              isLive: true,
+              isLive: false,
               itemsPerPage: 10,
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,

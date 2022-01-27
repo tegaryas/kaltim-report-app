@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
+                          color: const Color(0xFF1E9E9C),
                         ),
                       ),
                       SizedBox(
@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextSpan(
                                     text: "Buat Akun",
                                     style: TextStyle(
-                                      color: Colors.blueGrey,
+                                      color: const Color(0xFF1E9E9C),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
                                     ),

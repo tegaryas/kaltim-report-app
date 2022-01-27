@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             primarySwatch: Colors.blueGrey,
-            primaryColor: const Color(0xFF00DCA7),
+            primaryColor: const Color(0xFF115693),
             scaffoldBackgroundColor: const Color(0xFFFAFAFA),
             textTheme: GoogleFonts.montserratTextTheme(
               Theme.of(context).textTheme,

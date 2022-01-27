@@ -115,7 +115,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.home
                                   : Iconsax.home,
                               color: tabsRouter.activeIndex == 0
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                               size: 3.h,
                             ),
@@ -129,7 +129,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 0
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                             ),
                           )
@@ -157,7 +157,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.call
                                   : Iconsax.call,
                               color: tabsRouter.activeIndex == 1
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                               size: 3.h,
                             ),
@@ -171,7 +171,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 1
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                             ),
                           )
@@ -200,7 +200,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.archive
                                   : Iconsax.archive,
                               color: tabsRouter.activeIndex == 2
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                               size: 3.h,
                             ),
@@ -214,7 +214,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 2
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                             ),
                           )
@@ -242,7 +242,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.profile_circle
                                   : Iconsax.profile_circle,
                               color: tabsRouter.activeIndex == 3
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                               size: 3.h,
                             ),
@@ -256,7 +256,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 3
-                                  ? Colors.blueGrey
+                                  ? const Color(0xFF1E9E9C)
                                   : Colors.grey,
                             ),
                           )
@@ -296,7 +296,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       height: 6.h,
                       width: 6.h,
                       decoration: const BoxDecoration(
-                        color: Colors.blueGrey,
+                        color: const Color(0xFF1E9E9C),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

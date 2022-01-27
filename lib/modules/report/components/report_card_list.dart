@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
@@ -67,12 +68,10 @@ class ReportCardOnList extends StatelessWidget {
                   maxLines: 2,
                 ),
                 SizedBox(
-                  height: 0.5.h,
+                  height: 0.8.h,
                 ),
                 Text(
-                  DateFormat.MMMMEEEEd(
-                          Localizations.localeOf(context).toString())
-                      .format(report.dateInput),
+                  ConverterHelper.differenceTimeParse(report.dateInput),
                   style: TextStyle(
                     fontSize: 10.sp,
                     color: Colors.grey,

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/onboard/data/onboarding_data.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -22,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 15.0,
+            horizontal: 20.0,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,15 +39,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   fontSize: 14.sp,
                 ),
               ),
+              SizedBox(
+                height: 0.5.h,
+              ),
               Text(
-                'Kaltim Report',
+                'Singa Gembara App',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
                 ),
               ),
               SizedBox(
-                height: 2.h,
+                height: 1.h,
               ),
               _buildCarouselSlider(),
               _buildDotIndicator(),
@@ -84,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _buildDotIndicator() {
     return Center(
       child: DotsIndicator(
-        dotsCount: 5,
+        dotsCount: data.length,
         position: _selectedIndex.toDouble(),
         decorator: DotsDecorator(
           activeColor: Colors.blueGrey,
@@ -110,23 +114,47 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           });
         },
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: data.map((i) {
         return Builder(
           builder: (BuildContext context) {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 50.h,
-                  decoration: const BoxDecoration(color: Colors.amber),
+                  height: 40.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(i.imageAssets),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 1.h,
                 ),
                 Text(
-                  'Deteksi & laporkan daerah rawan',
+                  i.title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                    fontSize: 18.sp,
+                    height: 1.5,
                   ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Text(
+                  i.subtitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 11.sp,
+                    color: Colors.black45,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             );
@@ -153,7 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 9.sp,
-              color: Colors.lightBlue,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           Text(
@@ -168,7 +196,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 9.sp,
-              color: Colors.lightBlue,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ],

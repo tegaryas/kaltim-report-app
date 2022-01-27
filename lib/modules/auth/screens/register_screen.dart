@@ -87,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: TextStyle(
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
+                          color: const Color(0xFF1E9E9C),
                         ),
                       ),
                       SizedBox(
@@ -203,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   TextSpan(
                                     text: "Masuk",
                                     style: TextStyle(
-                                      color: Colors.blueGrey,
+                                      color: const Color(0xFF1E9E9C),
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
                                     ),

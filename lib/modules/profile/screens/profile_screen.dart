@@ -37,103 +37,105 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) {
-                if (state is ProfileLoading) {
-                  return _buildProfileHeaderLoading();
-                } else if (state is ProfileLoaded) {
-                  return _buildProfileHeader(state);
-                } else {
-                  return _buildProfileHeaderLoading();
-                }
-              },
-            ),
-            SizedBox(
-              height: 3.h,
-            ),
-            _buildTitleList('Akun'),
-            SizedBox(
-              height: 1.h,
-            ),
-            _buidlListTile(
-              onTap: () {
-                context.router.push(const DetailProfileRoute());
-              },
-              icon: Iconsax.profile_circle,
-              title: "Akun",
-            ),
-            _buidlListTile(
-              onTap: () {
-                context.router.push(const MyReportRoute());
-              },
-              icon: Iconsax.chart,
-              title: "Laporan",
-            ),
-            _buidlListTile(
-              onTap: () {},
-              icon: Iconsax.save_2,
-              title: "Disimpan",
-            ),
-            _buidlListTile(
-              onTap: () {},
-              icon: Iconsax.password_check,
-              title: "Ganti Password",
-            ),
-            SizedBox(
-              height: 2.5.h,
-            ),
-            _buildTitleList('Tentang'),
-            SizedBox(
-              height: 1.h,
-            ),
-            _buidlListTile(
-              onTap: () {},
-              icon: Iconsax.info_circle,
-              title: "Tentang Aplikasi",
-            ),
-            BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                return _buidlListTile(
-                  onTap: () {
-                    context.read<AuthBloc>().add(AuthLogout());
-                  },
-                  icon: Iconsax.logout_1,
-                  title: "Logout",
-                );
-              },
-            ),
-            SizedBox(
-              height: 2.5.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileLoading) {
+                    return _buildProfileHeaderLoading();
+                  } else if (state is ProfileLoaded) {
+                    return _buildProfileHeader(state);
+                  } else {
+                    return _buildProfileHeaderLoading();
+                  }
+                },
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Version ${envModel.appVersion}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    "#SigapAja",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 3.h,
               ),
-            ),
-          ],
+              _buildTitleList('Akun'),
+              SizedBox(
+                height: 1.h,
+              ),
+              _buidlListTile(
+                onTap: () {
+                  context.router.push(const DetailProfileRoute());
+                },
+                icon: Iconsax.profile_circle,
+                title: "Akun",
+              ),
+              _buidlListTile(
+                onTap: () {
+                  context.router.push(const MyReportRoute());
+                },
+                icon: Iconsax.chart,
+                title: "Laporan",
+              ),
+              _buidlListTile(
+                onTap: () {},
+                icon: Iconsax.save_2,
+                title: "Disimpan",
+              ),
+              _buidlListTile(
+                onTap: () {},
+                icon: Iconsax.password_check,
+                title: "Ganti Password",
+              ),
+              SizedBox(
+                height: 2.5.h,
+              ),
+              _buildTitleList('Tentang'),
+              SizedBox(
+                height: 1.h,
+              ),
+              _buidlListTile(
+                onTap: () {},
+                icon: Iconsax.info_circle,
+                title: "Tentang Aplikasi",
+              ),
+              BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return _buidlListTile(
+                    onTap: () {
+                      context.read<AuthBloc>().add(AuthLogout());
+                    },
+                    icon: Iconsax.logout_1,
+                    title: "Logout",
+                  );
+                },
+              ),
+              SizedBox(
+                height: 2.5.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Version ${envModel.appVersion}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "#SigapAja",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
