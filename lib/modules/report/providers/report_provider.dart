@@ -20,27 +20,19 @@ class ReportProvider implements ReportProviderInterface {
 
   @override
   Future<void> addReportForm(ReportFormModel reportForm) async {
-    try {
-      await firestore
-          .collection("Report")
-          .doc(reportForm.id)
-          .set(reportForm.toJson());
-    } on FirebaseException catch (e) {
-      print("ERROR: $e");
-    }
+    await firestore
+        .collection("Report")
+        .doc(reportForm.id)
+        .set(reportForm.toJson());
   }
 
   @override
   UploadTask? uploadReportImage(XFile file) {
-    try {
-      final ref = imageStorage.ref().child("images/${file.path}");
+    final ref = imageStorage.ref().child("images/${file.path}");
 
-      final convertXFile = File(file.path);
+    final convertXFile = File(file.path);
 
-      return ref.putFile(convertXFile);
-    } on FirebaseException catch (e) {
-      return null;
-    }
+    return ref.putFile(convertXFile);
   }
 
   @override

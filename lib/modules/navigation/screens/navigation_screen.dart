@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -48,6 +49,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
         BlocProvider<ProfileBloc>(
           create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
         ),
+        BlocProvider<CallBloc>(
+            create: (context) =>
+                getIt.get<CallBloc>()..add(EmergencyCallFetching())),
       ],
       child: AutoTabsScaffold(
         routes: const [

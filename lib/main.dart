@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/core/bloc/auth_bloc.dart';
@@ -45,9 +44,6 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(
               create: (context) => getIt.get<AuthBloc>()..add(AuthStarted())),
-          BlocProvider<CallBloc>(
-              create: (context) =>
-                  getIt.get<CallBloc>()..add(EmergencyCallFetching())),
         ],
         child: MaterialApp.router(
           routeInformationParser:
