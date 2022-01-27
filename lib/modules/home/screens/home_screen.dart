@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/home/models/feature_model.dart';
+import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,92 +25,144 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         title: Text(
           'SIGAP',
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.blueGrey,
+            color: Colors.white,
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 20,
-            ),
-            child: Text(
-              'Terbaru di Singa Gembara',
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          _buildCarouselSlider(),
-          _buildDotIndicator(),
-          SizedBox(
-            height: 4.h,
-          ),
-          BlocBuilder<FeatureBloc, FeatureState>(
-            builder: (context, state) {
-              if (state is FeatureLoaded) {
-                return Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
+                    horizontal: 20,
+                    vertical: 15,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(
-                      state.feature.length,
-                      (index) => GestureDetector(
-                        onTap: () {
-                          if (state.feature[index].type ==
-                              FeatureType.siLapor) {
-                            context.router.push(const ReportRouter());
+                  height: 22.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          if (state is ProfileLoaded) {
+                            return Text(
+                              'Halo, ${state.profile.name.split(' ').first}!',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            );
                           }
-                          if (state.feature[index].type ==
-                              FeatureType.siBerita) {
-                            context.navigateTo(const NewsRoute());
-                          }
+
+                          return Text(
+                            'Halo,',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          );
                         },
-                        child: _buildFeatureContainer(
-                          state.feature[index],
+                      ),
+                      SizedBox(
+                        height: 0.5.h,
+                      ),
+                      Text(
+                        'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                          height: 1.5,
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10.h,
                     ),
-                  ),
-                );
-              }
-              if (state is FeatureLoading) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(
-                      4,
-                      (index) => _buildFeatureLoading(),
-                    ),
-                  ),
-                );
-              }
-              if (state is FeatureFailed) {
-                return Container();
-              }
-              return Container();
-            },
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-        ],
+                    _buildCarouselSlider(),
+                    _buildDotIndicator(),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            _buildFeatureWidget(),
+            SizedBox(
+              height: 4.h,
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildFeatureWidget() {
+    return BlocBuilder<FeatureBloc, FeatureState>(
+      builder: (context, state) {
+        if (state is FeatureLoaded) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                state.feature.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    if (state.feature[index].type == FeatureType.siLapor) {
+                      context.router.push(const ReportRouter());
+                    }
+                    if (state.feature[index].type == FeatureType.siBerita) {
+                      context.navigateTo(const NewsRoute());
+                    }
+                  },
+                  child: _buildFeatureContainer(
+                    state.feature[index],
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+        if (state is FeatureLoading) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                4,
+                (index) => _buildFeatureLoading(),
+              ),
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 

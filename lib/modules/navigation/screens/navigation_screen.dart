@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
+import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -43,6 +44,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
       providers: [
         BlocProvider<FeatureBloc>(
           create: (context) => getIt.get<FeatureBloc>()..add(FeatureFetching()),
+        ),
+        BlocProvider<ProfileBloc>(
+          create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
         ),
       ],
       child: AutoTabsScaffold(
