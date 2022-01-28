@@ -3,6 +3,136 @@
 part of 'profile_model.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$ProfileModelCWProxy {
+  ProfileModel address(String? address);
+
+  ProfileModel email(String email);
+
+  ProfileModel idToken(String? idToken);
+
+  ProfileModel name(String name);
+
+  ProfileModel password(String password);
+
+  ProfileModel phoneNumber(String? phoneNumber);
+
+  ProfileModel profilePic(String? profilePic);
+
+  ProfileModel username(String username);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ProfileModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// ProfileModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  ProfileModel call({
+    String? address,
+    String? email,
+    String? idToken,
+    String? name,
+    String? password,
+    String? phoneNumber,
+    String? profilePic,
+    String? username,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfProfileModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfProfileModel.copyWith.fieldName(...)`
+class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
+  final ProfileModel _value;
+
+  const _$ProfileModelCWProxyImpl(this._value);
+
+  @override
+  ProfileModel address(String? address) => this(address: address);
+
+  @override
+  ProfileModel email(String email) => this(email: email);
+
+  @override
+  ProfileModel idToken(String? idToken) => this(idToken: idToken);
+
+  @override
+  ProfileModel name(String name) => this(name: name);
+
+  @override
+  ProfileModel password(String password) => this(password: password);
+
+  @override
+  ProfileModel phoneNumber(String? phoneNumber) =>
+      this(phoneNumber: phoneNumber);
+
+  @override
+  ProfileModel profilePic(String? profilePic) => this(profilePic: profilePic);
+
+  @override
+  ProfileModel username(String username) => this(username: username);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ProfileModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// ProfileModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  ProfileModel call({
+    Object? address = const $CopyWithPlaceholder(),
+    Object? email = const $CopyWithPlaceholder(),
+    Object? idToken = const $CopyWithPlaceholder(),
+    Object? name = const $CopyWithPlaceholder(),
+    Object? password = const $CopyWithPlaceholder(),
+    Object? phoneNumber = const $CopyWithPlaceholder(),
+    Object? profilePic = const $CopyWithPlaceholder(),
+    Object? username = const $CopyWithPlaceholder(),
+  }) {
+    return ProfileModel(
+      address: address == const $CopyWithPlaceholder()
+          ? _value.address
+          // ignore: cast_nullable_to_non_nullable
+          : address as String?,
+      email: email == const $CopyWithPlaceholder()
+          ? _value.email
+          // ignore: cast_nullable_to_non_nullable
+          : email as String,
+      idToken: idToken == const $CopyWithPlaceholder()
+          ? _value.idToken
+          // ignore: cast_nullable_to_non_nullable
+          : idToken as String?,
+      name: name == const $CopyWithPlaceholder()
+          ? _value.name
+          // ignore: cast_nullable_to_non_nullable
+          : name as String,
+      password: password == const $CopyWithPlaceholder()
+          ? _value.password
+          // ignore: cast_nullable_to_non_nullable
+          : password as String,
+      phoneNumber: phoneNumber == const $CopyWithPlaceholder()
+          ? _value.phoneNumber
+          // ignore: cast_nullable_to_non_nullable
+          : phoneNumber as String?,
+      profilePic: profilePic == const $CopyWithPlaceholder()
+          ? _value.profilePic
+          // ignore: cast_nullable_to_non_nullable
+          : profilePic as String?,
+      username: username == const $CopyWithPlaceholder()
+          ? _value.username
+          // ignore: cast_nullable_to_non_nullable
+          : username as String,
+    );
+  }
+}
+
+extension $ProfileModelCopyWith on ProfileModel {
+  /// Returns a callable class that can be used as follows: `instanceOfclass ProfileModel.name.copyWith(...)` or like so:`instanceOfclass ProfileModel.name.copyWith.fieldName(...)`.
+  _$ProfileModelCWProxy get copyWith => _$ProfileModelCWProxyImpl(this);
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

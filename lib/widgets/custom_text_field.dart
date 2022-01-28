@@ -11,7 +11,7 @@ class NormalTextField extends StatelessWidget {
   final Function(dynamic)? onChanged;
   final TextInputType? keyboardType;
   final String label;
-  final String hint;
+  final String? hint;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final VoidCallback? onTap;
@@ -32,7 +32,7 @@ class NormalTextField extends StatelessWidget {
       this.suffixIcon,
       this.onTap,
       required this.label,
-      required this.hint})
+      this.hint})
       : super(key: key);
 
   @override
@@ -44,15 +44,15 @@ class NormalTextField extends StatelessWidget {
           label,
           style: isNotActive
               ? TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                 )
               : TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
                 ),
         ),
         SizedBox(
-          height: 1.h,
+          height: 0.5.h,
         ),
         TextFormField(
           onChanged: onChanged,

@@ -119,8 +119,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           builder: (BuildContext context) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 4.h,
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 40.h,

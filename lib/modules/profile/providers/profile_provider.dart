@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repositories_interface.dart';
+import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
 
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 import 'package:kaltim_report/modules/profile/providers/profile_provider_interface.dart';
@@ -29,7 +30,7 @@ class ProfileProvider implements ProfileProviderInterface {
   }
 
   @override
-  Future<void> updateProfileData(ProfileModel data) async {
+  Future<void> updateProfileData(ProfileFormModel data) async {
     await firestore
         .collection("Users")
         .doc(authRepository.loggedUser.uid)

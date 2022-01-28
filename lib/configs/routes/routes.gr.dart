@@ -22,6 +22,7 @@ import '../../modules/home/screens/home_screen.dart' as _i14;
 import '../../modules/navigation/screens/navigation_screen.dart' as _i12;
 import '../../modules/news/screens/news_screen.dart' as _i15;
 import '../../modules/onboard/screens/onboarding_page.dart' as _i1;
+import '../../modules/profile/models/profile_model.dart' as _i22;
 import '../../modules/profile/screens/detail_profile_screen.dart' as _i11;
 import '../../modules/profile/screens/edit_profile_screen.dart' as _i10;
 import '../../modules/profile/screens/profile_screen.dart' as _i17;
@@ -86,8 +87,10 @@ class AppRouter extends _i18.RootStackRouter {
           routeData: routeData, child: const _i9.MyReportScreen());
     },
     EditProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<EditProfileRouteArgs>();
       return _i18.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.EditProfileScreen());
+          routeData: routeData,
+          child: _i10.EditProfileScreen(key: args.key, profile: args.profile));
     },
     DetailProfileRoute.name: (routeData) {
       return _i18.MaterialPageX<dynamic>(
@@ -293,11 +296,26 @@ class MyReportRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.EditProfileScreen]
-class EditProfileRoute extends _i18.PageRouteInfo<void> {
-  const EditProfileRoute()
-      : super(EditProfileRoute.name, path: '/edit-profile');
+class EditProfileRoute extends _i18.PageRouteInfo<EditProfileRouteArgs> {
+  EditProfileRoute({_i19.Key? key, required _i22.ProfileModel profile})
+      : super(EditProfileRoute.name,
+            path: '/edit-profile',
+            args: EditProfileRouteArgs(key: key, profile: profile));
 
   static const String name = 'EditProfileRoute';
+}
+
+class EditProfileRouteArgs {
+  const EditProfileRouteArgs({this.key, required this.profile});
+
+  final _i19.Key? key;
+
+  final _i22.ProfileModel profile;
+
+  @override
+  String toString() {
+    return 'EditProfileRouteArgs{key: $key, profile: $profile}';
+  }
 }
 
 /// generated route for

@@ -3,6 +3,117 @@
 part of 'environment_model.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$EnvironmentModelCWProxy {
+  EnvironmentModel appBuildNumber(String appBuildNumber);
+
+  EnvironmentModel appVersion(String appVersion);
+
+  EnvironmentModel appVersionOld(String appVersionOld);
+
+  EnvironmentModel osType(EnvOsType osType);
+
+  EnvironmentModel osTypeOld(EnvOsType osTypeOld);
+
+  EnvironmentModel packageName(String packageName);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EnvironmentModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// EnvironmentModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  EnvironmentModel call({
+    String? appBuildNumber,
+    String? appVersion,
+    String? appVersionOld,
+    EnvOsType? osType,
+    EnvOsType? osTypeOld,
+    String? packageName,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfEnvironmentModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfEnvironmentModel.copyWith.fieldName(...)`
+class _$EnvironmentModelCWProxyImpl implements _$EnvironmentModelCWProxy {
+  final EnvironmentModel _value;
+
+  const _$EnvironmentModelCWProxyImpl(this._value);
+
+  @override
+  EnvironmentModel appBuildNumber(String appBuildNumber) =>
+      this(appBuildNumber: appBuildNumber);
+
+  @override
+  EnvironmentModel appVersion(String appVersion) =>
+      this(appVersion: appVersion);
+
+  @override
+  EnvironmentModel appVersionOld(String appVersionOld) =>
+      this(appVersionOld: appVersionOld);
+
+  @override
+  EnvironmentModel osType(EnvOsType osType) => this(osType: osType);
+
+  @override
+  EnvironmentModel osTypeOld(EnvOsType osTypeOld) => this(osTypeOld: osTypeOld);
+
+  @override
+  EnvironmentModel packageName(String packageName) =>
+      this(packageName: packageName);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EnvironmentModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// EnvironmentModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  EnvironmentModel call({
+    Object? appBuildNumber = const $CopyWithPlaceholder(),
+    Object? appVersion = const $CopyWithPlaceholder(),
+    Object? appVersionOld = const $CopyWithPlaceholder(),
+    Object? osType = const $CopyWithPlaceholder(),
+    Object? osTypeOld = const $CopyWithPlaceholder(),
+    Object? packageName = const $CopyWithPlaceholder(),
+  }) {
+    return EnvironmentModel(
+      appBuildNumber: appBuildNumber == const $CopyWithPlaceholder()
+          ? _value.appBuildNumber
+          // ignore: cast_nullable_to_non_nullable
+          : appBuildNumber as String,
+      appVersion: appVersion == const $CopyWithPlaceholder()
+          ? _value.appVersion
+          // ignore: cast_nullable_to_non_nullable
+          : appVersion as String,
+      appVersionOld: appVersionOld == const $CopyWithPlaceholder()
+          ? _value.appVersionOld
+          // ignore: cast_nullable_to_non_nullable
+          : appVersionOld as String,
+      osType: osType == const $CopyWithPlaceholder()
+          ? _value.osType
+          // ignore: cast_nullable_to_non_nullable
+          : osType as EnvOsType,
+      osTypeOld: osTypeOld == const $CopyWithPlaceholder()
+          ? _value.osTypeOld
+          // ignore: cast_nullable_to_non_nullable
+          : osTypeOld as EnvOsType,
+      packageName: packageName == const $CopyWithPlaceholder()
+          ? _value.packageName
+          // ignore: cast_nullable_to_non_nullable
+          : packageName as String,
+    );
+  }
+}
+
+extension $EnvironmentModelCopyWith on EnvironmentModel {
+  /// Returns a callable class that can be used as follows: `instanceOfclass EnvironmentModel.name.copyWith(...)` or like so:`instanceOfclass EnvironmentModel.name.copyWith.fieldName(...)`.
+  _$EnvironmentModelCWProxy get copyWith => _$EnvironmentModelCWProxyImpl(this);
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

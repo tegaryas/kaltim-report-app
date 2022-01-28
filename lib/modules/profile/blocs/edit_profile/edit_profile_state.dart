@@ -12,7 +12,7 @@ class EditProfileInitial extends EditProfileState {}
 class EditProfileLoading extends EditProfileState {}
 
 class EditProfileLoaded extends EditProfileState {
-  final ProfileModel data;
+  final ProfileFormModel data;
 
   const EditProfileLoaded({required this.data});
 

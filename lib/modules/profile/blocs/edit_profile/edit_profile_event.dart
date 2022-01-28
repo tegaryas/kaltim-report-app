@@ -8,7 +8,7 @@ abstract class EditProfileEvent extends Equatable {
 }
 
 class ProfileUpdateFormData extends EditProfileEvent {
-  final ProfileModel data;
+  final ProfileFormModel data;
 
   const ProfileUpdateFormData({required this.data});
 

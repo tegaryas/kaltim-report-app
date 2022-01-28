@@ -3,6 +3,147 @@
 part of 'report_form_model.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$ReportFormModelCWProxy {
+  ReportFormModel address(String address);
+
+  ReportFormModel category(String? category);
+
+  ReportFormModel dateInput(DateTime dateInput);
+
+  ReportFormModel description(String? description);
+
+  ReportFormModel id(String id);
+
+  ReportFormModel imageUrl(String imageUrl);
+
+  ReportFormModel location(GeoPoint location);
+
+  ReportFormModel problem(String problem);
+
+  ReportFormModel userId(String? userId);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ReportFormModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// ReportFormModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  ReportFormModel call({
+    String? address,
+    String? category,
+    DateTime? dateInput,
+    String? description,
+    String? id,
+    String? imageUrl,
+    GeoPoint? location,
+    String? problem,
+    String? userId,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfReportFormModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfReportFormModel.copyWith.fieldName(...)`
+class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
+  final ReportFormModel _value;
+
+  const _$ReportFormModelCWProxyImpl(this._value);
+
+  @override
+  ReportFormModel address(String address) => this(address: address);
+
+  @override
+  ReportFormModel category(String? category) => this(category: category);
+
+  @override
+  ReportFormModel dateInput(DateTime dateInput) => this(dateInput: dateInput);
+
+  @override
+  ReportFormModel description(String? description) =>
+      this(description: description);
+
+  @override
+  ReportFormModel id(String id) => this(id: id);
+
+  @override
+  ReportFormModel imageUrl(String imageUrl) => this(imageUrl: imageUrl);
+
+  @override
+  ReportFormModel location(GeoPoint location) => this(location: location);
+
+  @override
+  ReportFormModel problem(String problem) => this(problem: problem);
+
+  @override
+  ReportFormModel userId(String? userId) => this(userId: userId);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ReportFormModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// ReportFormModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  ReportFormModel call({
+    Object? address = const $CopyWithPlaceholder(),
+    Object? category = const $CopyWithPlaceholder(),
+    Object? dateInput = const $CopyWithPlaceholder(),
+    Object? description = const $CopyWithPlaceholder(),
+    Object? id = const $CopyWithPlaceholder(),
+    Object? imageUrl = const $CopyWithPlaceholder(),
+    Object? location = const $CopyWithPlaceholder(),
+    Object? problem = const $CopyWithPlaceholder(),
+    Object? userId = const $CopyWithPlaceholder(),
+  }) {
+    return ReportFormModel(
+      address: address == const $CopyWithPlaceholder()
+          ? _value.address
+          // ignore: cast_nullable_to_non_nullable
+          : address as String,
+      category: category == const $CopyWithPlaceholder()
+          ? _value.category
+          // ignore: cast_nullable_to_non_nullable
+          : category as String?,
+      dateInput: dateInput == const $CopyWithPlaceholder()
+          ? _value.dateInput
+          // ignore: cast_nullable_to_non_nullable
+          : dateInput as DateTime,
+      description: description == const $CopyWithPlaceholder()
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String?,
+      id: id == const $CopyWithPlaceholder()
+          ? _value.id
+          // ignore: cast_nullable_to_non_nullable
+          : id as String,
+      imageUrl: imageUrl == const $CopyWithPlaceholder()
+          ? _value.imageUrl
+          // ignore: cast_nullable_to_non_nullable
+          : imageUrl as String,
+      location: location == const $CopyWithPlaceholder()
+          ? _value.location
+          // ignore: cast_nullable_to_non_nullable
+          : location as GeoPoint,
+      problem: problem == const $CopyWithPlaceholder()
+          ? _value.problem
+          // ignore: cast_nullable_to_non_nullable
+          : problem as String,
+      userId: userId == const $CopyWithPlaceholder()
+          ? _value.userId
+          // ignore: cast_nullable_to_non_nullable
+          : userId as String?,
+    );
+  }
+}
+
+extension $ReportFormModelCopyWith on ReportFormModel {
+  /// Returns a callable class that can be used as follows: `instanceOfclass ReportFormModel.name.copyWith(...)` or like so:`instanceOfclass ReportFormModel.name.copyWith.fieldName(...)`.
+  _$ReportFormModelCWProxy get copyWith => _$ReportFormModelCWProxyImpl(this);
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

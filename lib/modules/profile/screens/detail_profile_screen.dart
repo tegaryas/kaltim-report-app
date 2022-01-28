@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
@@ -13,10 +14,7 @@ class DetailProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
       create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
-      child: BlocConsumer<ProfileBloc, ProfileState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoaded) {
             return Scaffold(
@@ -165,6 +163,17 @@ class _BuildProfilePictureState extends State<BuildProfilePicture> {
             color: Theme.of(context).primaryColor,
           ),
         ),
+        const Spacer(),
+        IconButton(
+          onPressed: () {
+            context.pushRoute(EditProfileRoute(profile: widget.state.profile));
+          },
+          icon: Icon(
+            Icons.edit,
+            color: Colors.blueGrey,
+            size: 15.sp,
+          ),
+        )
       ],
     );
   }
