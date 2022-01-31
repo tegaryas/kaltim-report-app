@@ -219,21 +219,83 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
               borderRadius: BorderRadius.circular(10),
               child: _buildLocationMaps(),
             ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Text(
-                'Status Laporan',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
+            if (widget.report.reportProgress != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Status Laporan',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'Lihat Selengkapnya',
+                            style: TextStyle(
+                              fontSize: 9.sp,
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                ConverterHelper.convertDateTimeToDateFormat(
+                                    widget.report.reportProgress!.last.date,
+                                    context),
+                                style: TextStyle(
+                                  fontSize: 9.sp,
+                                  color: Colors.black45,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.5.h,
+                              ),
+                              Text(
+                                widget
+                                    .report.reportProgress!.last.statusProgress,
+                                style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 2.w,
+                        ),
+                        _statusTypeToWidget(
+                            widget.report.reportProgress!.last.statusType),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ),
             SizedBox(
               height: 5.h,
             ),
@@ -249,6 +311,38 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
       thickness: 10,
       color: Colors.grey.shade200,
     );
+  }
+
+  Widget _statusTypeToWidget(ReportStatusType status) {
+    switch (status) {
+      case ReportStatusType.menunggu:
+        return const StatusReportBadge(
+          status: 'Menunggu',
+          backgroundColor: Colors.grey,
+        );
+      case ReportStatusType.proses:
+        return const StatusReportBadge(
+          status: 'Proses',
+          backgroundColor: Colors.orange,
+        );
+      case ReportStatusType.selesai:
+        return const StatusReportBadge(
+          status: 'Selesai',
+          backgroundColor: Colors.green,
+        );
+      case ReportStatusType.tindakLanjut:
+        return const StatusReportBadge(
+          status: 'Tindak Lanjut',
+          backgroundColor: Colors.blue,
+        );
+      case ReportStatusType.validasi:
+        return const StatusReportBadge(
+          status: 'Valdasi',
+          backgroundColor: Colors.amber,
+        );
+      default:
+        return Text('Unknown');
+    }
   }
 
   Widget _buildLocationMaps() {
@@ -327,6 +421,38 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class StatusReportBadge extends StatelessWidget {
+  const StatusReportBadge({
+    Key? key,
+    required this.status,
+    required this.backgroundColor,
+  }) : super(key: key);
+
+  final String status;
+  final Color backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Text(
+        status,
+        style: TextStyle(
+          fontSize: 9.sp,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

@@ -16,6 +16,7 @@ class ReportModel {
   final DateTime dateInput;
   final String address;
   final String category;
+  final List<ReportProgressModel>? reportProgress;
 
   ReportModel({
     required this.id,
@@ -27,6 +28,7 @@ class ReportModel {
     required this.dateInput,
     required this.address,
     required this.category,
+    this.reportProgress,
   });
 
   factory ReportModel.fromJson(Map<String, dynamic> json) =>
@@ -46,4 +48,40 @@ class ReportModel {
   static GeoPoint _toJsonGeoPoint(GeoPoint geoPoint) {
     return geoPoint;
   }
+}
+
+enum ReportStatusType {
+  selesai,
+  validasi,
+  tindakLanjut,
+  proses,
+  menunggu,
+}
+
+@JsonSerializable()
+class ReportProgressModel {
+  final ReportStatusType statusType;
+  @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
+  final DateTime date;
+  final String statusProgress;
+  final String? imageUrl;
+  final String? description;
+
+  ReportProgressModel({
+    required this.statusType,
+    required this.date,
+    required this.statusProgress,
+    this.imageUrl,
+    this.description,
+  });
+
+  static DateTime _dateTimeFromEpochUs(Timestamp us) => us.toDate();
+
+  static int? _dateTimeToEpochUs(DateTime? dateTime) =>
+      dateTime?.microsecondsSinceEpoch;
+
+  factory ReportProgressModel.fromJson(Map<String, dynamic> json) =>
+      _$ReportProgressModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReportProgressModelToJson(this);
 }
