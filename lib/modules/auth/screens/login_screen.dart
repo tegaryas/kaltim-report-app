@@ -123,7 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              context.router.push(const ResetPasswordRoute());
+                            },
                             child: Text(
                               "Lupa Password",
                               style: TextStyle(

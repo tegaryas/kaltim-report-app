@@ -7,30 +7,32 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../core/bloc/auth_bloc.dart' as _i29;
+import '../../core/bloc/auth_bloc.dart' as _i30;
 import '../../core/repositories/auth_repositories.dart' as _i4;
 import '../../core/repositories/auth_repositories_interface.dart' as _i3;
-import '../../modules/auth/blocs/login/login_bloc.dart' as _i34;
-import '../../modules/auth/blocs/register/register_bloc.dart' as _i37;
+import '../../modules/auth/blocs/login/login_bloc.dart' as _i35;
+import '../../modules/auth/blocs/register/register_bloc.dart' as _i38;
+import '../../modules/auth/blocs/reset_password/reset_password_bloc.dart'
+    as _i29;
 import '../../modules/auth/repositories/login_repository.dart' as _i17;
 import '../../modules/auth/repositories/login_repository_interface.dart'
     as _i16;
 import '../../modules/auth/repositories/register_repository.dart' as _i23;
 import '../../modules/auth/repositories/register_repository_interface.dart'
     as _i22;
-import '../../modules/call/blocs/calls/call_bloc.dart' as _i30;
+import '../../modules/call/blocs/calls/call_bloc.dart' as _i31;
 import '../../modules/call/providers/call_provider.dart' as _i6;
 import '../../modules/call/providers/call_provider_interface.dart' as _i5;
 import '../../modules/call/repositories/call_repository.dart' as _i8;
 import '../../modules/call/repositories/call_repository_interface.dart' as _i7;
-import '../../modules/home/blocs/feature/feature_bloc.dart' as _i32;
+import '../../modules/home/blocs/feature/feature_bloc.dart' as _i33;
 import '../../modules/home/providers/home_provider.dart' as _i13;
 import '../../modules/home/providers/home_provider_interface.dart' as _i12;
 import '../../modules/home/repositories/home_repository.dart' as _i15;
 import '../../modules/home/repositories/home_repository_interface.dart' as _i14;
 import '../../modules/profile/blocs/edit_profile/edit_profile_bloc.dart'
-    as _i31;
-import '../../modules/profile/blocs/profile/profile_bloc.dart' as _i36;
+    as _i32;
+import '../../modules/profile/blocs/profile/profile_bloc.dart' as _i37;
 import '../../modules/profile/models/environment_model.dart' as _i9;
 import '../../modules/profile/providers/profile_provider.dart' as _i19;
 import '../../modules/profile/providers/profile_provider_interface.dart'
@@ -38,10 +40,10 @@ import '../../modules/profile/providers/profile_provider_interface.dart'
 import '../../modules/profile/repositories/profile_repository.dart' as _i21;
 import '../../modules/profile/repositories/profile_repository_interface.dart'
     as _i20;
-import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i33;
-import '../../modules/report/blocs/my_report/my_report_bloc.dart' as _i35;
+import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i34;
+import '../../modules/report/blocs/my_report/my_report_bloc.dart' as _i36;
 import '../../modules/report/blocs/report/report_bloc.dart' as _i24;
-import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i38;
+import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i39;
 import '../../modules/report/providers/report_provider.dart' as _i26;
 import '../../modules/report/providers/report_provider_interface.dart' as _i25;
 import '../../modules/report/repositories/report_repository.dart' as _i28;
@@ -50,7 +52,7 @@ import '../../modules/report/repositories/report_repository_interface.dart'
 import '../../services/geolocator/geolocator_repository.dart' as _i11;
 import '../../services/geolocator/geolocator_repository_interface.dart' as _i10;
 import '../../services/native_api_service.dart'
-    as _i39; // ignore_for_file: unnecessary_lambdas
+    as _i40; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -82,31 +84,33 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       _i26.ReportProvider(authRepository: get<_i3.AuthRepositoryInterface>()));
   gh.factory<_i27.ReportRepositoryInterface>(() => _i28.ReportRepository(
       reportProvider: get<_i25.ReportProviderInterface>()));
-  gh.singleton<_i29.AuthBloc>(
-      _i29.AuthBloc(authRepository: get<_i3.AuthRepositoryInterface>()));
-  gh.factory<_i30.CallBloc>(
-      () => _i30.CallBloc(callRepository: get<_i7.CallRepositoryInterface>()));
-  gh.factory<_i31.EditProfileBloc>(() => _i31.EditProfileBloc(
+  gh.factory<_i29.ResetPasswordBloc>(() => _i29.ResetPasswordBloc(
+      registerRepository: get<_i22.RegisterRepositoryInterface>()));
+  gh.singleton<_i30.AuthBloc>(
+      _i30.AuthBloc(authRepository: get<_i3.AuthRepositoryInterface>()));
+  gh.factory<_i31.CallBloc>(
+      () => _i31.CallBloc(callRepository: get<_i7.CallRepositoryInterface>()));
+  gh.factory<_i32.EditProfileBloc>(() => _i32.EditProfileBloc(
       profileRepository: get<_i20.ProfileRepositoryInterface>()));
-  gh.factory<_i32.FeatureBloc>(() =>
-      _i32.FeatureBloc(homeRepository: get<_i12.HomeProviderInterface>()));
-  gh.factory<_i33.GeolocationBloc>(() => _i33.GeolocationBloc(
+  gh.factory<_i33.FeatureBloc>(() =>
+      _i33.FeatureBloc(homeRepository: get<_i12.HomeProviderInterface>()));
+  gh.factory<_i34.GeolocationBloc>(() => _i34.GeolocationBloc(
       geolocatorRepository: get<_i10.GeolocatorRepositoryInterface>()));
-  gh.factory<_i34.LoginBloc>(() => _i34.LoginBloc(
+  gh.factory<_i35.LoginBloc>(() => _i35.LoginBloc(
       loginRepository: get<_i16.LoginRepositoryInterface>(),
       authRepository: get<_i3.AuthRepositoryInterface>(),
       registerRepository: get<_i22.RegisterRepositoryInterface>()));
-  gh.factory<_i35.MyReportBloc>(
-      () => _i35.MyReportBloc(get<_i27.ReportRepositoryInterface>()));
-  gh.factory<_i36.ProfileBloc>(() => _i36.ProfileBloc(
+  gh.factory<_i36.MyReportBloc>(
+      () => _i36.MyReportBloc(get<_i27.ReportRepositoryInterface>()));
+  gh.factory<_i37.ProfileBloc>(() => _i37.ProfileBloc(
       profileRepository: get<_i20.ProfileRepositoryInterface>()));
-  gh.factory<_i37.RegisterBloc>(() => _i37.RegisterBloc(
+  gh.factory<_i38.RegisterBloc>(() => _i38.RegisterBloc(
       registerRepository: get<_i22.RegisterRepositoryInterface>(),
       authRepository: get<_i3.AuthRepositoryInterface>()));
-  gh.factory<_i38.ReportFormBloc>(() => _i38.ReportFormBloc(
+  gh.factory<_i39.ReportFormBloc>(() => _i39.ReportFormBloc(
       reportRepository: get<_i27.ReportRepositoryInterface>(),
       authRepository: get<_i3.AuthRepositoryInterface>()));
   return get;
 }
 
-class _$NativeApiService extends _i39.NativeApiService {}
+class _$NativeApiService extends _i40.NativeApiService {}

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:kaltim_report/modules/auth/screens/login_screen.dart';
 import 'package:kaltim_report/modules/auth/screens/register_screen.dart';
 import 'package:kaltim_report/modules/auth/screens/register_user_data.dart';
+import 'package:kaltim_report/modules/auth/screens/reset_password_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
@@ -24,6 +25,7 @@ import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart'
     AutoRoute(path: "/login", page: LoginScreen),
     AutoRoute(path: "/register", page: RegisterScreen),
     AutoRoute(path: "/register-data", page: RegisterUserDataScreen),
+    AutoRoute(path: "/reset-password", page: ResetPasswordScreen),
     AutoRoute(
       path: "report",
       name: "ReportRouter",

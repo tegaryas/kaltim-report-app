@@ -28,4 +28,9 @@ class RegisterRepository implements RegisterRepositoryInterface {
   Future<List<String>> checkEmailExsist(String email) async {
     return _firebaseAuth.fetchSignInMethodsForEmail(email);
   }
+
+  @override
+  Future<void> resetPassword(String email) {
+    return _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
 }

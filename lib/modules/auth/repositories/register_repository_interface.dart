@@ -6,4 +6,6 @@ abstract class RegisterRepositoryInterface {
   Future<void> registerUserData(RegisterModel data);
 
   Future<List<String>> checkEmailExsist(String email);
+
+  Future<void> resetPassword(String email);
 }
