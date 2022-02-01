@@ -33,6 +33,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               duration: const Duration(seconds: 2),
             ).show(context);
           }
+
+          if (state is ResetPasswordFailed) {
+            FlushbarHelper.createError(
+              message: state.errorMessage,
+              title: "Gagal",
+              duration: const Duration(seconds: 2),
+            ).show(context);
+          }
         },
         builder: (context, state) {
           return Scaffold(
