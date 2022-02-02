@@ -33,7 +33,7 @@ class HomeProvider implements HomeProviderInterface {
   Stream<List<FeatureModel>> getFeatureList() {
     return firestore
         .collection("Features")
-        .orderBy("name")
+        .orderBy("name", descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs

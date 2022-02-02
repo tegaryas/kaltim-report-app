@@ -56,13 +56,13 @@ class CallScreen extends StatelessWidget {
                         Text(
                           emergencyCall.name,
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 11.sp,
                           ),
                         ),
                         const Spacer(),
                         Icon(
                           Icons.call,
-                          size: 20.sp,
+                          size: 18.sp,
                         )
                       ],
                     ),

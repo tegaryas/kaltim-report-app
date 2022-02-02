@@ -11,10 +11,15 @@ enum FeatureType {
   siDarurat,
   @JsonValue("SiLapor")
   siLapor,
+  @JsonValue("Lainnya")
+  lainnya,
+  unknown
 }
 
 @JsonSerializable()
 class FeatureModel {
+  @JsonKey(
+      defaultValue: FeatureType.unknown, unknownEnumValue: FeatureType.unknown)
   final FeatureType type;
   final String name;
   final String imageUrl;
