@@ -63,18 +63,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           if (isSignedIn) {
             var currentUser = authRepository.loggedUser;
 
-            await registerRepository.registerUserData(RegisterModel(
-              name: currentUser.displayName!,
-              email: currentUser.email!,
-              username: currentUser.displayName!,
-              password: currentUser.uid,
-              idToken: currentUser.uid,
-              profilePic: currentUser.photoURL,
-            ));
+            final bool isRegister =
+                await loginRepository.isUserRegister(currentUser.email!);
+
+            if (!isRegister) {
+              await registerRepository.registerUserData(RegisterModel(
+                name: currentUser.displayName!,
+                email: currentUser.email!,
+                username: currentUser.displayName!,
+                password: currentUser.uid,
+                idToken: currentUser.uid,
+                profilePic: currentUser.photoURL,
+              ));
+            }
 
             emit(LoginSuccess());
-          } else {
-            emit(const LoginFailed(error: "Error"));
           }
         } on FirebaseAuthException catch (e) {
           switch (e.code) {

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repositories_interface.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
@@ -35,5 +36,10 @@ class ProfileProvider implements ProfileProviderInterface {
         .collection("Users")
         .doc(authRepository.loggedUser.uid)
         .update(data.toJson());
+  }
+
+  @override
+  Future<void> updateUserPassword(String newPassword) async {
+    await authRepository.loggedUser.updatePassword(newPassword);
   }
 }

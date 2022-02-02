@@ -5,4 +5,6 @@ abstract class ProfileRepositoryInterface {
   Stream<ProfileModel> getCurrentUserData();
 
   Future<void> updateProfileData(ProfileFormModel data);
+
+  Future<void> updateUserPassword(String newPassword);
 }

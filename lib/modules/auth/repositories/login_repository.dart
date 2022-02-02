@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -5,6 +6,7 @@ import 'package:kaltim_report/modules/auth/repositories/login_repository_interfa
 
 @Injectable(as: LoginRepositoryInterface)
 class LoginRepository implements LoginRepositoryInterface {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -25,5 +27,17 @@ class LoginRepository implements LoginRepositoryInterface {
       idToken: googleAuth.idToken,
     );
     await _firebaseAuth.signInWithCredential(credential);
+  }
+
+  @override
+  Future<bool> isUserRegister(String email) async {
+    final result = await firestore
+        .collection("Users")
+        .where("email", isEqualTo: email.toString())
+        .get();
+
+    if (result.docs.isEmpty) return false;
+
+    return true;
   }
 }

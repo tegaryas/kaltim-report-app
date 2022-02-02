@@ -130,7 +130,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         Text(
           widget.label,
           style: TextStyle(
-            fontSize: 12.sp,
+            fontSize: 10.sp,
             fontWeight: FontWeight.w600,
           ),
         ),

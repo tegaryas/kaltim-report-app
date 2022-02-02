@@ -296,7 +296,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                       height: 6.h,
                       width: 6.h,
                       decoration: const BoxDecoration(
-                        color: const Color(0xFF1E9E9C),
+                        color: Color(0xFF1E9E9C),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

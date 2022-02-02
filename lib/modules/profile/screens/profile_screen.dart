@@ -79,7 +79,9 @@ class ProfileScreen extends StatelessWidget {
                 title: "Disimpan",
               ),
               _buidlListTile(
-                onTap: () {},
+                onTap: () {
+                  context.router.push(const ChangePasswordRoute());
+                },
                 icon: Iconsax.password_check,
                 title: "Ganti Password",
               ),

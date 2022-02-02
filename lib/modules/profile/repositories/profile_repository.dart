@@ -18,4 +18,9 @@ class ProfileRepository implements ProfileRepositoryInterface {
   Future<void> updateProfileData(ProfileFormModel data) {
     return profileProvider.updateProfileData(data);
   }
+
+  @override
+  Future<void> updateUserPassword(String newPassword) {
+    return profileProvider.updateUserPassword(newPassword);
+  }
 }

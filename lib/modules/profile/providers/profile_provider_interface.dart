@@ -8,4 +8,6 @@ abstract class ProfileProviderInterface {
   Stream<ReportModel> getSavedReport();
 
   Future<void> updateProfileData(ProfileFormModel data);
+
+  Future<void> updateUserPassword(String newPassword);
 }
