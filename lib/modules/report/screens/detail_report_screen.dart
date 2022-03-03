@@ -341,7 +341,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           backgroundColor: Colors.amber,
         );
       default:
-        return Text('Unknown');
+        return const Text('Unknown');
     }
   }
 

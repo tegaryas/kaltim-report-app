@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
-import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 import 'package:kaltim_report/modules/profile/repositories/profile_repository_interface.dart';
 
 part 'edit_profile_event.dart';

@@ -36,7 +36,7 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
           );
           emit(ReportFormAddedSucess());
         } catch (e, s) {
-          ReportFormFailure(error: e, stackTrace: s);
+          emit(ReportFormFailure(error: e, stackTrace: s));
         }
       }
       if (event is ReportFormAdd) {

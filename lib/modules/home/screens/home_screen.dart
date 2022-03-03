@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
                         style: TextStyle(
-                          fontSize: 10.sp,
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                           height: 1.5,
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    top: 15.h,
+                    top: 13.h,
                   ),
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -327,79 +327,86 @@ class _HomeScreenState extends State<HomeScreen> {
                 state.feature.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    if (state.feature[index].type == FeatureType.siLapor) {
-                      context.router.push(const ReportRouter());
-                    }
-                    if (state.feature[index].type == FeatureType.siBerita) {
-                      context.navigateTo(const NewsRoute());
-                    }
-                    if (state.feature[index].type == FeatureType.lainnya) {
-                      showModalBottomSheet(
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
+                    switch (state.feature[index].type) {
+                      case FeatureType.siLapor:
+                        context.router.push(const ReportRouter());
+                        break;
+                      case FeatureType.siBerita:
+                        context.navigateTo(const NewsRoute());
+                        break;
+                      case FeatureType.siDarurat:
+                        context.navigateTo(const CallRoute());
+                        break;
+                      case FeatureType.lainnya:
+                        showModalBottomSheet(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20),
+                              ),
                             ),
-                          ),
-                          builder: (context) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 15,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 0.4.h,
-                                        width: 10.w,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade400,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                            builder: (context) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 15,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 0.4.h,
+                                          width: 10.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade400,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 3.h,
-                                  ),
-                                  Text(
-                                    'Pilih Layanan',
-                                    style: TextStyle(
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 3.h,
-                                  ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: Wrap(
-                                      alignment: WrapAlignment.spaceAround,
-                                      spacing: 8.w,
-                                      runSpacing: 5.w,
-                                      children: List.generate(
-                                        state.feature.length - 1,
-                                        (index) => _buildFeatureContainer(
-                                          state.feature[index],
-                                        ),
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                    Text(
+                                      'Pilih Layanan',
+                                      style: TextStyle(
+                                        fontSize: 11.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 3.h,
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Wrap(
+                                        alignment: WrapAlignment.spaceAround,
+                                        spacing: 8.w,
+                                        runSpacing: 5.w,
+                                        children: List.generate(
+                                          state.feature.length - 1,
+                                          (index) => _buildFeatureContainer(
+                                            state.feature[index],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                        break;
+                      default:
                     }
                   },
                   child: _buildFeatureContainer(

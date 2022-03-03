@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,13 +69,19 @@ class _AddReportScreenState extends State<AddReportScreen> {
       child: BlocListener<ReportFormBloc, ReportFormState>(
         listener: (context, state) {
           if (state is ReportFormAddedSucess) {
+            context.popRoute();
             FlushbarHelper.createSuccess(
               message: 'Berhasil Menambahkan Laporan',
               title: 'Sukses',
               duration: const Duration(seconds: 2),
             ).show(context);
+          } else if (state is ReportFormFailure) {
+            FlushbarHelper.createError(
+              message: 'Ada kesalahan nih saat melakukan upload',
+              title: 'Yah Gagal',
+              duration: const Duration(seconds: 2),
+            ).show(context);
           }
-          //TODO: Add Error Modal
         },
         child: Scaffold(
           appBar: AppBar(

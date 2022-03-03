@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
@@ -19,7 +18,7 @@ class ReportCardOnList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ?? () {},
+      onTap: onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
