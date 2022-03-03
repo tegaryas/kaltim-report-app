@@ -126,7 +126,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 40.h,
+                  height: 35.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(i.imageAssets),
@@ -141,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   i.title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,

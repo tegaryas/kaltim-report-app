@@ -8,6 +8,8 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
+import 'package:kaltim_report/widgets/custom_button.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -74,6 +76,66 @@ class _NavigationScreenState extends State<NavigationScreen> {
         },
       ),
     );
+  }
+
+  Future<void> checkLocationPermission() async {
+    var status = await Permission.locationWhenInUse.status;
+    if (status.isGranted) {
+      context.router.push(AddReportRoute(reportTitle: "Report"));
+    } else if (status.isDenied || status.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 24,
+              horizontal: 24,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Ups masih belum dapat izin kamu!',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Text(
+                  'Kasih izin dong buat akses lokasi mu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    color: Colors.black45,
+                    height: 1.5,
+                  ),
+                ),
+                SizedBox(
+                  height: 2.5.h,
+                ),
+                CustomButton(
+                  text: 'Oke, Izinkan',
+                  onTap: () async {
+                    await Permission.locationWhenInUse.request();
+                  },
+                )
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 
   Widget _customNavBar(TabsRouter tabsRouter) {
@@ -278,8 +340,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {
-                  context.router.push(AddReportRoute(reportTitle: "Report"));
+                onTap: () async {
+                  await checkLocationPermission();
                 },
                 child: Stack(
                   alignment: Alignment.center,

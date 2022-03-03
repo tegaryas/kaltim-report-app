@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Text(
                               'Halo ${state.profile.name.split(' ').first}!',
                               style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Text(
                             'Halo,',
                             style: TextStyle(
-                              fontSize: 15.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    top: 12.h,
+                    top: 15.h,
                   ),
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -119,53 +119,65 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 6.h,
                         color: Colors.grey.shade200,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                        ),
-                        child: Text(
-                          'Laporan Anda',
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Text(
+                              'Sangatta Tanggap Covid-19',
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Container(
-                        height: 20.h,
-                        width: 100.w,
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/onboarding_slide1.png",
+                          SizedBox(
+                            height: 1.h,
                           ),
-                        )),
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0,
-                        ),
-                        child: Text(
-                          'Kalau kamu sudah buat laporan, laporan terakhirmu akan muncul disini.',
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black38,
-                            height: 1.5,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            child: Text(
+                              'Tetap aman, sehat, dan produktif selama masa pandemi Covid-19',
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                color: Colors.black45,
+                                height: 1.5,
+                              ),
+                            ),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
+                          SizedBox(
+                            height: 2.5.h,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                                bottom: 10,
+                                top: 10,
+                              ),
+                              child: Row(
+                                children: List.generate(
+                                  3,
+                                  (index) => _buildCardCovidFeature(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 8.h,
+                      Divider(
+                        thickness: 3,
+                        height: 6.h,
+                        color: Colors.grey.shade200,
                       ),
+                      _buildLaporanSection()
                     ],
                   ),
                 )
@@ -174,6 +186,130 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Container _buildCardCovidFeature() {
+    return Container(
+      height: 18.h,
+      width: 32.w,
+      margin: const EdgeInsets.only(
+        right: 20,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            offset: Offset(3, 3),
+            blurRadius: 12,
+            color: Colors.black12,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(10),
+            ),
+            child: ImageNetworkBuild(
+              imageUrl:
+                  "https://dinkes.acehprov.go.id/uploads/Ilustrasi_Vaksinasi1.jpg",
+              height: 10.h,
+              width: double.infinity,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 2.w,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 0.5.h,
+                ),
+                Text(
+                  'Data Vaksinasi',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    height: 1.5,
+                  ),
+                ),
+                Text(
+                  'Cek data vaksinasi di daerah mu',
+                  style: TextStyle(
+                    fontSize: 8.sp,
+                    color: Colors.black45,
+                    height: 1.5,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLaporanSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+          ),
+          child: Text(
+            'Laporan Anda',
+            style: TextStyle(
+              fontSize: 11.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Container(
+          height: 20.h,
+          width: 100.w,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage(
+              "assets/images/onboarding_slide1.png",
+            ),
+          )),
+        ),
+        SizedBox(
+          height: 1.h,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30.0,
+          ),
+          child: Text(
+            'Kalau kamu sudah buat laporan, laporan terakhirmu akan muncul disini.',
+            style: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w400,
+              color: Colors.black38,
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(
+          height: 8.h,
+        ),
+      ],
     );
   }
 
