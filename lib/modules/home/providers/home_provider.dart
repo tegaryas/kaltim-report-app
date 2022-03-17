@@ -5,7 +5,9 @@ import 'package:kaltim_report/modules/home/providers/home_provider_interface.dar
 
 @Injectable(as: HomeProviderInterface)
 class HomeProvider implements HomeProviderInterface {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
+
+  HomeProvider(this.firestore);
 
   @override
   Future<List<DocumentSnapshot>> getReportList() async {

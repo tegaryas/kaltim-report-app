@@ -5,7 +5,9 @@ import 'package:kaltim_report/modules/call/providers/call_provider_interface.dar
 
 @Injectable(as: CallProviderInterface)
 class CallProvider implements CallProviderInterface {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
+
+  CallProvider(this.firestore);
 
   @override
   Stream<List<EmergencyCallModel>> getEmergencyCallList() {

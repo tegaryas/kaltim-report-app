@@ -18,10 +18,12 @@ import 'package:kaltim_report/modules/report/screens/location_report_screen.dart
 import 'package:kaltim_report/modules/report/screens/my_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
+import 'package:kaltim_report/modules/splash/splash_screen.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: <AutoRoute>[
+    AutoRoute(path: "/splash-screen", page: SplashScreen),
     AutoRoute(path: "/onboarding", page: OnboardingScreen),
     AutoRoute(path: "/login", page: LoginScreen),
     AutoRoute(path: "/register", page: RegisterScreen),

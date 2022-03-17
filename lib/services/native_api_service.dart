@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/models/environment_model.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -38,4 +42,16 @@ abstract class NativeApiService {
       throw "Error";
     }
   }
+
+  @singleton
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+
+  @injectable
+  GoogleSignIn get googleSignIn => GoogleSignIn();
+
+  @singleton
+  FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
+
+  @lazySingleton
+  FirebaseStorage get firebaseStorage => FirebaseStorage.instance;
 }

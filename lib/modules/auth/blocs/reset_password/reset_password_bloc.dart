@@ -14,25 +14,23 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   String? errorMessage;
   ResetPasswordBloc({required this.registerRepository})
       : super(ResetPasswordInitial()) {
-    on<ResetPasswordEvent>((event, emit) async {
-      if (event is ResetPasswordUser) {
-        try {
-          emit(ResetPasswordLoading());
-          await registerRepository.resetPassword(event.email);
-          emit(ResetPasswordSucess(email: event.email));
-        } on FirebaseAuthException catch (e) {
-          switch (e.code) {
-            case "user-not-found":
-              errorMessage = "Nampaknya email kamu belum didaftarkan";
-              break;
-            case "invalid-email":
-              errorMessage = "Email kamu tidak valid nih";
-              break;
-            default:
-              errorMessage = "An undefined Error happened.";
-          }
-          emit(ResetPasswordFailed(errorMessage: errorMessage!));
+    on<ResetPasswordUser>((event, emit) async {
+      try {
+        emit(ResetPasswordLoading());
+        await registerRepository.resetPassword(event.email);
+        emit(ResetPasswordSucess(email: event.email));
+      } on FirebaseAuthException catch (e) {
+        switch (e.code) {
+          case "user-not-found":
+            errorMessage = "Nampaknya email kamu belum didaftarkan";
+            break;
+          case "invalid-email":
+            errorMessage = "Email kamu tidak valid nih";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
         }
+        emit(ResetPasswordFailed(errorMessage: errorMessage!));
       }
     });
   }

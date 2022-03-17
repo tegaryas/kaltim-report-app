@@ -154,7 +154,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 11.sp,
-                    color: Colors.black45,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -184,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 9.sp,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
           Text(
@@ -199,7 +198,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 9.sp,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
         ],

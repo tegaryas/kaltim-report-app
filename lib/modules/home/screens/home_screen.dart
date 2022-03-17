@@ -7,6 +7,7 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/home/models/feature_model.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
@@ -22,166 +23,156 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'SIGAP',
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: Colors.white,
-          ),
-        ),
-      ),
+          elevation: 0,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          automaticallyImplyLeading: false,
+          title: Image.asset(
+            'assets/icons/logo_text.png',
+            height: 28,
+            fit: BoxFit.fitHeight,
+          )),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 1.h,
                   ),
-                  height: 20.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    builder: (context, state) {
+                      if (state is ProfileLoaded) {
+                        return Text(
+                          'Halo ${state.profile.name.split(' ').first} 👋',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        );
+                      }
+
+                      return Text(
+                        'Halo,',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
                   ),
-                  alignment: Alignment.centerLeft,
-                  child: Column(
+                  SizedBox(
+                    height: 0.5.h,
+                  ),
+                  Text(
+                    'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  _buildFeatureWidget(),
+                  _buildCarouselSlider(),
+                  _buildDotIndicator(),
+                  Divider(
+                    thickness: 3,
+                    height: 6.h,
+                  ),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Text(
+                          'Sangatta Tanggap Covid-19',
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 1.h,
                       ),
-                      BlocBuilder<ProfileBloc, ProfileState>(
-                        builder: (context, state) {
-                          if (state is ProfileLoaded) {
-                            return Text(
-                              'Halo ${state.profile.name.split(' ').first}!',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            );
-                          }
-
-                          return Text(
-                            'Halo,',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          );
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Text(
+                          'Tetap aman, sehat, dan produktif selama masa pandemi Covid-19',
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            color: AppColors.textFaded,
+                            height: 1.5,
+                          ),
+                        ),
                       ),
                       SizedBox(
-                        height: 0.5.h,
+                        height: 2.5.h,
                       ),
-                      Text(
-                        'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
-                        style: TextStyle(
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          height: 1.5,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            left: 20,
+                            bottom: 10,
+                            top: 10,
+                          ),
+                          child: Row(
+                            children: List.generate(
+                              3,
+                              (index) => _buildCardCovidFeature(),
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: 13.h,
+                  Divider(
+                    thickness: 3,
+                    height: 6.h,
                   ),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      _buildFeatureWidget(),
-                      _buildCarouselSlider(),
-                      _buildDotIndicator(),
-                      Divider(
-                        thickness: 3,
-                        height: 6.h,
-                        color: Colors.grey.shade200,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Sangatta Tanggap Covid-19',
-                              style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              'Tetap aman, sehat, dan produktif selama masa pandemi Covid-19',
-                              style: TextStyle(
-                                fontSize: 10.sp,
-                                color: Colors.black45,
-                                height: 1.5,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 2.5.h,
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                left: 20,
-                                bottom: 10,
-                                top: 10,
-                              ),
-                              child: Row(
-                                children: List.generate(
-                                  3,
-                                  (index) => _buildCardCovidFeature(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        thickness: 3,
-                        height: 6.h,
-                        color: Colors.grey.shade200,
-                      ),
-                      _buildLaporanSection()
-                    ],
-                  ),
-                )
-              ],
+                  _buildLaporanSection()
+                ],
+              ),
             ),
           ],
         ),
@@ -197,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
         right: 20,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [
           BoxShadow(
@@ -235,7 +226,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Data Vaksinasi',
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     height: 1.5,
                   ),
@@ -244,7 +234,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Cek data vaksinasi di daerah mu',
                   style: TextStyle(
                     fontSize: 8.sp,
-                    color: Colors.black45,
                     height: 1.5,
                   ),
                   maxLines: 2,
@@ -271,7 +260,6 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 11.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
             ),
           ),
         ),
@@ -300,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 10.sp,
               fontWeight: FontWeight.w400,
-              color: Colors.black38,
+              color: AppColors.textFaded,
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -378,7 +366,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: TextStyle(
                                         fontSize: 11.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
                                       ),
                                     ),
                                     SizedBox(

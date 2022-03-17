@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/theme.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
@@ -32,7 +33,6 @@ class ProfileScreen extends StatelessWidget {
             'Pengaturan',
             style: TextStyle(
               fontSize: 14.sp,
-              color: Colors.black,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -232,7 +232,7 @@ class ProfileScreen extends StatelessWidget {
         title,
         style: TextStyle(
           fontSize: 10.sp,
-          color: Colors.grey,
+          color: AppColors.textFaded,
         ),
       ),
     );
@@ -265,7 +265,6 @@ class ProfileScreen extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 10.sp,
-                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),

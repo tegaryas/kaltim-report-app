@@ -25,7 +25,6 @@ class MyReportScreen extends StatelessWidget {
               'Laporan Ku',
               style: TextStyle(
                 fontSize: 14.sp,
-                color: Colors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),

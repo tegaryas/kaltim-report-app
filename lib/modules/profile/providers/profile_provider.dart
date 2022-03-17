@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/repositories/auth_repositories_interface.dart';
+import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
 
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
@@ -9,10 +9,10 @@ import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 @Injectable(as: ProfileProviderInterface)
 class ProfileProvider implements ProfileProviderInterface {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
   final AuthRepositoryInterface authRepository;
 
-  ProfileProvider({required this.authRepository});
+  ProfileProvider({required this.authRepository, required this.firestore});
 
   @override
   Stream<ProfileModel> getCurrentUserData() {

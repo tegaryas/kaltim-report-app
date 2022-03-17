@@ -48,7 +48,6 @@ class _ReportScreenState extends State<ReportScreen> {
               'SiLapor',
               style: TextStyle(
                 fontSize: 14.sp,
-                color: Colors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),

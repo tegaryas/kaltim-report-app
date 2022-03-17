@@ -6,6 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
@@ -67,7 +68,6 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           'Detail Laporan',
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -109,7 +109,6 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                     style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black87,
                     ),
                   ),
                   SizedBox(
@@ -145,7 +144,6 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                               style: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.black87,
                               ),
                             ),
                           ],
@@ -246,7 +244,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                             'Lihat Selengkapnya',
                             style: TextStyle(
                               fontSize: 9.sp,
-                              color: Theme.of(context).primaryColor,
+                              // color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -269,7 +267,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                                     context),
                                 style: TextStyle(
                                   fontSize: 9.sp,
-                                  color: Colors.black45,
+                                  color: AppColors.textFaded,
                                 ),
                               ),
                               SizedBox(
@@ -280,7 +278,6 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                                     .report.reportProgress!.last.statusProgress,
                                 style: TextStyle(
                                   fontSize: 10.sp,
-                                  color: Colors.black,
                                 ),
                               ),
                             ],
@@ -309,7 +306,6 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
     return Divider(
       height: 6.h,
       thickness: 10,
-      color: Colors.grey.shade200,
     );
   }
 

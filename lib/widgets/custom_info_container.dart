@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomInfoContainer extends StatelessWidget {
@@ -53,7 +54,7 @@ class CustomInfoContainer extends StatelessWidget {
             desc ??
                 "Lengkapi lah data dengan teliti, sehingga memudahkan customer dalam melakukan order",
             style: TextStyle(
-              color: Colors.black54,
+              color: AppColors.textFaded,
               fontSize: 8.sp,
               height: 1.5,
             ),

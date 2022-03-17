@@ -92,7 +92,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   : 'Tambah Laporan',
               style: TextStyle(
                 fontSize: 14.sp,
-                color: Colors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),

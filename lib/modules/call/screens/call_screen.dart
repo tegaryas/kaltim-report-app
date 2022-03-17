@@ -17,7 +17,6 @@ class CallScreen extends StatelessWidget {
           "SiMergency",
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ),

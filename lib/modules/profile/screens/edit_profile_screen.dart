@@ -61,7 +61,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 'Edit Data Akun',
                 style: TextStyle(
                   fontSize: 14.sp,
-                  color: Colors.black,
                   fontWeight: FontWeight.w500,
                 ),
               ),

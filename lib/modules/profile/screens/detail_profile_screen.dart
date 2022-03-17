@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
@@ -33,7 +34,6 @@ class DetailProfileScreen extends StatelessWidget {
                   'Akun Saya',
                   style: TextStyle(
                     fontSize: 14.sp,
-                    color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -122,7 +122,7 @@ class BuildProfileData extends StatelessWidget {
           data,
           style: TextStyle(
             fontSize: 10.sp,
-            color: Colors.black54,
+            color: AppColors.textFaded,
           ),
         )
       ],
@@ -160,7 +160,7 @@ class _BuildProfilePictureState extends State<BuildProfilePicture> {
           style: TextStyle(
             fontSize: 10.sp,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor,
+            color: AppColors.textFaded,
           ),
         ),
         const Spacer(),

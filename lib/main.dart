@@ -1,10 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/main.extend.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/core/bloc/auth_bloc.dart';
@@ -12,28 +10,16 @@ import 'package:kaltim_report/core/bloc/auth_bloc.dart';
 import 'configs/injectable/injectable_core.dart';
 import 'configs/routes/routes.gr.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await configureDependencies(Environment.dev);
-
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ],
-  );
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarIconBrightness: Brightness.dark,
+Future main() async {
+  await setupConfiguration();
+  runApp(MyApp(
+    appTheme: AppTheme(),
   ));
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final AppTheme appTheme;
+  const MyApp({Key? key, required this.appTheme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +35,9 @@ class MyApp extends StatelessWidget {
           routeInformationParser:
               router.defaultRouteParser(includePrefixMatches: true),
           routerDelegate: router.delegate(
-            initialDeepLink: const OnboardingRoute().path,
+            initialDeepLink: const SplashRoute().path,
           ),
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'SIGAP',
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -60,21 +45,8 @@ class MyApp extends StatelessWidget {
           supportedLocales: const [
             Locale('id'),
           ],
-          theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Color(0xFFFAFAFA),
-              elevation: 0,
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              ),
-            ),
-            primarySwatch: Colors.blueGrey,
-            primaryColor: const Color(0xFF115693),
-            scaffoldBackgroundColor: const Color(0xFFFAFAFA),
-            textTheme: GoogleFonts.montserratTextTheme(
-              Theme.of(context).textTheme,
-            ),
-          ),
+          theme: appTheme.light,
+          darkTheme: appTheme.dark,
           builder: (context, child) => MultiBlocListener(
             listeners: [
               BlocListener<AuthBloc, AuthState>(

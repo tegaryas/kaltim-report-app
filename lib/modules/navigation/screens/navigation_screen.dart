@@ -8,6 +8,7 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
@@ -74,6 +75,56 @@ class _NavigationScreenState extends State<NavigationScreen> {
             child: _customNavBar(tabsRouter),
           );
         },
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(
+            top: 30,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  await checkLocationPermission();
+                },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: 7.h,
+                      width: 7.h,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).shadowColor,
+                      ),
+                    ),
+                    Container(
+                      height: 6.h,
+                      width: 6.h,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF1E9E9C),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Iconsax.camera5,
+                        size: 3.h,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                'Tambah',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 8.sp,
+                  color: AppColors.textFaded,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -82,7 +133,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     var status = await Permission.locationWhenInUse.status;
     if (status.isGranted) {
       context.router.push(AddReportRoute(reportTitle: "Report"));
-    } else if (status.isDenied || status.isPermanentlyDenied) {
+    } else if (status.isPermanentlyDenied) {
       openAppSettings();
     } else {
       showModalBottomSheet(
@@ -107,7 +158,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
                 ),
                 SizedBox(
@@ -117,7 +167,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   'Kasih izin dong buat akses lokasi mu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Colors.black45,
+                    color: AppColors.textFaded,
                     height: 1.5,
                   ),
                 ),
@@ -148,13 +198,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
             horizontal: 15,
           ),
           height: 7.h,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              offset: Offset(0, -4),
-              blurRadius: 15,
-              color: Colors.black12,
-            )
-          ]),
+          decoration: BoxDecoration(
+            color: Theme.of(context).shadowColor,
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(0, -4),
+                blurRadius: 15,
+                color: Colors.black12,
+              )
+            ],
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -166,7 +219,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     },
                     child: Container(
                       width: size.width * 0.15,
-                      color: Colors.white,
+                      color: Theme.of(context).shadowColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -177,8 +230,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.home
                                   : Iconsax.home,
                               color: tabsRouter.activeIndex == 0
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                               size: 3.h,
                             ),
                           ),
@@ -191,8 +244,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 0
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                             ),
                           )
                         ],
@@ -208,7 +261,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     },
                     child: Container(
                       width: size.width * 0.15,
-                      color: Colors.white,
+                      color: Theme.of(context).shadowColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -219,8 +272,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.call
                                   : Iconsax.call,
                               color: tabsRouter.activeIndex == 1
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                               size: 3.h,
                             ),
                           ),
@@ -233,8 +286,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 1
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                             ),
                           )
                         ],
@@ -251,7 +304,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     },
                     child: Container(
                       width: size.width * 0.15,
-                      color: Colors.white,
+                      color: Theme.of(context).shadowColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -262,8 +315,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.archive
                                   : Iconsax.archive,
                               color: tabsRouter.activeIndex == 2
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                               size: 3.h,
                             ),
                           ),
@@ -276,8 +329,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 2
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                             ),
                           )
                         ],
@@ -293,7 +346,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     },
                     child: Container(
                       width: size.width * 0.15,
-                      color: Colors.white,
+                      color: Theme.of(context).shadowColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -304,8 +357,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                                   ? Iconsax.profile_circle
                                   : Iconsax.profile_circle,
                               color: tabsRouter.activeIndex == 3
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                               size: 3.h,
                             ),
                           ),
@@ -318,8 +371,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 8.sp,
                               color: tabsRouter.activeIndex == 3
-                                  ? const Color(0xFF1E9E9C)
-                                  : Colors.grey,
+                                  ? AppColors.secondary
+                                  : AppColors.textFaded,
                             ),
                           )
                         ],
@@ -327,56 +380,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     ),
                   ),
                 ],
-              )
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 1.h,
-          left: 0,
-          right: 0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  await checkLocationPermission();
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: 7.h,
-                      width: 7.h,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    Container(
-                      height: 6.h,
-                      width: 6.h,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF1E9E9C),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Iconsax.camera5,
-                        size: 3.h,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                'Tambah',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 8.sp,
-                  color: Colors.grey,
-                ),
               )
             ],
           ),

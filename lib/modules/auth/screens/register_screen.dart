@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
         child: BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
-            final bool isLoading = state is LoginLoading;
+            final bool isLoading = state is RegisterLoading;
             return Scaffold(
               resizeToAvoidBottomInset: false,
               body: Padding(

@@ -1,36 +1,28 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
+import 'package:kaltim_report/modules/auth/providers/register_provider_interface.dart';
 import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
 
 @Injectable(as: RegisterRepositoryInterface)
 class RegisterRepository implements RegisterRepositoryInterface {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final RegisterProviderInterface registerProvider;
 
-  CollectionReference users = FirebaseFirestore.instance.collection("Users");
-
-  @override
-  Future<void> registerWithEmailAndPassword(
-      String email, String password) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-  }
+  const RegisterRepository(this.registerProvider);
 
   @override
-  Future<void> registerUserData(RegisterModel data) async {
-    await users.doc(data.idToken).set(data.toJson());
-  }
+  Future<void> registerWithEmailAndPassword(String email, String password) =>
+      registerProvider.registerWithEmailAndPassword(email, password);
+
+  @override
+  Future<void> registerUserData(RegisterModel data) =>
+      registerProvider.registerUserData(data);
 
   @override
   Future<List<String>> checkEmailExsist(String email) async {
-    return _firebaseAuth.fetchSignInMethodsForEmail(email);
+    return registerProvider.checkEmailExsist(email);
   }
 
   @override
-  Future<void> resetPassword(String email) {
-    return _firebaseAuth.sendPasswordResetEmail(email: email);
-  }
+  Future<void> resetPassword(String email) =>
+      registerProvider.resetPassword(email);
 }

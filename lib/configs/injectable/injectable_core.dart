@@ -7,7 +7,7 @@ import 'injectable_core.config.dart';
 final getIt = GetIt.instance;
 
 @injectableInit
-Future configureDependencies(String env) async {
-  await $initGetIt(getIt, environment: env);
+Future configureDependencies() async {
+  await $initGetIt(getIt);
   getIt.registerSingleton<AppRouter>(AppRouter());
 }

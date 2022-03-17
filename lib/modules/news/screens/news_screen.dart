@@ -13,7 +13,6 @@ class NewsScreen extends StatelessWidget {
           "SiBerita",
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ),

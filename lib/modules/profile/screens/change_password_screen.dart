@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
@@ -69,7 +70,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black38,
+                        color: AppColors.textFaded,
                       ),
                     ),
                     SizedBox(
