@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
+import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/providers/report_provider_interface.dart';
 import 'package:kaltim_report/modules/report/repositories/report_repository_interface.dart';
@@ -26,5 +27,11 @@ class ReportRepository implements ReportRepositoryInterface {
   @override
   Stream<List<ReportModel>> getCurrentUserReport() {
     return reportProvider.getCurrentUserReport();
+  }
+
+  @override
+  Future<List<ReportModel>> getAllReportList(
+      {required ReportListFilterModel filter}) {
+    return reportProvider.getAllReportList(filter);
   }
 }

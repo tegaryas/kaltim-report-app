@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
+import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/providers/report_provider_interface.dart';
 
@@ -51,5 +52,18 @@ class ReportProvider implements ReportProviderInterface {
           .map((doc) => ReportModel.fromJson(doc.data()))
           .toList();
     });
+  }
+
+  @override
+  Future<List<ReportModel>> getAllReportList(
+      ReportListFilterModel filter) async {
+    return await firestore
+        .collection('Report')
+        .orderBy("id", descending: true)
+        .startAfter([filter.lastDocument])
+        .limit(filter.pageSize)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
   }
 }

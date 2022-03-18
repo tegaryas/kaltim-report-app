@@ -63,7 +63,6 @@ dependencies:
   firebase_core: ^1.11.0
   firebase_storage: ^10.2.5
   google_sign_in: ^5.2.3
-  paginate_firestore: ^1.0.3
 
   #json
   json_serializable: ^6.1.4
@@ -104,10 +103,10 @@ dev_dependencies:
 #   adaptive_icon_background: '#ffffff'
 #   adaptive_icon_foreground: "assets/icons/logo.png"
 
-flutter_native_splash:
-  color: "#18203D"
-  image: assets/icons/logo_text.png
-  fullscreen: true
+# flutter_native_splash:
+#   color: "#18203D"
+#   image: assets/icons/logo_text.png
+#   fullscreen: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

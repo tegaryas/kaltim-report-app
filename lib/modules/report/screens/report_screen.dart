@@ -1,35 +1,26 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/report/blocs/report_list_bloc/report_list_bloc.dart';
 
 import 'package:kaltim_report/modules/report/components/report_card_list.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
-import 'package:paginate_firestore/bloc/pagination_listeners.dart';
-import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
-import 'package:kaltim_report/modules/report/blocs/report/report_bloc.dart';
 
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ReportScreen> createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
-  PaginateRefreshedChangeListener refreshChangeListener =
-      PaginateRefreshedChangeListener();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ReportBloc>(
-          create: (context) => getIt.get<ReportBloc>()..add(FetchReportList()),
+        BlocProvider<ReportListBloc>(
+          create: (context) =>
+              getIt.get<ReportListBloc>()..add(const ReportListStarted()),
         ),
       ],
       child: Scaffold(
@@ -52,60 +43,43 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
             ),
           ),
-          body: RefreshIndicator(
-            child: PaginateFirestore(
-              itemBuilder: (context, documentSnapshots, index) {
-                final report = ReportModel.fromJson(
-                    documentSnapshots[index].data() as Map<String, dynamic>);
-
-                return ReportCardOnList(
-                  report: report,
-                  onTap: () {
-                    context.router.push(DetailReportRoute(report: report));
-                  },
+          body: BlocBuilder<ReportListBloc, ReportListState>(
+            builder: (context, state) {
+              if (state is ReportListSuccess) {
+                return RefreshIndicator(
+                  onRefresh: () => Future.sync(() {
+                    state.pagingController.refresh();
+                  }),
+                  child: PagedListView<String, ReportModel>.separated(
+                    pagingController: state.pagingController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder: (context, entry, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: ReportCardOnList(
+                            report: entry,
+                            onTap: () {
+                              context
+                                  .pushRoute(DetailReportRoute(report: entry));
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: 2.5.h),
+                  ),
                 );
-              },
-              bottomLoader: const BottomLoader(),
-              query: FirebaseFirestore.instance
-                  .collection('Report')
-                  .orderBy('dateInput', descending: true),
-              listeners: [
-                refreshChangeListener,
-              ],
-              isLive: false,
-              itemsPerPage: 10,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              separator: SizedBox(
-                height: 2.5.h,
-              ),
-              itemBuilderType: PaginateBuilderType.listView,
-            ),
-            onRefresh: () async {
-              refreshChangeListener.refreshed = true;
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
             },
           )),
-    );
-  }
-}
-
-class BottomLoader extends StatelessWidget {
-  const BottomLoader({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        height: 3.h,
-        width: 3.h,
-        child: const CircularProgressIndicator(
-          strokeWidth: 2,
-        ),
-      ),
     );
   }
 }

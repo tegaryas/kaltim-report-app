@@ -56,6 +56,8 @@ import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i33;
 import '../../modules/report/blocs/my_report/my_report_bloc.dart' as _i48;
 import '../../modules/report/blocs/report/report_bloc.dart' as _i22;
 import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i50;
+import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
+    as _i51;
 import '../../modules/report/providers/report_provider.dart' as _i41;
 import '../../modules/report/providers/report_provider_interface.dart' as _i40;
 import '../../modules/report/repositories/report_repository.dart' as _i43;
@@ -64,7 +66,7 @@ import '../../modules/report/repositories/report_repository_interface.dart'
 import '../../services/geolocator/geolocator_repository.dart' as _i8;
 import '../../services/geolocator/geolocator_repository_interface.dart' as _i7;
 import '../../services/native_api_service.dart'
-    as _i51; // ignore_for_file: unnecessary_lambdas
+    as _i52; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -145,7 +147,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i50.ReportFormBloc>(() => _i50.ReportFormBloc(
       reportRepository: get<_i42.ReportRepositoryInterface>(),
       authRepository: get<_i26.AuthRepositoryInterface>()));
+  gh.factory<_i51.ReportListBloc>(
+      () => _i51.ReportListBloc(get<_i42.ReportRepositoryInterface>()));
   return get;
 }
 
-class _$NativeApiService extends _i51.NativeApiService {}
+class _$NativeApiService extends _i52.NativeApiService {}
