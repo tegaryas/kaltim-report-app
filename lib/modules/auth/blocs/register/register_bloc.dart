@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
@@ -13,10 +14,12 @@ part 'register_state.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterRepositoryInterface registerRepository;
   final AuthRepositoryInterface authRepository;
+  final FirebaseCrashlytics firebaseCrashlytics;
   String? errorMessage;
   RegisterBloc({
     required this.registerRepository,
     required this.authRepository,
+    required this.firebaseCrashlytics,
   }) : super(RegisterInitial()) {
     on<RegisterStarted>((event, emit) async {
       try {
@@ -29,7 +32,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         } else {
           emit(RegisterUser(email: event.email));
         }
-      } on FirebaseAuthException catch (e) {
+      } on FirebaseAuthException catch (e, s) {
         switch (e.code) {
           case "weak-password":
             errorMessage = "Password yang anda masukkan masih lemah";
@@ -44,6 +47,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             errorMessage = "An undefined Error happened.";
         }
 
+        firebaseCrashlytics.recordError(e, s);
         emit(RegisterFailed(error: errorMessage!));
       }
     });
@@ -71,7 +75,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
           emit(RegisterSuccess());
         }
-      } on FirebaseAuthException catch (e) {
+      } on FirebaseAuthException catch (e, s) {
         switch (e.code) {
           case "weak-password":
             errorMessage = "Password yang anda masukkan masih lemah";
@@ -85,7 +89,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           default:
             errorMessage = "An undefined Error happened.";
         }
-
+        firebaseCrashlytics.recordError(e, s);
         emit(RegisterFailed(error: errorMessage!));
       }
     });

@@ -35,8 +35,7 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
             lastDocument: event.lastDocumentKey,
           ),
         );
-        print('=======');
-        print('items ${items.length}');
+
         final isLastPage = items.length < _pageSize;
 
         if (isLastPage) {

@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 
 import 'configs/injectable/injectable_core.dart';
 
@@ -27,6 +27,15 @@ Future<void> setupConfiguration() async {
   await Firebase.initializeApp();
 
   await configureDependencies();
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+  if (kDebugMode) {
+    FirebaseCrashlytics.instance
+        .setCrashlyticsCollectionEnabled(true); //disable false
+  } else {
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  }
 
   //intial bloc observer setup
   setupBlocObserver();
