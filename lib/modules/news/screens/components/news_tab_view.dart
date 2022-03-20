@@ -2,13 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/news/blocs/news_list_new/news_list_new_bloc.dart';
 import 'package:kaltim_report/modules/news/models/news_model.dart';
 import 'package:kaltim_report/modules/news/screens/components/news_card.dart';
-import 'package:kaltim_report/theme.dart';
-import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:sizer/sizer.dart';
 

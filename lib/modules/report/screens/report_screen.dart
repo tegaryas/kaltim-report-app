@@ -53,6 +53,10 @@ class ReportScreen extends StatelessWidget {
                   child: PagedListView<String, ReportModel>.separated(
                     pagingController: state.pagingController,
                     physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(
+                      bottom: 40,
+                      top: 20,
+                    ),
                     builderDelegate: PagedChildBuilderDelegate(
                       itemBuilder: (context, entry, index) {
                         return Padding(

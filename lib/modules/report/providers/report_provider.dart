@@ -25,6 +25,7 @@ class ReportProvider implements ReportProviderInterface {
 
   @override
   Future<void> addReportForm(ReportFormModel reportForm) async {
+    print(reportForm.toJson());
     await firestore
         .collection("Report")
         .doc(reportForm.id)
@@ -57,13 +58,23 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<List<ReportModel>> getAllReportList(
       ReportListFilterModel filter) async {
-    return await firestore
-        .collection('Report')
-        .orderBy("id", descending: true)
-        .startAfter([filter.lastDocument])
-        .limit(filter.pageSize)
-        .get()
-        .then((value) =>
-            value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+    if (filter.lastDocument == "") {
+      return await firestore
+          .collection('Report')
+          .orderBy("id", descending: true)
+          .limit(filter.pageSize)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+    } else {
+      return await firestore
+          .collection('Report')
+          .orderBy("id", descending: true)
+          .startAfter([filter.lastDocument])
+          .limit(filter.pageSize)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+    }
   }
 }

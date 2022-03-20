@@ -4,6 +4,7 @@ import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
+import 'package:skeletons/skeletons.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsModel data;
@@ -67,6 +68,64 @@ class NewsCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  static Widget loader() => const _NewsCardLoader();
+}
+
+class _NewsCardLoader extends StatelessWidget {
+  const _NewsCardLoader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Row(
+        children: [
+          SkeletonAvatar(
+            style: SkeletonAvatarStyle(
+              shape: BoxShape.rectangle,
+              width: 40.sp,
+              height: 40.sp,
+            ),
+          ),
+          SizedBox(
+            width: 1.w,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonParagraph(
+                  style: SkeletonParagraphStyle(
+                    lines: 2,
+                    spacing: 0.8.h,
+                    lineStyle: SkeletonLineStyle(
+                      randomLength: true,
+                      height: 10,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                SkeletonParagraph(
+                  style: SkeletonParagraphStyle(
+                    lines: 1,
+                    spacing: 0.8.h,
+                    lineStyle: SkeletonLineStyle(
+                      randomLength: true,
+                      height: 10,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
@@ -12,16 +13,18 @@ part 'report_list_state.dart';
 @injectable
 class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
   final ReportRepositoryInterface reportRepository;
-  ReportListBloc(this.reportRepository) : super(ReportListInitial()) {
+  final FirebaseCrashlytics firebaseCrashlytics;
+  ReportListBloc(this.reportRepository, this.firebaseCrashlytics)
+      : super(ReportListInitial()) {
     late PagingController<String, ReportModel> pagingController =
-        PagingController(firstPageKey: "SG220202020100049");
+        PagingController(firstPageKey: "");
 
     ReportListFilterModel filter = const ReportListFilterModel(
-      lastDocument: "SG220202020100049",
-      pageSize: 2,
+      lastDocument: "",
+      pageSize: 6,
     );
 
-    const int _pageSize = 2;
+    const int _pageSize = 6;
 
     void _fetchList(String lastDocumentKey) {
       add(ReportListFetch(lastDocumentKey));
@@ -44,7 +47,8 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
           final nextLastDocument = items.last.id;
           pagingController.appendPage(items, nextLastDocument);
         }
-      } catch (e) {
+      } catch (e, s) {
+        firebaseCrashlytics.recordError(e, s);
         pagingController.error = e;
       }
     });
@@ -61,6 +65,7 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
 
         emit(ReportListSuccess(pagingController: pagingController));
       } catch (e, s) {
+        firebaseCrashlytics.recordError(e, s);
         emit(ReportListFailed(e, s));
       }
     });

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/modules/news/screens/components/news_card.dart';
 import 'package:kaltim_report/theme.dart';
 
 import 'package:sizer/sizer.dart';

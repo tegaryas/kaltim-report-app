@@ -11,9 +11,9 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 import 'package:kaltim_report/modules/report/blocs/report_form/report_form_bloc.dart';
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/utils/generate_uid.dart';
 import 'package:sizer/sizer.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:kaltim_report/widgets/custom_info_container.dart';
@@ -40,21 +40,6 @@ class _AddReportScreenState extends State<AddReportScreen> {
   String? tambahanText;
 
   @override
-  void initState() {
-    requestLocationPermission();
-    super.initState();
-  }
-
-  /*Checking if your App has been Given Permission*/
-  Future<void> requestLocationPermission() async {
-    final isLocationEnable = await Permission.locationWhenInUse.status;
-
-    if (!isLocationEnable.isGranted) {
-      await Permission.locationWhenInUse.request();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -69,15 +54,14 @@ class _AddReportScreenState extends State<AddReportScreen> {
       child: BlocListener<ReportFormBloc, ReportFormState>(
         listener: (context, state) {
           if (state is ReportFormAddedSucess) {
-            context.popRoute();
             FlushbarHelper.createSuccess(
               message: 'Berhasil Menambahkan Laporan',
               title: 'Sukses',
               duration: const Duration(seconds: 2),
-            ).show(context);
+            ).show(context).whenComplete(() => context.popRoute());
           } else if (state is ReportFormFailure) {
             FlushbarHelper.createError(
-              message: 'Ada kesalahan nih saat melakukan upload',
+              message: '${state.error}',
               title: 'Yah Gagal',
               duration: const Duration(seconds: 2),
             ).show(context);
@@ -118,17 +102,26 @@ class _AddReportScreenState extends State<AddReportScreen> {
                             context.read<ReportFormBloc>().add(
                                   ReportFormAdd(
                                     form: ReportFormModel(
-                                      id: GenerateUID.generateVeryUniqueID(),
-                                      imageUrl: "",
-                                      location: GeoPoint(
+                                        id: GenerateUID.generateVeryUniqueID(),
+                                        imageUrl: "",
+                                        location: GeoPoint(
                                           state.position.latitude,
-                                          state.position.longitude),
-                                      problem: permasalahText!,
-                                      dateInput: DateTime.now(),
-                                      address: lokasiText!,
-                                      category: "Bebas",
-                                      description: tambahanText,
-                                    ),
+                                          state.position.longitude,
+                                        ),
+                                        problem: permasalahText!,
+                                        dateInput: DateTime.now(),
+                                        address: lokasiText!,
+                                        category: "Belum Ditambahkan",
+                                        description: tambahanText,
+                                        reportProgress: [
+                                          ReportProgressModel(
+                                            statusType:
+                                                ReportStatusType.menunggu,
+                                            date: DateTime.now(),
+                                            statusProgress:
+                                                'Laporan Diterima oleh Desa Singa Gembara',
+                                          ),
+                                        ]),
                                     imageFile: _selectedImage!,
                                   ),
                                 );

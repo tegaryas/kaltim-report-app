@@ -82,6 +82,9 @@ class AppTheme {
               width: 2.0,
               color: AppColors.secondary,
             ),
+            insets: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
           ),
         ),
         scaffoldBackgroundColor: _LightColors.background,
@@ -134,6 +137,9 @@ class AppTheme {
             borderSide: BorderSide(
               width: 2.0,
               color: AppColors.secondary,
+            ),
+            insets: EdgeInsets.symmetric(
+              horizontal: 20,
             ),
           ),
         ),

@@ -22,6 +22,12 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   @override
+  void initState() {
+    checkLocationPermission(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime? currentBackPressTime;
 
@@ -85,7 +91,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  await checkLocationPermission();
+                  await checkLocationPermission(context, wantNavigated: true);
                 },
                 child: Stack(
                   alignment: Alignment.center,
@@ -129,10 +135,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
     );
   }
 
-  Future<void> checkLocationPermission() async {
+  Future<void> checkLocationPermission(BuildContext rootContext,
+      {bool? wantNavigated}) async {
     var status = await Permission.locationWhenInUse.status;
     if (status.isGranted) {
-      context.router.push(AddReportRoute(reportTitle: "Report"));
+      if (wantNavigated != null || wantNavigated == true) {
+        context.navigateTo(AddReportRoute(reportTitle: "Report"));
+      }
     } else if (status.isPermanentlyDenied) {
       openAppSettings();
     } else {
@@ -142,8 +151,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
             top: Radius.circular(20),
           ),
         ),
-        context: context,
-        builder: (context) {
+        useRootNavigator: false,
+        context: rootContext,
+        builder: (rootContext) {
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 24,
@@ -154,7 +164,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Ups masih belum dapat izin kamu!',
+                  'Ups kami masih belum dapat izin lokasi kamu!',
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
@@ -177,7 +187,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 CustomButton(
                   text: 'Oke, Izinkan',
                   onTap: () async {
-                    await Permission.locationWhenInUse.request();
+                    await Permission.locationWhenInUse.request().then((value) {
+                      context.router.pop();
+                    });
                   },
                 )
               ],

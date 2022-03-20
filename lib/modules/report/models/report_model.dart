@@ -77,8 +77,8 @@ class ReportProgressModel {
 
   static DateTime _dateTimeFromEpochUs(Timestamp us) => us.toDate();
 
-  static int? _dateTimeToEpochUs(DateTime? dateTime) =>
-      dateTime?.microsecondsSinceEpoch;
+  static Timestamp _dateTimeToEpochUs(DateTime dateTime) =>
+      Timestamp.fromDate(dateTime);
 
   factory ReportProgressModel.fromJson(Map<String, dynamic> json) =>
       _$ReportProgressModelFromJson(json);

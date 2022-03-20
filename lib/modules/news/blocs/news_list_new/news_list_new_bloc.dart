@@ -15,17 +15,17 @@ class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
   final NewsRepositoryInterface newsRepository;
   NewsListNewBloc(this.newsRepository) : super(NewsListNewInitial()) {
     late final PagingController<int, NewsModel> pagingController =
-        PagingController(firstPageKey: 1);
+        PagingController(firstPageKey: 0);
 
-    const int _pageSize = 10;
+    const int _pageSize = 40;
 
     NewsCategory? category;
 
     NewsFilterModel filter = const NewsFilterModel(
       apiKey: ApiKey.newsApiKey,
       country: 'id',
-      pageSize: 10,
-      page: 1,
+      pageSize: 40,
+      page: 0,
     );
 
     void _fetchList(int pageOffset) {

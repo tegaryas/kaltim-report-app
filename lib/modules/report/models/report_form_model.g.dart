@@ -23,6 +23,8 @@ abstract class _$ReportFormModelCWProxy {
 
   ReportFormModel problem(String problem);
 
+  ReportFormModel reportProgress(List<ReportProgressModel> reportProgress);
+
   ReportFormModel userId(String? userId);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ReportFormModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -40,6 +42,7 @@ abstract class _$ReportFormModelCWProxy {
     String? imageUrl,
     GeoPoint? location,
     String? problem,
+    List<ReportProgressModel>? reportProgress,
     String? userId,
   });
 }
@@ -76,6 +79,10 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
   ReportFormModel problem(String problem) => this(problem: problem);
 
   @override
+  ReportFormModel reportProgress(List<ReportProgressModel> reportProgress) =>
+      this(reportProgress: reportProgress);
+
+  @override
   ReportFormModel userId(String? userId) => this(userId: userId);
 
   @override
@@ -95,6 +102,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
     Object? imageUrl = const $CopyWithPlaceholder(),
     Object? location = const $CopyWithPlaceholder(),
     Object? problem = const $CopyWithPlaceholder(),
+    Object? reportProgress = const $CopyWithPlaceholder(),
     Object? userId = const $CopyWithPlaceholder(),
   }) {
     return ReportFormModel(
@@ -130,6 +138,11 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.problem
           // ignore: cast_nullable_to_non_nullable
           : problem as String,
+      reportProgress: reportProgress == const $CopyWithPlaceholder() ||
+              reportProgress == null
+          ? _value.reportProgress
+          // ignore: cast_nullable_to_non_nullable
+          : reportProgress as List<ReportProgressModel>,
       userId: userId == const $CopyWithPlaceholder()
           ? _value.userId
           // ignore: cast_nullable_to_non_nullable
@@ -159,6 +172,9 @@ ReportFormModel _$ReportFormModelFromJson(Map<String, dynamic> json) =>
           ReportFormModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp),
       address: json['address'] as String,
       category: json['category'] as String?,
+      reportProgress: (json['reportProgress'] as List<dynamic>)
+          .map((e) => ReportProgressModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ReportFormModelToJson(ReportFormModel instance) =>
@@ -172,4 +188,6 @@ Map<String, dynamic> _$ReportFormModelToJson(ReportFormModel instance) =>
       'dateInput': ReportFormModel._dateTimeToEpochUs(instance.dateInput),
       'address': instance.address,
       'category': instance.category,
+      'reportProgress':
+          ReportFormModel.reportProgressToJson(instance.reportProgress),
     };

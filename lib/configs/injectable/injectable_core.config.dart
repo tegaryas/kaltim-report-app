@@ -150,23 +150,28 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i49.ReportRepositoryInterface>(() => _i50.ReportRepository(
       reportProvider: get<_i47.ReportProviderInterface>()));
   gh.factory<_i51.UpdatePasswordBloc>(() => _i51.UpdatePasswordBloc(
-      profileRepository: get<_i44.ProfileRepositoryInterface>()));
+      profileRepository: get<_i44.ProfileRepositoryInterface>(),
+      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
   gh.factory<_i52.AuthBloc>(() => _i52.AuthBloc(
       authRepository: get<_i32.AuthRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i53.CallBloc>(
-      () => _i53.CallBloc(callRepository: get<_i36.CallRepositoryInterface>()));
+  gh.factory<_i53.CallBloc>(() => _i53.CallBloc(
+      callRepository: get<_i36.CallRepositoryInterface>(),
+      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
   gh.factory<_i54.EditProfileBloc>(() => _i54.EditProfileBloc(
-      profileRepository: get<_i44.ProfileRepositoryInterface>()));
-  gh.factory<_i55.MyReportBloc>(
-      () => _i55.MyReportBloc(get<_i49.ReportRepositoryInterface>()));
+      profileRepository: get<_i44.ProfileRepositoryInterface>(),
+      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i55.MyReportBloc>(() => _i55.MyReportBloc(
+      get<_i49.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
   gh.factory<_i56.ProfileBloc>(() => _i56.ProfileBloc(
-      profileRepository: get<_i44.ProfileRepositoryInterface>()));
+      profileRepository: get<_i44.ProfileRepositoryInterface>(),
+      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
   gh.factory<_i57.ReportFormBloc>(() => _i57.ReportFormBloc(
       reportRepository: get<_i49.ReportRepositoryInterface>(),
-      authRepository: get<_i32.AuthRepositoryInterface>()));
-  gh.factory<_i58.ReportListBloc>(
-      () => _i58.ReportListBloc(get<_i49.ReportRepositoryInterface>()));
+      authRepository: get<_i32.AuthRepositoryInterface>(),
+      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i58.ReportListBloc>(() => _i58.ReportListBloc(
+      get<_i49.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
   return get;
 }
 

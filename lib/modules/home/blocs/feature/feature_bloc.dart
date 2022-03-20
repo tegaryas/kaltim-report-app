@@ -14,21 +14,20 @@ class FeatureBloc extends Bloc<FeatureEvent, FeatureState> {
   StreamSubscription? _featureSubsription;
   final HomeProviderInterface homeRepository;
   FeatureBloc({required this.homeRepository}) : super(FeatureInitial()) {
-    on<FeatureEvent>((event, emit) {
-      if (event is FeatureFetching) {
-        _featureSubsription?.cancel();
-        try {
-          emit(FeatureLoading());
-          homeRepository.getFeatureList().listen((event) {
-            add(FeatureUpdate(feature: event));
-          });
-        } catch (e) {
-          emit(FeatureFailed());
-        }
+    on<FeatureFetching>((event, emit) {
+      _featureSubsription?.cancel();
+      try {
+        emit(FeatureLoading());
+        _featureSubsription = homeRepository.getFeatureList().listen((event) {
+          add(FeatureUpdate(feature: event));
+        });
+      } catch (e) {
+        emit(FeatureFailed());
       }
-      if (event is FeatureUpdate) {
-        emit(FeatureLoaded(feature: event.feature));
-      }
+    });
+
+    on<FeatureUpdate>((event, emit) {
+      emit(FeatureLoaded(feature: event.feature));
     });
   }
 

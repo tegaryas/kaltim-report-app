@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 part 'report_form_model.g.dart';
 
@@ -18,6 +19,8 @@ class ReportFormModel {
   final DateTime dateInput;
   final String address;
   final String? category;
+  @JsonKey(toJson: reportProgressToJson)
+  final List<ReportProgressModel> reportProgress;
 
   ReportFormModel({
     required this.id,
@@ -29,6 +32,7 @@ class ReportFormModel {
     required this.dateInput,
     required this.address,
     required this.category,
+    required this.reportProgress,
   });
 
   factory ReportFormModel.fromJson(Map<String, dynamic> json) =>
@@ -47,5 +51,9 @@ class ReportFormModel {
 
   static GeoPoint _toJsonGeoPoint(GeoPoint geoPoint) {
     return geoPoint;
+  }
+
+  static FieldValue reportProgressToJson(List<ReportProgressModel> status) {
+    return FieldValue.arrayUnion(status.map((e) => e.toJson()).toList());
   }
 }
