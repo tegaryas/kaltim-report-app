@@ -50,11 +50,12 @@ class _$ReportListFilterModelCWProxyImpl
     Object? pageSize = const $CopyWithPlaceholder(),
   }) {
     return ReportListFilterModel(
-      lastDocument: lastDocument == const $CopyWithPlaceholder()
-          ? _value.lastDocument
-          // ignore: cast_nullable_to_non_nullable
-          : lastDocument as String,
-      pageSize: pageSize == const $CopyWithPlaceholder()
+      lastDocument:
+          lastDocument == const $CopyWithPlaceholder() || lastDocument == null
+              ? _value.lastDocument
+              // ignore: cast_nullable_to_non_nullable
+              : lastDocument as String,
+      pageSize: pageSize == const $CopyWithPlaceholder() || pageSize == null
           ? _value.pageSize
           // ignore: cast_nullable_to_non_nullable
           : pageSize as int,

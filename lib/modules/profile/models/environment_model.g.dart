@@ -80,30 +80,34 @@ class _$EnvironmentModelCWProxyImpl implements _$EnvironmentModelCWProxy {
     Object? packageName = const $CopyWithPlaceholder(),
   }) {
     return EnvironmentModel(
-      appBuildNumber: appBuildNumber == const $CopyWithPlaceholder()
+      appBuildNumber: appBuildNumber == const $CopyWithPlaceholder() ||
+              appBuildNumber == null
           ? _value.appBuildNumber
           // ignore: cast_nullable_to_non_nullable
           : appBuildNumber as String,
-      appVersion: appVersion == const $CopyWithPlaceholder()
-          ? _value.appVersion
-          // ignore: cast_nullable_to_non_nullable
-          : appVersion as String,
-      appVersionOld: appVersionOld == const $CopyWithPlaceholder()
-          ? _value.appVersionOld
-          // ignore: cast_nullable_to_non_nullable
-          : appVersionOld as String,
-      osType: osType == const $CopyWithPlaceholder()
+      appVersion:
+          appVersion == const $CopyWithPlaceholder() || appVersion == null
+              ? _value.appVersion
+              // ignore: cast_nullable_to_non_nullable
+              : appVersion as String,
+      appVersionOld:
+          appVersionOld == const $CopyWithPlaceholder() || appVersionOld == null
+              ? _value.appVersionOld
+              // ignore: cast_nullable_to_non_nullable
+              : appVersionOld as String,
+      osType: osType == const $CopyWithPlaceholder() || osType == null
           ? _value.osType
           // ignore: cast_nullable_to_non_nullable
           : osType as EnvOsType,
-      osTypeOld: osTypeOld == const $CopyWithPlaceholder()
+      osTypeOld: osTypeOld == const $CopyWithPlaceholder() || osTypeOld == null
           ? _value.osTypeOld
           // ignore: cast_nullable_to_non_nullable
           : osTypeOld as EnvOsType,
-      packageName: packageName == const $CopyWithPlaceholder()
-          ? _value.packageName
-          // ignore: cast_nullable_to_non_nullable
-          : packageName as String,
+      packageName:
+          packageName == const $CopyWithPlaceholder() || packageName == null
+              ? _value.packageName
+              // ignore: cast_nullable_to_non_nullable
+              : packageName as String,
     );
   }
 }

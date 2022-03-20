@@ -45,7 +45,7 @@ class AppTheme {
   ThemeData get light => ThemeData(
         brightness: Brightness.light,
         colorScheme: lightBase.colorScheme.copyWith(
-          primary: primaryColor,
+          primary: secondaryColor,
           secondary: secondaryColor,
         ),
         visualDensity: visualDensity,
@@ -56,7 +56,7 @@ class AppTheme {
         backgroundColor: _LightColors.background,
         appBarTheme: lightBase.appBarTheme.copyWith(
           iconTheme: lightBase.iconTheme,
-          backgroundColor: Colors.transparent,
+          backgroundColor: _LightColors.background,
           elevation: 0,
           titleTextStyle: GoogleFonts.montserrat(
             color: AppColors.textDark,
@@ -66,6 +66,23 @@ class AppTheme {
         ),
         dividerTheme: const DividerThemeData(
           color: AppColors.cardLight,
+        ),
+        tabBarTheme: lightBase.tabBarTheme.copyWith(
+          labelColor: AppColors.textDark,
+          labelStyle: GoogleFonts.montserrat(
+            color: AppColors.textDark,
+            fontWeight: FontWeight.w500,
+          ),
+          unselectedLabelStyle: GoogleFonts.montserrat(
+            color: AppColors.textDark,
+            fontWeight: FontWeight.w400,
+          ),
+          indicator: const UnderlineTabIndicator(
+            borderSide: BorderSide(
+              width: 2.0,
+              color: AppColors.secondary,
+            ),
+          ),
         ),
         scaffoldBackgroundColor: _LightColors.background,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -82,7 +99,7 @@ class AppTheme {
   ThemeData get dark => ThemeData(
         brightness: Brightness.dark,
         colorScheme: darkBase.colorScheme.copyWith(
-          primary: AppColors.cardDark,
+          primary: secondaryColor,
           secondary: secondaryColor,
         ),
         visualDensity: visualDensity,
@@ -92,7 +109,7 @@ class AppTheme {
             .apply(bodyColor: AppColors.textLigth),
         backgroundColor: _DarkColors.background,
         appBarTheme: darkBase.appBarTheme.copyWith(
-          backgroundColor: Colors.transparent,
+          backgroundColor: _DarkColors.background,
           elevation: 0,
           titleTextStyle: GoogleFonts.montserrat(
             color: AppColors.textLigth,
@@ -102,6 +119,23 @@ class AppTheme {
         ),
         dividerTheme: const DividerThemeData(
           color: AppColors.cardDark,
+        ),
+        tabBarTheme: darkBase.tabBarTheme.copyWith(
+          labelColor: AppColors.textLigth,
+          labelStyle: GoogleFonts.montserrat(
+            color: AppColors.textLigth,
+            fontWeight: FontWeight.w500,
+          ),
+          unselectedLabelStyle: GoogleFonts.montserrat(
+            color: AppColors.textLigth,
+            fontWeight: FontWeight.w400,
+          ),
+          indicator: const UnderlineTabIndicator(
+            borderSide: BorderSide(
+              width: 2.0,
+              color: AppColors.secondary,
+            ),
+          ),
         ),
         scaffoldBackgroundColor: _DarkColors.background,
         elevatedButtonTheme: ElevatedButtonThemeData(

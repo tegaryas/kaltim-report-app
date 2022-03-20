@@ -6,6 +6,7 @@ import 'package:kaltim_report/modules/auth/screens/reset_password_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
+import 'package:kaltim_report/modules/news/screens/news_detail_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
 import 'package:kaltim_report/modules/profile/screens/change_password_screen.dart';
@@ -38,6 +39,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),
+    AutoRoute(path: "/news-detail", page: NewsDetailScreen),
     AutoRoute(path: "/add-report", page: AddReportScreen),
     AutoRoute(path: "/detail-report", page: DetailReportScreen),
     AutoRoute(path: "/location-maps", page: ReportLocationScreen),

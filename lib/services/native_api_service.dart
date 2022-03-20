@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -62,4 +63,7 @@ abstract class NativeApiService {
 
   @singleton
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging.instance;
+
+  @injectable
+  Dio get dio => Dio();
 }

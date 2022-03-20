@@ -95,7 +95,7 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.address
           // ignore: cast_nullable_to_non_nullable
           : address as String?,
-      email: email == const $CopyWithPlaceholder()
+      email: email == const $CopyWithPlaceholder() || email == null
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
           : email as String,
@@ -103,11 +103,11 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.idToken
           // ignore: cast_nullable_to_non_nullable
           : idToken as String?,
-      name: name == const $CopyWithPlaceholder()
+      name: name == const $CopyWithPlaceholder() || name == null
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      password: password == const $CopyWithPlaceholder()
+      password: password == const $CopyWithPlaceholder() || password == null
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String,
@@ -119,7 +119,7 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.profilePic
           // ignore: cast_nullable_to_non_nullable
           : profilePic as String?,
-      username: username == const $CopyWithPlaceholder()
+      username: username == const $CopyWithPlaceholder() || username == null
           ? _value.username
           // ignore: cast_nullable_to_non_nullable
           : username as String,

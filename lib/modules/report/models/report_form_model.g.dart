@@ -98,7 +98,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
     Object? userId = const $CopyWithPlaceholder(),
   }) {
     return ReportFormModel(
-      address: address == const $CopyWithPlaceholder()
+      address: address == const $CopyWithPlaceholder() || address == null
           ? _value.address
           // ignore: cast_nullable_to_non_nullable
           : address as String,
@@ -106,7 +106,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.category
           // ignore: cast_nullable_to_non_nullable
           : category as String?,
-      dateInput: dateInput == const $CopyWithPlaceholder()
+      dateInput: dateInput == const $CopyWithPlaceholder() || dateInput == null
           ? _value.dateInput
           // ignore: cast_nullable_to_non_nullable
           : dateInput as DateTime,
@@ -114,19 +114,19 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.description
           // ignore: cast_nullable_to_non_nullable
           : description as String?,
-      id: id == const $CopyWithPlaceholder()
+      id: id == const $CopyWithPlaceholder() || id == null
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as String,
-      imageUrl: imageUrl == const $CopyWithPlaceholder()
+      imageUrl: imageUrl == const $CopyWithPlaceholder() || imageUrl == null
           ? _value.imageUrl
           // ignore: cast_nullable_to_non_nullable
           : imageUrl as String,
-      location: location == const $CopyWithPlaceholder()
+      location: location == const $CopyWithPlaceholder() || location == null
           ? _value.location
           // ignore: cast_nullable_to_non_nullable
           : location as GeoPoint,
-      problem: problem == const $CopyWithPlaceholder()
+      problem: problem == const $CopyWithPlaceholder() || problem == null
           ? _value.problem
           // ignore: cast_nullable_to_non_nullable
           : problem as String,
