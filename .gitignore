@@ -44,3 +44,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.env.*
+**.g.dart
+**.gen.dart
+injectable_core.config.dart
+**.mocks.dart
+**.gr.dart
+pubspec.lock
