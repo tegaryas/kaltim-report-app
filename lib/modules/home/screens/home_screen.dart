@@ -4,6 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
 import 'package:kaltim_report/modules/home/models/feature_model.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           automaticallyImplyLeading: false,
           title: Image.asset(
-            'assets/icons/logo_text.png',
+            Assets.icons.logoText.path,
             height: 28,
             fit: BoxFit.fitHeight,
           )),
@@ -124,13 +126,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           'Sangatta Tanggap Covid-19',
                           style: TextStyle(
-                            fontSize: 11.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 0.5.h,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(

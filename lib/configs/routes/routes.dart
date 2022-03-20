@@ -9,6 +9,7 @@ import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart'
 import 'package:kaltim_report/modules/news/screens/news_detail_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
+import 'package:kaltim_report/modules/profile/screens/about_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/change_password_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/detail_profile_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/edit_profile_screen.dart';
@@ -47,6 +48,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
     AutoRoute(path: "/edit-profile", page: EditProfileScreen),
     AutoRoute(path: "/detail-profile", page: DetailProfileScreen),
     AutoRoute(path: "/change-password", page: ChangePasswordScreen),
+    AutoRoute(path: "/about-app", page: AboutScreen),
     AutoRoute(
       path: "/menu",
       page: NavigationScreen,

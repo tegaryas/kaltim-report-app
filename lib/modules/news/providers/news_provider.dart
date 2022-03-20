@@ -16,8 +16,6 @@ class NewsProvider implements NewsProviderInterface {
     final res =
         await _dio.get(ApiPath.newsApiPath, queryParameters: filter.toJson());
 
-    print(res.data['articles']);
-
     return (res.data['articles'] as List<dynamic>)
         .map((e) => NewsModel.fromJson(e))
         .toList();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/core/bloc/auth_bloc.dart';
 import 'package:sizer/sizer.dart';
 
@@ -26,7 +27,7 @@ class SplashScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/icons/logo_text.png',
+                  Assets.icons.logo.path,
                   height: 5.h,
                   fit: BoxFit.fitHeight,
                 ),

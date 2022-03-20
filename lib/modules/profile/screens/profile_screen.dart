@@ -93,7 +93,9 @@ class ProfileScreen extends StatelessWidget {
                 height: 1.h,
               ),
               _buidlListTile(
-                onTap: () {},
+                onTap: () {
+                  context.navigateTo(const AboutRoute());
+                },
                 icon: Iconsax.info_circle,
                 title: "Tentang Aplikasi",
               ),

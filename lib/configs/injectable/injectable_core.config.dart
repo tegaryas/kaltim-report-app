@@ -14,15 +14,15 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:google_sign_in/google_sign_in.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../core/bloc/auth_bloc.dart' as _i53;
-import '../../core/providers/auth_provider.dart' as _i32;
-import '../../core/providers/auth_provider_interface.dart' as _i31;
-import '../../core/repositories/auth_repository.dart' as _i34;
-import '../../core/repositories/auth_repository_interface.dart' as _i33;
-import '../../modules/auth/blocs/login/login_bloc.dart' as _i41;
-import '../../modules/auth/blocs/register/register_bloc.dart' as _i47;
+import '../../core/bloc/auth_bloc.dart' as _i52;
+import '../../core/providers/auth_provider.dart' as _i31;
+import '../../core/providers/auth_provider_interface.dart' as _i30;
+import '../../core/repositories/auth_repository.dart' as _i33;
+import '../../core/repositories/auth_repository_interface.dart' as _i32;
+import '../../modules/auth/blocs/login/login_bloc.dart' as _i40;
+import '../../modules/auth/blocs/register/register_bloc.dart' as _i46;
 import '../../modules/auth/blocs/reset_password/reset_password_bloc.dart'
-    as _i30;
+    as _i29;
 import '../../modules/auth/providers/login_provider.dart' as _i18;
 import '../../modules/auth/providers/login_provider_interface.dart' as _i17;
 import '../../modules/auth/providers/register_provider.dart' as _i26;
@@ -33,48 +33,47 @@ import '../../modules/auth/repositories/login_repository_interface.dart'
 import '../../modules/auth/repositories/register_repository.dart' as _i28;
 import '../../modules/auth/repositories/register_repository_interface.dart'
     as _i27;
-import '../../modules/call/blocs/calls/call_bloc.dart' as _i54;
-import '../../modules/call/providers/call_provider.dart' as _i36;
-import '../../modules/call/providers/call_provider_interface.dart' as _i35;
-import '../../modules/call/repositories/call_repository.dart' as _i38;
-import '../../modules/call/repositories/call_repository_interface.dart' as _i37;
-import '../../modules/home/blocs/feature/feature_bloc.dart' as _i39;
+import '../../modules/call/blocs/calls/call_bloc.dart' as _i53;
+import '../../modules/call/providers/call_provider.dart' as _i35;
+import '../../modules/call/providers/call_provider_interface.dart' as _i34;
+import '../../modules/call/repositories/call_repository.dart' as _i37;
+import '../../modules/call/repositories/call_repository_interface.dart' as _i36;
+import '../../modules/home/blocs/feature/feature_bloc.dart' as _i38;
 import '../../modules/home/providers/home_provider.dart' as _i14;
 import '../../modules/home/providers/home_provider_interface.dart' as _i13;
 import '../../modules/home/repositories/home_repository.dart' as _i16;
 import '../../modules/home/repositories/home_repository_interface.dart' as _i15;
-import '../../modules/news/blocs/news_list_new/news_list_new_bloc.dart' as _i42;
+import '../../modules/news/blocs/news_list_new/news_list_new_bloc.dart' as _i41;
 import '../../modules/news/providers/news_provider.dart' as _i22;
 import '../../modules/news/providers/news_provider_interface.dart' as _i21;
 import '../../modules/news/repositories/news_repository.dart' as _i24;
 import '../../modules/news/repositories/news_repository_interface.dart' as _i23;
 import '../../modules/profile/blocs/edit_profile/edit_profile_bloc.dart'
-    as _i55;
-import '../../modules/profile/blocs/profile/profile_bloc.dart' as _i57;
+    as _i54;
+import '../../modules/profile/blocs/profile/profile_bloc.dart' as _i56;
 import '../../modules/profile/blocs/update_password/update_password_bloc.dart'
-    as _i52;
+    as _i51;
 import '../../modules/profile/models/environment_model.dart' as _i4;
-import '../../modules/profile/providers/profile_provider.dart' as _i44;
+import '../../modules/profile/providers/profile_provider.dart' as _i43;
 import '../../modules/profile/providers/profile_provider_interface.dart'
-    as _i43;
-import '../../modules/profile/repositories/profile_repository.dart' as _i46;
+    as _i42;
+import '../../modules/profile/repositories/profile_repository.dart' as _i45;
 import '../../modules/profile/repositories/profile_repository_interface.dart'
-    as _i45;
-import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i40;
-import '../../modules/report/blocs/my_report/my_report_bloc.dart' as _i56;
-import '../../modules/report/blocs/report/report_bloc.dart' as _i29;
-import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i58;
+    as _i44;
+import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i39;
+import '../../modules/report/blocs/my_report/my_report_bloc.dart' as _i55;
+import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i57;
 import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
-    as _i59;
-import '../../modules/report/providers/report_provider.dart' as _i49;
-import '../../modules/report/providers/report_provider_interface.dart' as _i48;
-import '../../modules/report/repositories/report_repository.dart' as _i51;
+    as _i58;
+import '../../modules/report/providers/report_provider.dart' as _i48;
+import '../../modules/report/providers/report_provider_interface.dart' as _i47;
+import '../../modules/report/repositories/report_repository.dart' as _i50;
 import '../../modules/report/repositories/report_repository_interface.dart'
-    as _i50;
+    as _i49;
 import '../../services/geolocator/geolocator_repository.dart' as _i11;
 import '../../services/geolocator/geolocator_repository_interface.dart' as _i10;
 import '../../services/native_api_service.dart'
-    as _i60; // ignore_for_file: unnecessary_lambdas
+    as _i59; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -113,64 +112,62 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       firebaseFirestore: get<_i7.FirebaseFirestore>()));
   gh.factory<_i27.RegisterRepositoryInterface>(
       () => _i28.RegisterRepository(get<_i25.RegisterProviderInterface>()));
-  gh.factory<_i29.ReportBloc>(
-      () => _i29.ReportBloc(get<_i15.HomeRepositoryInterface>()));
-  gh.factory<_i30.ResetPasswordBloc>(() => _i30.ResetPasswordBloc(
+  gh.factory<_i29.ResetPasswordBloc>(() => _i29.ResetPasswordBloc(
       registerRepository: get<_i27.RegisterRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i31.AuthProviderInterface>(() =>
-      _i32.AuthProvider(get<_i5.FirebaseAuth>(), get<_i12.GoogleSignIn>()));
-  gh.factory<_i33.AuthRepositoryInterface>(
-      () => _i34.AuthRepository(get<_i31.AuthProviderInterface>()));
-  gh.factory<_i35.CallProviderInterface>(
-      () => _i36.CallProvider(get<_i7.FirebaseFirestore>()));
-  gh.factory<_i37.CallRepositoryInterface>(() =>
-      _i38.CallRepository(callProvider: get<_i35.CallProviderInterface>()));
-  gh.factory<_i39.FeatureBloc>(() =>
-      _i39.FeatureBloc(homeRepository: get<_i13.HomeProviderInterface>()));
-  gh.factory<_i40.GeolocationBloc>(() => _i40.GeolocationBloc(
+  gh.factory<_i30.AuthProviderInterface>(() =>
+      _i31.AuthProvider(get<_i5.FirebaseAuth>(), get<_i12.GoogleSignIn>()));
+  gh.factory<_i32.AuthRepositoryInterface>(
+      () => _i33.AuthRepository(get<_i30.AuthProviderInterface>()));
+  gh.factory<_i34.CallProviderInterface>(
+      () => _i35.CallProvider(get<_i7.FirebaseFirestore>()));
+  gh.factory<_i36.CallRepositoryInterface>(() =>
+      _i37.CallRepository(callProvider: get<_i34.CallProviderInterface>()));
+  gh.factory<_i38.FeatureBloc>(() =>
+      _i38.FeatureBloc(homeRepository: get<_i13.HomeProviderInterface>()));
+  gh.factory<_i39.GeolocationBloc>(() => _i39.GeolocationBloc(
       geolocatorRepository: get<_i10.GeolocatorRepositoryInterface>()));
-  gh.factory<_i41.LoginBloc>(() => _i41.LoginBloc(
+  gh.factory<_i40.LoginBloc>(() => _i40.LoginBloc(
       loginRepository: get<_i19.LoginRepositoryInterface>(),
-      authRepository: get<_i33.AuthRepositoryInterface>(),
+      authRepository: get<_i32.AuthRepositoryInterface>(),
       registerRepository: get<_i27.RegisterRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i42.NewsListNewBloc>(
-      () => _i42.NewsListNewBloc(get<_i23.NewsRepositoryInterface>()));
-  gh.factory<_i43.ProfileProviderInterface>(() => _i44.ProfileProvider(
-      authRepository: get<_i33.AuthRepositoryInterface>(),
+  gh.factory<_i41.NewsListNewBloc>(
+      () => _i41.NewsListNewBloc(get<_i23.NewsRepositoryInterface>()));
+  gh.factory<_i42.ProfileProviderInterface>(() => _i43.ProfileProvider(
+      authRepository: get<_i32.AuthRepositoryInterface>(),
       firestore: get<_i7.FirebaseFirestore>()));
-  gh.factory<_i45.ProfileRepositoryInterface>(() => _i46.ProfileRepository(
-      profileProvider: get<_i43.ProfileProviderInterface>()));
-  gh.factory<_i47.RegisterBloc>(() => _i47.RegisterBloc(
+  gh.factory<_i44.ProfileRepositoryInterface>(() => _i45.ProfileRepository(
+      profileProvider: get<_i42.ProfileProviderInterface>()));
+  gh.factory<_i46.RegisterBloc>(() => _i46.RegisterBloc(
       registerRepository: get<_i27.RegisterRepositoryInterface>(),
-      authRepository: get<_i33.AuthRepositoryInterface>(),
+      authRepository: get<_i32.AuthRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i48.ReportProviderInterface>(() => _i49.ReportProvider(
-      authRepository: get<_i33.AuthRepositoryInterface>(),
+  gh.factory<_i47.ReportProviderInterface>(() => _i48.ReportProvider(
+      authRepository: get<_i32.AuthRepositoryInterface>(),
       firestore: get<_i7.FirebaseFirestore>(),
       imageStorage: get<_i9.FirebaseStorage>()));
-  gh.factory<_i50.ReportRepositoryInterface>(() => _i51.ReportRepository(
-      reportProvider: get<_i48.ReportProviderInterface>()));
-  gh.factory<_i52.UpdatePasswordBloc>(() => _i52.UpdatePasswordBloc(
-      profileRepository: get<_i45.ProfileRepositoryInterface>()));
-  gh.factory<_i53.AuthBloc>(() => _i53.AuthBloc(
-      authRepository: get<_i33.AuthRepositoryInterface>(),
+  gh.factory<_i49.ReportRepositoryInterface>(() => _i50.ReportRepository(
+      reportProvider: get<_i47.ReportProviderInterface>()));
+  gh.factory<_i51.UpdatePasswordBloc>(() => _i51.UpdatePasswordBloc(
+      profileRepository: get<_i44.ProfileRepositoryInterface>()));
+  gh.factory<_i52.AuthBloc>(() => _i52.AuthBloc(
+      authRepository: get<_i32.AuthRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i54.CallBloc>(
-      () => _i54.CallBloc(callRepository: get<_i37.CallRepositoryInterface>()));
-  gh.factory<_i55.EditProfileBloc>(() => _i55.EditProfileBloc(
-      profileRepository: get<_i45.ProfileRepositoryInterface>()));
-  gh.factory<_i56.MyReportBloc>(
-      () => _i56.MyReportBloc(get<_i50.ReportRepositoryInterface>()));
-  gh.factory<_i57.ProfileBloc>(() => _i57.ProfileBloc(
-      profileRepository: get<_i45.ProfileRepositoryInterface>()));
-  gh.factory<_i58.ReportFormBloc>(() => _i58.ReportFormBloc(
-      reportRepository: get<_i50.ReportRepositoryInterface>(),
-      authRepository: get<_i33.AuthRepositoryInterface>()));
-  gh.factory<_i59.ReportListBloc>(
-      () => _i59.ReportListBloc(get<_i50.ReportRepositoryInterface>()));
+  gh.factory<_i53.CallBloc>(
+      () => _i53.CallBloc(callRepository: get<_i36.CallRepositoryInterface>()));
+  gh.factory<_i54.EditProfileBloc>(() => _i54.EditProfileBloc(
+      profileRepository: get<_i44.ProfileRepositoryInterface>()));
+  gh.factory<_i55.MyReportBloc>(
+      () => _i55.MyReportBloc(get<_i49.ReportRepositoryInterface>()));
+  gh.factory<_i56.ProfileBloc>(() => _i56.ProfileBloc(
+      profileRepository: get<_i44.ProfileRepositoryInterface>()));
+  gh.factory<_i57.ReportFormBloc>(() => _i57.ReportFormBloc(
+      reportRepository: get<_i49.ReportRepositoryInterface>(),
+      authRepository: get<_i32.AuthRepositoryInterface>()));
+  gh.factory<_i58.ReportListBloc>(
+      () => _i58.ReportListBloc(get<_i49.ReportRepositoryInterface>()));
   return get;
 }
 
-class _$NativeApiService extends _i60.NativeApiService {}
+class _$NativeApiService extends _i59.NativeApiService {}
