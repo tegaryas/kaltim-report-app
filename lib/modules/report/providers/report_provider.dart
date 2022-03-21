@@ -25,7 +25,6 @@ class ReportProvider implements ReportProviderInterface {
 
   @override
   Future<void> addReportForm(ReportFormModel reportForm) async {
-    print(reportForm.toJson());
     await firestore
         .collection("Report")
         .doc(reportForm.id)

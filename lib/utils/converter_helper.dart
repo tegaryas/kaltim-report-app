@@ -25,4 +25,18 @@ abstract class ConverterHelper {
 
     return difference!;
   }
+
+  static Color skalaRichterToColor(double magnetudo) {
+    if (magnetudo <= 2.9) {
+      return Colors.green;
+    } else if (magnetudo >= 2.9 && magnetudo < 5.9) {
+      return Colors.blue;
+    } else if (magnetudo >= 5.9 && magnetudo < 7.9) {
+      return Colors.orange;
+    } else if (magnetudo >= 7.9) {
+      return Colors.red;
+    } else {
+      return Colors.green;
+    }
+  }
 }

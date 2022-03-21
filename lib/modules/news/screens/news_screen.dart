@@ -11,90 +11,86 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NewsListNewBloc>(
-      create: (context) =>
-          getIt.get<NewsListNewBloc>()..add(const NewsListNewStarted()),
-      child: Scaffold(
-        body: DefaultTabController(
-          length: 5,
-          initialIndex: 0,
-          child: NestedScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  automaticallyImplyLeading: false,
-                  title: Text(
-                    "SiBerita",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
+    return Scaffold(
+      body: DefaultTabController(
+        length: 5,
+        initialIndex: 0,
+        child: NestedScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  "SiBerita",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
                   ),
-                  pinned: true,
-                  floating: true,
-                  bottom: const PreferredSize(
-                    preferredSize: Size.fromHeight(50),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TabBar(
-                        isScrollable: true,
-                        tabs: [
-                          Tab(
-                            child: Text("Terbaru"),
-                          ),
-                          Tab(
-                            child: Text("Kesehatan"),
-                          ),
-                          Tab(
-                            child: Text("Teknologi"),
-                          ),
-                          Tab(
-                            child: Text("Bisnis"),
-                          ),
-                          Tab(
-                            child: Text("Olahraga"),
-                          )
-                        ],
-                      ),
+                ),
+                pinned: true,
+                floating: true,
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(50),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TabBar(
+                      isScrollable: true,
+                      tabs: [
+                        Tab(
+                          child: Text("Terbaru"),
+                        ),
+                        Tab(
+                          child: Text("Kesehatan"),
+                        ),
+                        Tab(
+                          child: Text("Teknologi"),
+                        ),
+                        Tab(
+                          child: Text("Bisnis"),
+                        ),
+                        Tab(
+                          child: Text("Olahraga"),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              ];
-            },
-            body: TabBarView(
-              children: [
-                BlocProvider<NewsListNewBloc>(
-                  create: (context) => getIt.get<NewsListNewBloc>()
-                    ..add(const NewsListNewStarted()),
-                  child: const NewsTabView(),
-                ),
-                BlocProvider<NewsListNewBloc>(
-                  create: (context) => getIt.get<NewsListNewBloc>()
-                    ..add(const NewsListNewStarted(
-                        category: NewsCategory.health)),
-                  child: const NewsTabView(),
-                ),
-                BlocProvider<NewsListNewBloc>(
-                  create: (context) => getIt.get<NewsListNewBloc>()
-                    ..add(const NewsListNewStarted(
-                        category: NewsCategory.technology)),
-                  child: const NewsTabView(),
-                ),
-                BlocProvider<NewsListNewBloc>(
-                  create: (context) => getIt.get<NewsListNewBloc>()
-                    ..add(const NewsListNewStarted(
-                        category: NewsCategory.business)),
-                  child: const NewsTabView(),
-                ),
-                BlocProvider<NewsListNewBloc>(
-                  create: (context) => getIt.get<NewsListNewBloc>()
-                    ..add(const NewsListNewStarted(
-                        category: NewsCategory.sports)),
-                  child: const NewsTabView(),
-                ),
-              ],
-            ),
+              ),
+            ];
+          },
+          body: TabBarView(
+            children: [
+              BlocProvider<NewsListNewBloc>(
+                create: (context) => getIt.get<NewsListNewBloc>()
+                  ..add(const NewsListNewStarted()),
+                child: const NewsTabView(),
+              ),
+              BlocProvider<NewsListNewBloc>(
+                create: (context) => getIt.get<NewsListNewBloc>()
+                  ..add(
+                      const NewsListNewStarted(category: NewsCategory.health)),
+                child: const NewsTabView(),
+              ),
+              BlocProvider<NewsListNewBloc>(
+                create: (context) => getIt.get<NewsListNewBloc>()
+                  ..add(const NewsListNewStarted(
+                      category: NewsCategory.technology)),
+                child: const NewsTabView(),
+              ),
+              BlocProvider<NewsListNewBloc>(
+                create: (context) => getIt.get<NewsListNewBloc>()
+                  ..add(const NewsListNewStarted(
+                      category: NewsCategory.business)),
+                child: const NewsTabView(),
+              ),
+              BlocProvider<NewsListNewBloc>(
+                create: (context) => getIt.get<NewsListNewBloc>()
+                  ..add(
+                      const NewsListNewStarted(category: NewsCategory.sports)),
+                child: const NewsTabView(),
+              ),
+            ],
           ),
         ),
       ),

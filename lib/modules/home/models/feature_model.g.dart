@@ -7,27 +7,18 @@ part of 'feature_model.dart';
 // **************************************************************************
 
 FeatureModel _$FeatureModelFromJson(Map<String, dynamic> json) => FeatureModel(
-      type: $enumDecodeNullable(_$FeatureTypeEnumMap, json['type'],
-              unknownValue: FeatureType.unknown) ??
-          FeatureType.unknown,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
       enable: json['enable'] as bool,
+      route: json['route'] as String,
+      path: json['path'] as String,
     );
 
 Map<String, dynamic> _$FeatureModelToJson(FeatureModel instance) =>
     <String, dynamic>{
-      'type': _$FeatureTypeEnumMap[instance.type],
       'name': instance.name,
       'imageUrl': instance.imageUrl,
       'enable': instance.enable,
+      'route': instance.route,
+      'path': instance.path,
     };
-
-const _$FeatureTypeEnumMap = {
-  FeatureType.siMergency: 'SiMergency',
-  FeatureType.siBerita: 'SiBerita',
-  FeatureType.siDarurat: 'SiDarurat',
-  FeatureType.siLapor: 'SiLapor',
-  FeatureType.lainnya: 'Lainnya',
-  FeatureType.unknown: 'unknown',
-};

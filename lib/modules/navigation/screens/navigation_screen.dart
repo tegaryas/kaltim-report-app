@@ -1,13 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/modules/call/blocs/calls/call_bloc.dart';
-import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
-import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -50,86 +45,73 @@ class _NavigationScreenState extends State<NavigationScreen> {
       return false;
     }
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<FeatureBloc>(
-          create: (context) => getIt.get<FeatureBloc>()..add(FeatureFetching()),
-        ),
-        BlocProvider<ProfileBloc>(
-          create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
-        ),
-        BlocProvider<CallBloc>(
-            create: (context) =>
-                getIt.get<CallBloc>()..add(EmergencyCallFetching())),
+    return AutoTabsScaffold(
+      routes: const [
+        HomeRouter(),
+        CallRouter(),
+        NewsRouter(),
+        ProfileRouter(),
       ],
-      child: AutoTabsScaffold(
-        routes: const [
-          HomeRoute(),
-          CallRoute(),
-          NewsRoute(),
-          ProfileRoute(),
-        ],
-        bottomNavigationBuilder: (_, tabsRouter) {
-          return WillPopScope(
-            onWillPop: () async {
-              if (onTabsWillPop(tabsRouter)) {
-                return onWillPop();
-              } else {
-                return false;
-              }
-            },
-            child: _customNavBar(tabsRouter),
-          );
-        },
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(
-            top: 30,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  await checkLocationPermission(context, wantNavigated: true);
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      height: 7.h,
-                      width: 7.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).shadowColor,
-                      ),
+      bottomNavigationBuilder: (_, tabsRouter) {
+        return WillPopScope(
+          onWillPop: () async {
+            if (onTabsWillPop(tabsRouter)) {
+              return onWillPop();
+            } else {
+              return false;
+            }
+          },
+          child: _customNavBar(tabsRouter),
+        );
+      },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                await checkLocationPermission(context, wantNavigated: true);
+              },
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: 7.h,
+                    width: 7.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).shadowColor,
                     ),
-                    Container(
-                      height: 6.h,
-                      width: 6.h,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF1E9E9C),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Iconsax.camera5,
-                        size: 3.h,
-                        color: Colors.white,
-                      ),
+                  ),
+                  Container(
+                    height: 6.h,
+                    width: 6.h,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF1E9E9C),
+                      shape: BoxShape.circle,
                     ),
-                  ],
-                ),
+                    child: Icon(
+                      Iconsax.camera5,
+                      size: 3.h,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'Tambah',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 8.sp,
-                  color: AppColors.textFaded,
-                ),
-              )
-            ],
-          ),
+            ),
+            Text(
+              'Tambah',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 8.sp,
+                color: AppColors.textFaded,
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -140,7 +122,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     var status = await Permission.locationWhenInUse.status;
     if (status.isGranted) {
       if (wantNavigated != null || wantNavigated == true) {
-        context.navigateTo(AddReportRoute(reportTitle: "Report"));
+        context.navigateTo(AddReportRoute());
       }
     } else if (status.isPermanentlyDenied) {
       openAppSettings();

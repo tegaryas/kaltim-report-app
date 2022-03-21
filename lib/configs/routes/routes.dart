@@ -4,16 +4,22 @@ import 'package:kaltim_report/modules/auth/screens/register_screen.dart';
 import 'package:kaltim_report/modules/auth/screens/register_user_data.dart';
 import 'package:kaltim_report/modules/auth/screens/reset_password_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_screen.dart';
+import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
+import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart';
+import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
+import 'package:kaltim_report/modules/home/screens/home_screen_wrapper.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_detail_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
+import 'package:kaltim_report/modules/news/screens/news_wrapper_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
 import 'package:kaltim_report/modules/profile/screens/about_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/change_password_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/detail_profile_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/edit_profile_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
+import 'package:kaltim_report/modules/profile/screens/profile_wrapper_screen.dart';
 import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/location_report_screen.dart';
@@ -50,24 +56,53 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
     AutoRoute(path: "/change-password", page: ChangePasswordScreen),
     AutoRoute(path: "/about-app", page: AboutScreen),
     AutoRoute(
+      path: "gempa-bumi",
+      name: 'GempaBumiRouter',
+      page: GempaBumiWrapperScreen,
+      children: [
+        AutoRoute(path: "", page: GempaBumiScreen),
+        RedirectRoute(path: '*', redirectTo: ''),
+      ],
+    ),
+    AutoRoute(
       path: "/menu",
       page: NavigationScreen,
       children: [
         AutoRoute(
           path: "home",
-          page: HomeScreen,
+          name: 'HomeRouter',
+          page: HomeWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: HomeScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
         ),
         AutoRoute(
           path: "news",
-          page: NewsScreen,
+          name: 'NewsRouter',
+          page: NewsWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: NewsScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
         ),
         AutoRoute(
           path: "call",
-          page: CallScreen,
+          name: 'CallRouter',
+          page: CallWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: CallScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
         ),
         AutoRoute(
           path: "profile",
-          page: ProfileScreen,
+          name: 'ProfileRouter',
+          page: ProfileWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: ProfileScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
         ),
       ],
     ),
