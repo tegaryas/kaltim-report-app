@@ -13,6 +13,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/icons/logo.png');
 
+  /// File path: assets/icons/logo_plain.png
+  AssetGenImage get logoPlain =>
+      const AssetGenImage('assets/icons/logo_plain.png');
+
   /// File path: assets/icons/logo_text.png
   AssetGenImage get logoText =>
       const AssetGenImage('assets/icons/logo_text.png');

@@ -52,10 +52,11 @@ dependencies:
   infinite_scroll_pagination: ^3.1.0
   intl: ^0.17.0
   ionicons: ^0.1.2
-  url_launcher: ^6.0.18
+  url_launcher: ^6.0.20
   skeletons: ^0.0.3
   sizer: ^2.0.15
   webview_flutter: ^3.0.1
+  share_plus: ^4.0.2
 
 
   #firebase

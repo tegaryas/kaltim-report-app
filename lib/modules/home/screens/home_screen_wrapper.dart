@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
+import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
+import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 
 class HomeWrapperScreen extends StatelessWidget {
@@ -21,6 +23,13 @@ class HomeWrapperScreen extends StatelessWidget {
         ),
         BlocProvider<ProfileBloc>(
           create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+        ),
+        BlocProvider<BannerBloc>(
+          create: (context) => getIt.get<BannerBloc>()..add(BannerFetch()),
+        ),
+        BlocProvider<HomeReportBloc>(
+          create: (context) =>
+              getIt.get<HomeReportBloc>()..add(HomeReportFetch()),
         ),
       ],
       child: const AutoRouter(),

@@ -7,8 +7,12 @@ import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 abstract class ReportProviderInterface {
   Future<void> addReportForm(ReportFormModel reportForm);
+
   Stream<List<ReportModel>> getCurrentUserReport();
+
   UploadTask? uploadReportImage(XFile file);
 
   Future<List<ReportModel>> getAllReportList(ReportListFilterModel filter);
+
+  Future<List<ReportModel>> getCurrentUserReportHome();
 }

@@ -76,4 +76,16 @@ class ReportProvider implements ReportProviderInterface {
               value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
     }
   }
+
+  @override
+  Future<List<ReportModel>> getCurrentUserReportHome() async {
+    return await firestore
+        .collection('Report')
+        .orderBy("dateInput", descending: true)
+        .where("userId", isEqualTo: authRepository.loggedUser.uid)
+        .limit(4)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+  }
 }

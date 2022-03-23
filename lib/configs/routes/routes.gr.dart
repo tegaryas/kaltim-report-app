@@ -188,7 +188,7 @@ class AppRouter extends _i29.RootStackRouter {
         _i29.RouteConfig(RegisterRoute.name, path: '/register'),
         _i29.RouteConfig(RegisterUserDataRoute.name, path: '/register-data'),
         _i29.RouteConfig(ResetPasswordRoute.name, path: '/reset-password'),
-        _i29.RouteConfig(ReportRouter.name, path: 'report', children: [
+        _i29.RouteConfig(ReportRouter.name, path: '/report', children: [
           _i29.RouteConfig(ReportRoute.name,
               path: '', parent: ReportRouter.name),
           _i29.RouteConfig('*#redirect',
@@ -206,7 +206,7 @@ class AppRouter extends _i29.RootStackRouter {
         _i29.RouteConfig(DetailProfileRoute.name, path: '/detail-profile'),
         _i29.RouteConfig(ChangePasswordRoute.name, path: '/change-password'),
         _i29.RouteConfig(AboutRoute.name, path: '/about-app'),
-        _i29.RouteConfig(GempaBumiRouter.name, path: 'gempa-bumi', children: [
+        _i29.RouteConfig(GempaBumiRouter.name, path: '/gempa-bumi', children: [
           _i29.RouteConfig(GempaBumiRoute.name,
               path: '', parent: GempaBumiRouter.name),
           _i29.RouteConfig('*#redirect',
@@ -338,7 +338,7 @@ class ResetPasswordRoute extends _i29.PageRouteInfo<void> {
 /// [_i7.ReportWrapperScreem]
 class ReportRouter extends _i29.PageRouteInfo<void> {
   const ReportRouter({List<_i29.PageRouteInfo>? children})
-      : super(ReportRouter.name, path: 'report', initialChildren: children);
+      : super(ReportRouter.name, path: '/report', initialChildren: children);
 
   static const String name = 'ReportRouter';
 }
@@ -502,7 +502,7 @@ class AboutRoute extends _i29.PageRouteInfo<void> {
 class GempaBumiRouter extends _i29.PageRouteInfo<void> {
   const GempaBumiRouter({List<_i29.PageRouteInfo>? children})
       : super(GempaBumiRouter.name,
-            path: 'gempa-bumi', initialChildren: children);
+            path: '/gempa-bumi', initialChildren: children);
 
   static const String name = 'GempaBumiRouter';
 }

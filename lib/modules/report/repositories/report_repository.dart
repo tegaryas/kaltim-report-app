@@ -34,4 +34,9 @@ class ReportRepository implements ReportRepositoryInterface {
       {required ReportListFilterModel filter}) {
     return reportProvider.getAllReportList(filter);
   }
+
+  @override
+  Future<List<ReportModel>> getCurrentUserReportHome() {
+    return reportProvider.getCurrentUserReportHome();
+  }
 }

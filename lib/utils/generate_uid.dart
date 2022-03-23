@@ -4,7 +4,7 @@ abstract class GenerateUID {
   const GenerateUID._();
 
   static String generateVeryUniqueID() {
-    var uuid = DateFormat('yyMMddhhmmsssss').format(DateTime.now());
+    var uuid = DateFormat('yyMMddhhmmsss').format(DateTime.now());
     return "SG$uuid";
   }
 }

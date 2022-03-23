@@ -38,7 +38,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
     AutoRoute(path: "/register-data", page: RegisterUserDataScreen),
     AutoRoute(path: "/reset-password", page: ResetPasswordScreen),
     AutoRoute(
-      path: "report",
+      path: "/report",
       name: "ReportRouter",
       page: ReportWrapperScreem,
       children: [
@@ -56,7 +56,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
     AutoRoute(path: "/change-password", page: ChangePasswordScreen),
     AutoRoute(path: "/about-app", page: AboutScreen),
     AutoRoute(
-      path: "gempa-bumi",
+      path: "/gempa-bumi",
       name: 'GempaBumiRouter',
       page: GempaBumiWrapperScreen,
       children: [

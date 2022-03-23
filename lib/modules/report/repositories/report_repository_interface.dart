@@ -14,4 +14,6 @@ abstract class ReportRepositoryInterface {
 
   Future<List<ReportModel>> getAllReportList(
       {required ReportListFilterModel filter});
+
+  Future<List<ReportModel>> getCurrentUserReportHome();
 }

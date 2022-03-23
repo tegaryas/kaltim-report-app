@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/modules/home/models/banner_model.dart';
 import 'package:kaltim_report/modules/home/models/feature_model.dart';
 import 'package:kaltim_report/modules/home/providers/home_provider_interface.dart';
 import 'package:kaltim_report/modules/home/repositories/home_repository_interface.dart';
@@ -23,5 +24,10 @@ class HomeRepository implements HomeRepositoryInterface {
   Future<List<DocumentSnapshot<Object?>>> getReportNextList(
       List<DocumentSnapshot<Object?>> documentList) {
     return homeProvider.getReportNextList(documentList);
+  }
+
+  @override
+  Future<List<BannerModel>> getBanner() {
+    return homeProvider.getBanner();
   }
 }

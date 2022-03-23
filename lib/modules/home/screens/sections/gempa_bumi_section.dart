@@ -5,7 +5,9 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
+import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -171,7 +173,7 @@ class GempaBumiHomeSection extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    context.navigateTo(const GempaBumiRouter());
+                    checkLocationPermission(context, wantNavigated: true);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -238,5 +240,74 @@ class GempaBumiHomeSection extends StatelessWidget {
         }
       },
     );
+  }
+
+  Future<void> checkLocationPermission(BuildContext context,
+      {bool? wantNavigated}) async {
+    var status = await Permission.locationWhenInUse.status;
+    if (status.isGranted) {
+      if (wantNavigated != null || wantNavigated == true) {
+        context.navigateTo(const GempaBumiRouter());
+      }
+    } else if (status.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        useRootNavigator: false,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 24,
+              horizontal: 24,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Ups kami masih belum dapat izin lokasi kamu!',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Text(
+                  'Kasih izin dong buat akses lokasi mu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    color: AppColors.textFaded,
+                    height: 1.5,
+                  ),
+                ),
+                SizedBox(
+                  height: 2.5.h,
+                ),
+                CustomButton(
+                  text: 'Oke, Izinkan',
+                  onTap: () async {
+                    await Permission.locationWhenInUse.request().then((value) {
+                      if (value == PermissionStatus.granted) {
+                        context.navigateTo(const GempaBumiRouter());
+                      } else {
+                        context.router.pop();
+                      }
+                    });
+                  },
+                )
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 }

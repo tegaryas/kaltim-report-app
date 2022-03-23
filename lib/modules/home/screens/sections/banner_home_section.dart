@@ -1,6 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
+import 'package:kaltim_report/utils/launcher_helper.dart';
+import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
+import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
 class BannerHomeSection extends StatefulWidget {
@@ -15,23 +20,49 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildCarouselSlider(),
-        _buildDotIndicator(),
-      ],
+    return BlocBuilder<BannerBloc, BannerState>(
+      builder: (context, state) {
+        if (state is BannerSuccess) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCarouselSlider(state),
+              _buildDotIndicator(state),
+            ],
+          );
+        } else if (state is BannerFailed) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            child: ErrorPlaceholder(
+              title: 'Yah Ada Kesalahan',
+              subtitle: 'Silahkan refresh untuk memuat ulang data',
+              onTap: () {
+                context.read<BannerBloc>().add(BannerFetch());
+              },
+            ),
+          );
+        } else {
+          return SizedBox(
+            height: 24.h,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 
-  Widget _buildDotIndicator() {
+  Widget _buildDotIndicator(BannerSuccess state) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 20.0,
         left: 20.0,
       ),
       child: DotsIndicator(
-        dotsCount: 5,
+        dotsCount: state.data.length,
         position: _selectedIndex.toDouble(),
         decorator: DotsDecorator(
           activeColor: Colors.blueGrey,
@@ -46,30 +77,49 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
     );
   }
 
-  Widget _buildCarouselSlider() {
+  Widget _buildCarouselSlider(BannerSuccess state) {
     return CarouselSlider(
       options: CarouselOptions(
         height: 20.h,
         viewportFraction: 0.9,
+        enableInfiniteScroll: false,
         onPageChanged: (index, reason) {
           setState(() {
             _selectedIndex = index;
           });
         },
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: state.data.map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-              margin: const EdgeInsets.only(
-                right: 10.0,
-                top: 20.0,
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: 20.h,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-                borderRadius: BorderRadius.circular(10),
+            return GestureDetector(
+              onTap: () {
+                LauncherHelper.openUrl(i.path);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(
+                  top: 20.0,
+                  right: 20.0,
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: 20.h,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).shadowColor,
+                      offset: const Offset(1, 1),
+                      blurRadius: 20,
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: ImageNetworkBuild(
+                    imageUrl: i.imageUrl,
+                    height: 20.h,
+                    width: double.infinity,
+                  ),
+                ),
               ),
             );
           },

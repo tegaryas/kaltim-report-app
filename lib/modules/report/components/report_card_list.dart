@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
+import 'package:kaltim_report/constant/assets.gen.dart';
 
 class ReportCardOnList extends StatelessWidget {
   const ReportCardOnList({
@@ -26,12 +28,12 @@ class ReportCardOnList extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: ImageNetworkBuild(
               imageUrl: report.imageUrl,
-              height: 12.h,
-              width: 12.h,
+              height: 10.h,
+              width: 10.h,
             ),
           ),
           SizedBox(
-            width: 2.5.h,
+            width: 6.w,
           ),
           Expanded(
             child: Column(
@@ -40,17 +42,21 @@ class ReportCardOnList extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      radius: 10.sp,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        Assets.icons.logoPlain.path,
+                        height: 2.h,
+                        width: 2.h,
+                      ),
                     ),
                     SizedBox(
-                      width: 2.w,
+                      width: 1.w,
                     ),
                     Text(
-                      report.category,
+                      report.id,
                       style: TextStyle(
-                        fontSize: 10.sp,
+                        fontSize: 9.sp,
                       ),
                     ),
                   ],
@@ -61,7 +67,7 @@ class ReportCardOnList extends StatelessWidget {
                 Text(
                   report.problem,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 11.sp,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -72,8 +78,8 @@ class ReportCardOnList extends StatelessWidget {
                 Text(
                   ConverterHelper.differenceTimeParse(report.dateInput),
                   style: TextStyle(
-                    fontSize: 10.sp,
-                    color: Colors.grey,
+                    fontSize: 9.sp,
+                    color: AppColors.textFaded,
                   ),
                 ),
               ],

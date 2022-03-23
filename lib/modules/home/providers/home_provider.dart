@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/modules/home/models/banner_model.dart';
 import 'package:kaltim_report/modules/home/models/feature_model.dart';
 import 'package:kaltim_report/modules/home/providers/home_provider_interface.dart';
 
@@ -42,5 +43,11 @@ class HomeProvider implements HomeProviderInterface {
           .map((doc) => FeatureModel.fromJson(doc.data()))
           .toList();
     });
+  }
+
+  @override
+  Future<List<BannerModel>> getBanner() async {
+    return await firestore.collection('banner').get().then((value) =>
+        value.docs.map((e) => BannerModel.fromJson(e.data())).toList());
   }
 }

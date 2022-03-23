@@ -63,7 +63,15 @@ class ReportScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  separatorBuilder: (context, index) => SizedBox(height: 2.5.h),
+                  separatorBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Divider(
+                      height: 6.h,
+                      thickness: 2,
+                    ),
+                  ),
                 ),
               );
             } else {

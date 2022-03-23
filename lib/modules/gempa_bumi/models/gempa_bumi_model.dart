@@ -15,7 +15,7 @@ class GempaBumiModel {
     required this.kedalaman,
     required this.wilayah,
     this.potensi,
-    required this.dirasakan,
+    this.dirasakan,
   });
 
   String tanggal;
@@ -28,7 +28,7 @@ class GempaBumiModel {
   String kedalaman;
   String wilayah;
   String? potensi;
-  String dirasakan;
+  String? dirasakan;
 
   factory GempaBumiModel.fromJson(Map<String, dynamic> json) =>
       _$GempaBumiModelFromJson(json);

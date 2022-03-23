@@ -1,5 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/constant/assets.gen.dart';
+import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
+import 'package:kaltim_report/modules/report/components/report_card.dart';
 import 'package:kaltim_report/theme.dart';
+import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:sizer/sizer.dart';
 
 class LaporanSection extends StatelessWidget {
@@ -41,15 +48,74 @@ class LaporanSection extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 2.h,
+          height: 3.h,
         ),
+        BlocBuilder<HomeReportBloc, HomeReportState>(
+          builder: (context, state) {
+            if (state is HomeReportSuccess) {
+              if (state.data.isEmpty) {
+                return _buildReportEmpty();
+              }
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                    ),
+                    child: ReportCardComponent(
+                      report: state.data[index],
+                      onTap: () {
+                        context.navigateTo(
+                            DetailReportRoute(report: state.data[index]));
+                      },
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Divider(
+                    height: 5.h,
+                    thickness: 2,
+                  ),
+                ),
+                itemCount: state.data.length,
+              );
+            } else if (state is HomeReportFailed) {
+              return ErrorPlaceholder(
+                title: 'Ups terjadi kesalahan',
+                subtitle:
+                    'Kamu bisa memuat ulang data dengan menekan tombol dibawah ini',
+                onTap: () {
+                  context.read<HomeReportBloc>().add(HomeReportFetch());
+                },
+              );
+            } else {
+              return ReportCardComponent.loader();
+            }
+          },
+        ),
+        SizedBox(
+          height: 8.h,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReportEmpty() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Container(
           height: 20.h,
           width: 100.w,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage(
-              "assets/images/onboarding_slide1.png",
+              Assets.images.onboardingSlide1.path,
             ),
           )),
         ),
@@ -70,9 +136,6 @@ class LaporanSection extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-        ),
-        SizedBox(
-          height: 8.h,
         ),
       ],
     );

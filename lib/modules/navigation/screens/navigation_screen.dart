@@ -18,7 +18,12 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void initState() {
-    checkLocationPermission(context);
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        checkLocationPermission(context);
+      },
+    );
     super.initState();
   }
 
@@ -117,7 +122,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     );
   }
 
-  Future<void> checkLocationPermission(BuildContext rootContext,
+  Future<void> checkLocationPermission(BuildContext context,
       {bool? wantNavigated}) async {
     var status = await Permission.locationWhenInUse.status;
     if (status.isGranted) {
@@ -134,8 +139,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
         ),
         useRootNavigator: false,
-        context: rootContext,
-        builder: (rootContext) {
+        context: context,
+        builder: (context) {
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 24,
