@@ -3,11 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/models/environment_model.dart';
+import 'package:kaltim_report/services/remote_config_service/remote_config_default.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 @module
@@ -66,4 +69,26 @@ abstract class NativeApiService {
 
   @injectable
   Dio get dio => Dio();
+
+  @preResolve
+  @lazySingleton
+  Future<FirebaseRemoteConfig> get remoteConfig async {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+
+    await remoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 15),
+        minimumFetchInterval: const Duration(hours: 12),
+      ),
+    );
+
+    await remoteConfig.setDefaults(remoteConfigDefaultValue);
+
+    await remoteConfig.ensureInitialized();
+    return remoteConfig;
+  }
+
+  @preResolve
+  @lazySingleton
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }

@@ -5,6 +5,9 @@ import 'package:kaltim_report/modules/auth/screens/register_user_data.dart';
 import 'package:kaltim_report/modules/auth/screens/reset_password_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
+import 'package:kaltim_report/modules/emergency/screens/emergency_call_data_validate_screen.dart';
+import 'package:kaltim_report/modules/emergency/screens/emergency_call_screen.dart';
+import 'package:kaltim_report/modules/emergency/screens/emergency_call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
@@ -61,6 +64,16 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
       page: GempaBumiWrapperScreen,
       children: [
         AutoRoute(path: "", page: GempaBumiScreen),
+        RedirectRoute(path: '*', redirectTo: ''),
+      ],
+    ),
+    AutoRoute(
+      path: "/emergency-call",
+      name: 'EmergencyCallRouter',
+      page: EmergencyCallWrapperScreen,
+      children: [
+        AutoRoute(path: "", page: EmergencyCallScreen),
+        AutoRoute(path: "validate-data", page: EmergencyCallDataValidateScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),

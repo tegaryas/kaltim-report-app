@@ -137,9 +137,12 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                           zoomGesturesEnabled: true,
                           myLocationEnabled: true,
                           myLocationButtonEnabled: false,
+                          mapToolbarEnabled: false,
                           initialCameraPosition: CameraPosition(
-                            target: LatLng(double.parse(latLang[0]),
-                                double.parse(latLang[1])),
+                            target: LatLng(
+                              double.parse(latLang[0]),
+                              double.parse(latLang[1]),
+                            ),
                             zoom: 7,
                           ),
                           circles: {

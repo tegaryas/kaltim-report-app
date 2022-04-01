@@ -5,6 +5,7 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
+import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 
@@ -30,6 +31,10 @@ class HomeWrapperScreen extends StatelessWidget {
         BlocProvider<HomeReportBloc>(
           create: (context) =>
               getIt.get<HomeReportBloc>()..add(HomeReportFetch()),
+        ),
+        BlocProvider<HomeCovidBloc>(
+          create: (context) =>
+              getIt.get<HomeCovidBloc>()..add(HomeCovidFetch()),
         ),
       ],
       child: const AutoRouter(),

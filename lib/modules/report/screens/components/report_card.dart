@@ -3,6 +3,7 @@ import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
+import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
@@ -104,47 +105,53 @@ class _ReportCardLoaderComponent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
       ),
+      margin: EdgeInsets.only(
+        bottom: 6.h,
+      ),
       child: Row(
         children: [
-          SkeletonAvatar(
-            style: SkeletonAvatarStyle(
-              shape: BoxShape.rectangle,
-              width: 40.sp,
-              height: 40.sp,
-            ),
-          ),
-          SizedBox(
-            width: 1.w,
-          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SkeletonParagraph(
-                  style: SkeletonParagraphStyle(
-                    lines: 2,
-                    spacing: 0.8.h,
-                    lineStyle: SkeletonLineStyle(
-                      randomLength: true,
-                      height: 10,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                const SkeletonLoaderSquare(
+                  height: 10,
+                  width: 70,
                 ),
-                SkeletonParagraph(
-                  style: SkeletonParagraphStyle(
-                    lines: 1,
-                    spacing: 0.8.h,
-                    lineStyle: SkeletonLineStyle(
-                      randomLength: true,
-                      height: 10,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                SkeletonLoaderSquare(
+                  height: 10,
+                  width: 60.w,
+                ),
+                SizedBox(
+                  height: 0.5.h,
+                ),
+                SkeletonLoaderSquare(
+                  height: 10,
+                  width: 40.w,
+                ),
+                SizedBox(
+                  height: 1.5.h,
+                ),
+                const SkeletonLoaderSquare(
+                  height: 10,
+                  width: 40,
                 ),
               ],
             ),
-          )
+          ),
+          SizedBox(
+            width: 6.w,
+          ),
+          SkeletonAvatar(
+            style: SkeletonAvatarStyle(
+              shape: BoxShape.rectangle,
+              height: 10.h,
+              width: 10.h,
+            ),
+          ),
         ],
       ),
     );

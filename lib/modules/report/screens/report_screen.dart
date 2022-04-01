@@ -5,8 +5,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/report/blocs/report_list_bloc/report_list_bloc.dart';
 
-import 'package:kaltim_report/modules/report/components/report_card_list.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
+import 'package:kaltim_report/modules/report/screens/components/report_card_list.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -54,11 +55,21 @@ class ReportScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
-                        child: ReportCardOnList(
+                        child: ReportCardComponent(
                           report: entry,
                           onTap: () {
                             context.pushRoute(DetailReportRoute(report: entry));
                           },
+                        ),
+                      );
+                    },
+                    firstPageProgressIndicatorBuilder: (context) {
+                      return SizedBox(
+                        height: 100.h,
+                        width: 100.w,
+                        child: Column(
+                          children: List.generate(
+                              6, (index) => ReportCardComponent.loader()),
                         ),
                       );
                     },
@@ -75,9 +86,7 @@ class ReportScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return ReportCardComponent.loader();
             }
           },
         ));

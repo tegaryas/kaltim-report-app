@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
+import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
 import 'package:kaltim_report/modules/home/screens/sections/banner_home_section.dart';
 import 'package:kaltim_report/modules/home/screens/sections/covid_home_section.dart';
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
         context.read<GempaBumiBloc>().add(GempaBumiFetch());
         context.read<BannerBloc>().add(BannerFetch());
         context.read<HomeReportBloc>().add(HomeReportFetch());
+        context.read<HomeCovidBloc>().add(HomeCovidFetch());
       }),
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,

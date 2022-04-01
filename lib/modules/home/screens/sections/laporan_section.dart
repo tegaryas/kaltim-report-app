@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
-import 'package:kaltim_report/modules/report/components/report_card.dart';
+import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:sizer/sizer.dart';

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
 import 'package:kaltim_report/utils/launcher_helper.dart';
+import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
@@ -44,10 +45,32 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
             ),
           );
         } else {
-          return SizedBox(
-            height: 24.h,
-            child: const Center(
-              child: CircularProgressIndicator(),
+          return Container(
+            margin: const EdgeInsets.only(
+              left: 24,
+              top: 20,
+            ),
+            height: 21.2.h,
+            child: Column(
+              children: [
+                SkeletonLoaderSquare(
+                  height: 18.h,
+                  width: 85.w,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    SkeletonLoaderSquare(
+                      height: 6,
+                      width: 15,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ],
+                )
+              ],
             ),
           );
         }

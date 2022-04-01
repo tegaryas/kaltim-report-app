@@ -47,6 +47,15 @@ class NewsTabView extends StatelessWidget {
                     },
                   );
                 },
+                firstPageProgressIndicatorBuilder: (context) {
+                  return SizedBox(
+                    height: 100.h,
+                    width: 100.w,
+                    child: Column(
+                      children: List.generate(6, (index) => NewsCard.loader()),
+                    ),
+                  );
+                },
               ),
               padding: const EdgeInsets.only(
                 bottom: 40,

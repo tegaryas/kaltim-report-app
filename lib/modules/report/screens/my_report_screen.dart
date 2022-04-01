@@ -5,7 +5,8 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/report/blocs/my_report/my_report_bloc.dart';
-import 'package:kaltim_report/modules/report/components/report_card_list.dart';
+
+import 'package:kaltim_report/modules/report/screens/components/report_card_list.dart';
 import 'package:sizer/sizer.dart';
 
 class MyReportScreen extends StatelessWidget {

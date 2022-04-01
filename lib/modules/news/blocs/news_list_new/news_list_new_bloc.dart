@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/constant/api_key.dart';
 import 'package:kaltim_report/modules/news/models/news_filter_model.dart';
 import 'package:kaltim_report/modules/news/models/news_model.dart';
 import 'package:kaltim_report/modules/news/repositories/news_repository_interface.dart';
+import 'package:kaltim_report/services/remote_config_service/remote_config_service_interface.dart';
 
 part 'news_list_new_event.dart';
 part 'news_list_new_state.dart';
@@ -13,7 +13,9 @@ part 'news_list_new_state.dart';
 @injectable
 class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
   final NewsRepositoryInterface newsRepository;
-  NewsListNewBloc(this.newsRepository) : super(NewsListNewInitial()) {
+  final RemoteConfigServiceInterface remoteConfigService;
+  NewsListNewBloc(this.newsRepository, this.remoteConfigService)
+      : super(NewsListNewInitial()) {
     late final PagingController<int, NewsModel> pagingController =
         PagingController(firstPageKey: 0);
 
@@ -22,7 +24,7 @@ class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
     NewsCategory? category;
 
     NewsFilterModel filter = const NewsFilterModel(
-      apiKey: ApiKey.newsApiKey,
+      apiKey: "",
       country: 'id',
       pageSize: 40,
       page: 0,
@@ -34,9 +36,11 @@ class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
 
     on<NewsListNewFetch>((event, emit) async {
       try {
+        final newsApiKey = await remoteConfigService.getString('news_api_key');
+
         final items = await newsRepository.getNews(
           filter: filter.copyWith(
-            apiKey: ApiKey.newsApiKey,
+            apiKey: newsApiKey,
             country: 'id',
             pageSize: _pageSize,
             page: event.pageKey,

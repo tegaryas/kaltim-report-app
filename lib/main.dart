@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
-            Locale('id', ''),
+            Locale('id'),
           ],
           theme: appTheme.light,
           darkTheme: appTheme.dark,

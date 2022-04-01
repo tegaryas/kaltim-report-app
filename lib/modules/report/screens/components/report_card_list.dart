@@ -89,4 +89,15 @@ class ReportCardOnList extends StatelessWidget {
       ),
     );
   }
+
+  static Widget loader() => const _ReportCardLoader();
+}
+
+class _ReportCardLoader extends StatelessWidget {
+  const _ReportCardLoader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
