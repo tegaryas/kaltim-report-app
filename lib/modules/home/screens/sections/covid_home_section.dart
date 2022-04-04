@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
-import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
@@ -15,52 +15,55 @@ class CovidHomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Text(
-            'Sangatta Tanggap Covid-19',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => getIt.get<HomeCovidBloc>()..add(HomeCovidFetch()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Text(
+              'Sangatta Tanggap Covid-19',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 1.h,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+          SizedBox(
+            height: 1.h,
           ),
-          child: Text(
-            'Tetap aman, sehat, dan produktif selama masa pandemi Covid-19',
-            style: TextStyle(
-              fontSize: 10.sp,
-              color: AppColors.textFaded,
-              height: 1.5,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Text(
+              'Tetap aman, sehat, dan produktif selama masa pandemi Covid-19',
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: AppColors.textFaded,
+                height: 1.5,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 2.5.h,
-        ),
-        BlocBuilder<HomeCovidBloc, HomeCovidState>(
-          builder: (context, state) {
-            if (state is HomeCovidSuccess) {
-              return _buildWidgetSuccess(state, context);
-            } else if (state is HomeCovidFailed) {
-              return _buildWidgetfFailed(context);
-            } else {
-              return _buildWigetLoading(context);
-            }
-          },
-        ),
-      ],
+          SizedBox(
+            height: 2.5.h,
+          ),
+          BlocBuilder<HomeCovidBloc, HomeCovidState>(
+            builder: (context, state) {
+              if (state is HomeCovidSuccess) {
+                return _buildWidgetSuccess(state, context);
+              } else if (state is HomeCovidFailed) {
+                return _buildWidgetfFailed(context);
+              } else {
+                return _buildWigetLoading(context);
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -168,7 +171,7 @@ class CovidHomeSection extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 18.h,
+        height: 145,
         width: 32.w,
         margin: const EdgeInsets.only(
           right: 20,
@@ -193,7 +196,7 @@ class CovidHomeSection extends StatelessWidget {
               ),
               child: ImageNetworkBuild(
                 imageUrl: data.image!,
-                height: 10.h,
+                height: 60,
                 width: double.infinity,
               ),
             ),

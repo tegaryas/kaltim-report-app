@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
 import 'package:kaltim_report/utils/launcher_helper.dart';
 import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
@@ -21,60 +22,70 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BannerBloc, BannerState>(
-      builder: (context, state) {
-        if (state is BannerSuccess) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCarouselSlider(state),
-              _buildDotIndicator(state),
-            ],
-          );
-        } else if (state is BannerFailed) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-            ),
-            child: ErrorPlaceholder(
-              title: 'Yah Ada Kesalahan',
-              subtitle: 'Silahkan refresh untuk memuat ulang data',
-              onTap: () {
-                context.read<BannerBloc>().add(BannerFetch());
-              },
-            ),
-          );
-        } else {
-          return Container(
-            margin: const EdgeInsets.only(
-              left: 24,
-              top: 20,
-            ),
-            height: 21.2.h,
-            child: Column(
+    return BlocProvider(
+      create: (context) => getIt.get<BannerBloc>()..add(BannerFetch()),
+      child: BlocBuilder<BannerBloc, BannerState>(
+        builder: (context, state) {
+          if (state is BannerSuccess) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SkeletonLoaderSquare(
-                  height: 18.h,
-                  width: 85.w,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    SkeletonLoaderSquare(
-                      height: 6,
-                      width: 15,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ],
-                )
+                _buildCarouselSlider(state),
+                _buildDotIndicator(state),
               ],
-            ),
-          );
-        }
-      },
+            );
+          } else if (state is BannerFailed) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              child: ErrorPlaceholder(
+                title: 'Yah Ada Kesalahan',
+                subtitle: 'Silahkan refresh untuk memuat ulang data',
+                onTap: () {
+                  context.read<BannerBloc>().add(BannerFetch());
+                },
+              ),
+            );
+          } else {
+            return Container(
+              margin: const EdgeInsets.only(
+                left: 24,
+                top: 20,
+              ),
+              child: Column(
+                children: [
+                  SkeletonLoaderSquare(
+                    height: 160,
+                    width: 85.w,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      SkeletonLoaderSquare(
+                        height: 6,
+                        width: 15,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      SkeletonLoaderSquare(
+                        height: 6,
+                        width: 6,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -103,7 +114,7 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
   Widget _buildCarouselSlider(BannerSuccess state) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 20.h,
+        height: 160,
         viewportFraction: 0.9,
         enableInfiniteScroll: false,
         onPageChanged: (index, reason) {

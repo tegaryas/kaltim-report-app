@@ -41,102 +41,99 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 28,
               fit: BoxFit.fitHeight,
             )),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    BlocBuilder<ProfileBloc, ProfileState>(
-                      builder: (context, state) {
-                        if (state is ProfileLoaded) {
-                          return Text(
-                            'Halo ${state.profile.name.split(' ').first} 👋',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          );
-                        }
-
+        body: ListView(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    builder: (context, state) {
+                      if (state is ProfileLoaded) {
                         return Text(
-                          'Halo,',
+                          'Halo ${state.profile.name.split(' ').first} 👋',
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         );
-                      },
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    Text(
-                      'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                        height: 1.5,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(20),
+                      }
+
+                      return Text(
+                        'Halo,',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 4.h,
+                  SizedBox(
+                    height: 0.5.h,
+                  ),
+                  Text(
+                    'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                      height: 1.5,
                     ),
-                    const FeatureHomeSection(),
-                    const BannerHomeSection(),
-                    Divider(
-                      thickness: 6,
-                      height: 6.h,
-                    ),
-                    const CovidHomeSection(),
-                    Divider(
-                      thickness: 6,
-                      height: 6.h,
-                    ),
-                    const GempaBumiHomeSection(),
-                    Divider(
-                      thickness: 6,
-                      height: 6.h,
-                    ),
-                    const LaporanSection()
-                  ],
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20),
                 ),
               ),
-            ],
-          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  const FeatureHomeSection(),
+                  const BannerHomeSection(),
+                  Divider(
+                    thickness: 6,
+                    height: 6.h,
+                  ),
+                  const CovidHomeSection(),
+                  Divider(
+                    thickness: 6,
+                    height: 6.h,
+                  ),
+                  const GempaBumiHomeSection(),
+                  Divider(
+                    thickness: 6,
+                    height: 6.h,
+                  ),
+                  const LaporanSection()
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

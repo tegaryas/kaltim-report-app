@@ -126,6 +126,8 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                 lokasiGempa = state.data.wilayah;
                 potensiGempa = state.data.potensi;
 
+                print("waktu: ${state.data.dateTime}");
+
                 return SizedBox(
                   height: 100.h,
                   child: Stack(
@@ -248,6 +250,7 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                                             style: TextStyle(
                                               fontSize: 10.sp,
                                             ),
+                                            textAlign: TextAlign.center,
                                           ),
                                           SizedBox(
                                             height: 1.h,

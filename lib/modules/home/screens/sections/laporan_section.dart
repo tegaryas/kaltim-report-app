@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/home/blocs/home_report/home_report_bloc.dart';
@@ -16,92 +17,95 @@ class LaporanSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-          ),
-          child: Text(
-            'Laporan Anda',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => getIt.get<HomeReportBloc>()..add(HomeReportFetch()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+            ),
+            child: Text(
+              'Laporan Anda',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 1.h,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+          SizedBox(
+            height: 1.h,
           ),
-          child: Text(
-            'Pantau kondisi laporan mu setiap saat dengan mudah',
-            style: TextStyle(
-              fontSize: 10.sp,
-              color: AppColors.textFaded,
-              height: 1.5,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Text(
+              'Pantau kondisi laporan mu setiap saat dengan mudah',
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: AppColors.textFaded,
+                height: 1.5,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 3.h,
-        ),
-        BlocBuilder<HomeReportBloc, HomeReportState>(
-          builder: (context, state) {
-            if (state is HomeReportSuccess) {
-              if (state.data.isEmpty) {
-                return _buildReportEmpty();
-              }
-              return ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
+          SizedBox(
+            height: 3.h,
+          ),
+          BlocBuilder<HomeReportBloc, HomeReportState>(
+            builder: (context, state) {
+              if (state is HomeReportSuccess) {
+                if (state.data.isEmpty) {
+                  return _buildReportEmpty();
+                }
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                      ),
+                      child: ReportCardComponent(
+                        report: state.data[index],
+                        onTap: () {
+                          context.navigateTo(
+                              DetailReportRoute(report: state.data[index]));
+                        },
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
+                      horizontal: 20,
                     ),
-                    child: ReportCardComponent(
-                      report: state.data[index],
-                      onTap: () {
-                        context.navigateTo(
-                            DetailReportRoute(report: state.data[index]));
-                      },
+                    child: Divider(
+                      height: 5.h,
+                      thickness: 2,
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
                   ),
-                  child: Divider(
-                    height: 5.h,
-                    thickness: 2,
-                  ),
-                ),
-                itemCount: state.data.length,
-              );
-            } else if (state is HomeReportFailed) {
-              return ErrorPlaceholder(
-                title: 'Ups terjadi kesalahan',
-                subtitle:
-                    'Kamu bisa memuat ulang data dengan menekan tombol dibawah ini',
-                onTap: () {
-                  context.read<HomeReportBloc>().add(HomeReportFetch());
-                },
-              );
-            } else {
-              return ReportCardComponent.loader();
-            }
-          },
-        ),
-        SizedBox(
-          height: 8.h,
-        ),
-      ],
+                  itemCount: state.data.length,
+                );
+              } else if (state is HomeReportFailed) {
+                return ErrorPlaceholder(
+                  title: 'Ups terjadi kesalahan',
+                  subtitle:
+                      'Kamu bisa memuat ulang data dengan menekan tombol dibawah ini',
+                  onTap: () {
+                    context.read<HomeReportBloc>().add(HomeReportFetch());
+                  },
+                );
+              } else {
+                return ReportCardComponent.loader();
+              }
+            },
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+        ],
+      ),
     );
   }
 

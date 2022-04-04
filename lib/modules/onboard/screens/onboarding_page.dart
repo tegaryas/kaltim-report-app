@@ -53,8 +53,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: 1.h,
               ),
               _buildCarouselSlider(),
-              _buildDotIndicator(),
               const Spacer(),
+              _buildDotIndicator(),
+              SizedBox(
+                height: 2.h,
+              ),
               CustomButton(
                 text: "Masuk",
                 onTap: () {
@@ -106,7 +109,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _buildCarouselSlider() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 60.h,
+        height: 55.h,
         viewportFraction: 1,
         onPageChanged: (index, reason) {
           setState(() {
@@ -141,7 +144,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   i.title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
+                    fontSize: 15.sp,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
@@ -153,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   i.subtitle,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
-                    fontSize: 11.sp,
+                    fontSize: 10.sp,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,

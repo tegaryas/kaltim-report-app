@@ -17,24 +17,22 @@ class HomeWrapperScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<GempaBumiBloc>(
-            create: (context) =>
-                getIt.get<GempaBumiBloc>()..add(GempaBumiFetch())),
+          create: (context) => getIt.get<GempaBumiBloc>(),
+        ),
         BlocProvider<FeatureBloc>(
-          create: (context) => getIt.get<FeatureBloc>()..add(FeatureFetching()),
+          create: (context) => getIt.get<FeatureBloc>(),
         ),
         BlocProvider<ProfileBloc>(
-          create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+          create: (context) => getIt.get<ProfileBloc>(),
         ),
         BlocProvider<BannerBloc>(
-          create: (context) => getIt.get<BannerBloc>()..add(BannerFetch()),
+          create: (context) => getIt.get<BannerBloc>(),
         ),
         BlocProvider<HomeReportBloc>(
-          create: (context) =>
-              getIt.get<HomeReportBloc>()..add(HomeReportFetch()),
+          create: (context) => getIt.get<HomeReportBloc>(),
         ),
         BlocProvider<HomeCovidBloc>(
-          create: (context) =>
-              getIt.get<HomeCovidBloc>()..add(HomeCovidFetch()),
+          create: (context) => getIt.get<HomeCovidBloc>(),
         ),
       ],
       child: const AutoRouter(),
