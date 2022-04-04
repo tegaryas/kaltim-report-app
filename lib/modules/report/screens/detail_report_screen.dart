@@ -11,6 +11,8 @@ import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
+import 'components/status_report_badge.dart';
+
 class DetailReportScreen extends StatefulWidget {
   const DetailReportScreen({
     Key? key,
@@ -79,225 +81,264 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageNetworkBuild(
-              imageUrl: widget.report.imageUrl,
-              height: 30.h,
-              width: 100.w,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 2.5.h,
-                  ),
-                  Text(
-                    'Permasalahan',
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 0.5.h,
-                  ),
-                  Text(
-                    widget.report.problem,
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Text(
-                    'Lokasi',
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 0.5.h,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.red,
-                        size: 15.sp,
-                      ),
-                      SizedBox(
-                        width: 2.w,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.report.address,
-                              style: TextStyle(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            _buildDivider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Detail Laporan',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  _buildDetailLaporan(
-                    title: "Nomor Laporan",
-                    value: widget.report.id,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  _buildDetailLaporan(
-                    title: "Tanggal Masuk",
-                    value: ConverterHelper.convertDateTimeToDateFormat(
-                        widget.report.dateInput, context),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  _buildDetailLaporan(
-                    title: "Kategori",
-                    value: widget.report.category,
-                  ),
-                  SizedBox(
-                    height: 0.5.h,
-                  ),
-                ],
-              ),
-            ),
-            _buildDivider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Text(
-                'Lokasi',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            _buildPictureSection(),
             SizedBox(
               height: 2.h,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: _buildLocationMaps(),
-            ),
+            _buildDetailLaporanSection(context),
+            _buildDivider(),
+            _buildLocationSection(),
+            _buildDivider(),
             if (widget.report.reportProgress != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Status Laporan',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Lihat Selengkapnya',
-                            style: TextStyle(
-                              fontSize: 9.sp,
-                              // color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                ConverterHelper.convertDateTimeToDateFormat(
-                                    widget.report.reportProgress!.last.date,
-                                    context),
-                                style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: AppColors.textFaded,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 0.5.h,
-                              ),
-                              Text(
-                                widget
-                                    .report.reportProgress!.last.statusProgress,
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        _statusTypeToWidget(
-                            widget.report.reportProgress!.last.statusType),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              _buildStatusReportSection(context),
             SizedBox(
               height: 5.h,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPictureSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: ImageNetworkBuild(
+          imageUrl: widget.report.imageUrl,
+          height: 30.h,
+          width: 100.w,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusReportSection(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Status Laporan',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 1.5.h,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ConverterHelper.convertDateTimeToFullDateFormat(
+                          widget.report.reportProgress!.last.date, context),
+                      style: TextStyle(
+                        fontSize: 9.sp,
+                        color: AppColors.textFaded,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    Text(
+                      widget.report.reportProgress!.last.statusProgress,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 2.w,
+              ),
+              _statusTypeToWidget(
+                  widget.report.reportProgress!.last.statusType),
+            ],
+          ),
+          Divider(
+            height: 4.h,
+            color: Theme.of(context).dividerColor,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  context.pushRoute(ReportDetailProgressRoute(
+                      progress:
+                          widget.report.reportProgress!.reversed.toList()));
+                },
+                child: Text(
+                  'Lihat Selengkapnya',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                size: 20.sp,
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailLaporanSection(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Detail Laporan',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+          Text(
+            'Berisi semua detail informasi dari aduan yang telah dimasukkan oleh masyarakat',
+            style: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.normal,
+              color: AppColors.textFaded,
+              height: 1.5,
+            ),
+          ),
+          SizedBox(
+            height: 2.5.h,
+          ),
+          _buildDetailLaporan(
+            title: "Nomor Laporan",
+            value: widget.report.id,
+            valueTextColor: Theme.of(context).colorScheme.secondary,
+          ),
+          SizedBox(
+            height: 2.5.h,
+          ),
+          _buildDetailLaporan(
+            title: "Permasalahan",
+            value: widget.report.problem,
+          ),
+          SizedBox(
+            height: 2.5.h,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: _buildDetailLaporan(
+                  title: "Tanggal Masuk",
+                  value: ConverterHelper.convertDateTimeToFullDateFormat(
+                      widget.report.dateInput, context),
+                ),
+              ),
+              Expanded(
+                child: _buildDetailLaporan(
+                  title: "Kategori",
+                  value: widget.report.category,
+                ),
+              ),
+            ],
+          ),
+          if (widget.report.description != null)
+            Column(
+              children: [
+                SizedBox(
+                  height: 2.5.h,
+                ),
+                _buildDetailLaporan(
+                  title: "Deskripsi Tambahan",
+                  value: widget.report.description!,
+                ),
+              ],
+            ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLocationSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Lokasi',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 15.sp,
+              ),
+              SizedBox(
+                width: 2.w,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.report.address,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: _buildLocationMaps(),
+          ),
+          SizedBox(
+            height: 0.5.h,
+          ),
+        ],
       ),
     );
   }
@@ -337,7 +378,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           backgroundColor: Colors.amber,
         );
       default:
-        return const Text('Unknown');
+        return Container();
     }
   }
 
@@ -374,7 +415,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
             right: 20,
             child: GestureDetector(
               onTap: () {
-                context.router.push(ReportLocationRoute(latLng: latLng!));
+                context.pushRoute(ReportLocationRoute(latLng: latLng!));
               },
               child: Container(
                 padding: const EdgeInsets.all(6),
@@ -395,7 +436,11 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
     );
   }
 
-  Widget _buildDetailLaporan({required String title, required String value}) {
+  Widget _buildDetailLaporan({
+    required String title,
+    required String value,
+    Color? valueTextColor,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -404,6 +449,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           style: TextStyle(
             fontSize: 10.sp,
             fontWeight: FontWeight.w400,
+            color: AppColors.textFaded,
           ),
         ),
         SizedBox(
@@ -414,41 +460,11 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
           style: TextStyle(
             fontSize: 10.sp,
             fontWeight: FontWeight.w600,
+            height: 1.5,
+            color: valueTextColor,
           ),
         ),
       ],
-    );
-  }
-}
-
-class StatusReportBadge extends StatelessWidget {
-  const StatusReportBadge({
-    Key? key,
-    required this.status,
-    required this.backgroundColor,
-  }) : super(key: key);
-
-  final String status;
-  final Color backgroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 8,
-      ),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Text(
-        status,
-        style: TextStyle(
-          fontSize: 9.sp,
-          color: Colors.white,
-        ),
-      ),
     );
   }
 }

@@ -116,6 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             _selectedIndex = index;
           });
         },
+        scrollPhysics: const BouncingScrollPhysics(),
       ),
       items: data.map((i) {
         return Builder(

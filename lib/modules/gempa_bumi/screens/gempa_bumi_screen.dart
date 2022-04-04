@@ -126,8 +126,6 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                 lokasiGempa = state.data.wilayah;
                 potensiGempa = state.data.potensi;
 
-                print("waktu: ${state.data.dateTime}");
-
                 return SizedBox(
                   height: 100.h,
                   child: Stack(

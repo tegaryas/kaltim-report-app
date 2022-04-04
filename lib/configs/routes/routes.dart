@@ -25,7 +25,8 @@ import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/profile_wrapper_screen.dart';
 import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
-import 'package:kaltim_report/modules/report/screens/location_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_location_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_detail_progress_screen.dart';
 import 'package:kaltim_report/modules/report/screens/my_report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
@@ -46,13 +47,14 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
       page: ReportWrapperScreem,
       children: [
         AutoRoute(path: "", page: ReportScreen),
+        AutoRoute(path: "detail", page: DetailReportScreen),
+        AutoRoute(path: "status", page: ReportDetailProgressScreen),
+        AutoRoute(path: "location-maps", page: ReportLocationScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),
     AutoRoute(path: "/news-detail", page: NewsDetailScreen),
     AutoRoute(path: "/add-report", page: AddReportScreen),
-    AutoRoute(path: "/detail-report", page: DetailReportScreen),
-    AutoRoute(path: "/location-maps", page: ReportLocationScreen),
     AutoRoute(path: "/my-report", page: MyReportScreen),
     AutoRoute(path: "/edit-profile", page: EditProfileScreen),
     AutoRoute(path: "/detail-profile", page: DetailProfileScreen),

@@ -50,7 +50,6 @@ class _ReportLocationScreenState extends State<ReportLocationScreen> {
           'Lokasi Permasalahan',
           style: TextStyle(
             fontSize: 14.sp,
-            color: Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ),

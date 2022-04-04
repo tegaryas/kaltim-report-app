@@ -81,8 +81,9 @@ class MyReportScreen extends StatelessWidget {
                       final myReports = state.myReports![index];
                       return ReportCardOnList(
                           onTap: () {
-                            context.router
-                                .push(DetailReportRoute(report: myReports));
+                            context.navigateTo(ReportRouter(children: [
+                              DetailReportRoute(report: myReports)
+                            ]));
                           },
                           report: myReports);
                     },

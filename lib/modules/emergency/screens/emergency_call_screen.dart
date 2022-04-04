@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/widgets/custom_info_container.dart';
 import 'package:sizer/sizer.dart';
 

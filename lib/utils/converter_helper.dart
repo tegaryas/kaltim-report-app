@@ -9,6 +9,11 @@ abstract class ConverterHelper {
         .format(date);
   }
 
+  static convertDateTimeToFullDateFormat(DateTime date, BuildContext context) {
+    return DateFormat.yMMMMEEEEd(Localizations.localeOf(context).toString())
+        .format(date);
+  }
+
   static String differenceTimeParse(DateTime date) {
     final now = DateTime.now();
 

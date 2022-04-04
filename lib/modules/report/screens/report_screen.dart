@@ -7,7 +7,6 @@ import 'package:kaltim_report/modules/report/blocs/report_list_bloc/report_list_
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
-import 'package:kaltim_report/modules/report/screens/components/report_card_list.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportScreen extends StatelessWidget {
