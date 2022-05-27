@@ -152,7 +152,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
 }
 
 extension $ReportFormModelCopyWith on ReportFormModel {
-  /// Returns a callable class that can be used as follows: `instanceOfclass ReportFormModel.name.copyWith(...)` or like so:`instanceOfclass ReportFormModel.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfReportFormModel.copyWith(...)` or like so:`instanceOfReportFormModel.copyWith.fieldName(...)`.
   _$ReportFormModelCWProxy get copyWith => _$ReportFormModelCWProxyImpl(this);
 }
 

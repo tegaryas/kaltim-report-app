@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -17,7 +18,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         bool isLoggedIn = authRepository.isLoggedIn();
         if (isLoggedIn) {
-          emit(AuthAuthenticated());
+          final res = await authRepository.getUserCurrentData();
+          if (res.role == UserRole.admin) {
+            emit(AuthAuthenticatedAsAdmin());
+          } else {
+            emit(AuthAuthenticated());
+          }
         } else {
           emit(AuthUnauthenticated());
         }

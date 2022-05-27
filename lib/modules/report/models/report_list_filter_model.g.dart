@@ -64,7 +64,7 @@ class _$ReportListFilterModelCWProxyImpl
 }
 
 extension $ReportListFilterModelCopyWith on ReportListFilterModel {
-  /// Returns a callable class that can be used as follows: `instanceOfclass ReportListFilterModel extends Equatable.name.copyWith(...)` or like so:`instanceOfclass ReportListFilterModel extends Equatable.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfReportListFilterModel.copyWith(...)` or like so:`instanceOfReportListFilterModel.copyWith.fieldName(...)`.
   _$ReportListFilterModelCWProxy get copyWith =>
       _$ReportListFilterModelCWProxyImpl(this);
 }

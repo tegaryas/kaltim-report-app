@@ -5,6 +5,8 @@ import 'package:kaltim_report/modules/auth/screens/register_user_data.dart';
 import 'package:kaltim_report/modules/auth/screens/reset_password_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
+import 'package:kaltim_report/modules/covid/screens/covid_wrapper_screen.dart';
+import 'package:kaltim_report/modules/covid/screens/vaccination_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_data_validate_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_wrapper_screen.dart';
@@ -12,6 +14,7 @@ import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart'
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen_wrapper.dart';
+import 'package:kaltim_report/modules/navigation/screens/admin_navigation_screen.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_detail_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
@@ -32,7 +35,7 @@ import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 import 'package:kaltim_report/modules/splash/splash_screen.dart';
 
-@MaterialAutoRouter(
+@CupertinoAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: <AutoRoute>[
     AutoRoute(path: "/splash-screen", page: SplashScreen),
@@ -61,6 +64,19 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
     AutoRoute(path: "/change-password", page: ChangePasswordScreen),
     AutoRoute(path: "/about-app", page: AboutScreen),
     AutoRoute(
+      path: "/covid",
+      name: "CovidRouter",
+      page: CovidWrapperScreen,
+      children: [
+        AutoRoute(
+          path: "vaksin-data",
+          name: "VaksinDataRoute",
+          page: VaccinationScreen,
+        ),
+        RedirectRoute(path: '*', redirectTo: ''),
+      ],
+    ),
+    AutoRoute(
       path: "/gempa-bumi",
       name: 'GempaBumiRouter',
       page: GempaBumiWrapperScreen,
@@ -78,6 +94,10 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         AutoRoute(path: "validate-data", page: EmergencyCallDataValidateScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
+    ),
+    AutoRoute(
+      path: "/admin-menu",
+      page: AdminNavigationScreen,
     ),
     AutoRoute(
       path: "/menu",

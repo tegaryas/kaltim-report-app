@@ -136,10 +136,10 @@ class BuildProfilePicture extends StatefulWidget {
   final ProfileLoaded state;
 
   @override
-  _BuildProfilePictureState createState() => _BuildProfilePictureState();
+  BuildProfilePictureState createState() => BuildProfilePictureState();
 }
 
-class _BuildProfilePictureState extends State<BuildProfilePicture> {
+class BuildProfilePictureState extends State<BuildProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -32,7 +32,7 @@ Future<void> setupConfiguration() async {
 
   if (kDebugMode) {
     FirebaseCrashlytics.instance
-        .setCrashlyticsCollectionEnabled(true); //disable false
+        .setCrashlyticsCollectionEnabled(false); //disable false
   } else {
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   }
@@ -42,9 +42,9 @@ Future<void> setupConfiguration() async {
 }
 
 void setupBlocObserver() {
-  if (kDebugMode) {
-    Bloc.observer = SimpleBlocObserver();
-  }
+  // if (kDebugMode) {
+  //   Bloc.observer = SimpleBlocObserver();
+  // }
 }
 
 //To catch any unknown error in bloc

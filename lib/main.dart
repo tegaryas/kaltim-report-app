@@ -58,6 +58,8 @@ class MyApp extends StatelessWidget {
                 listener: (context, state) {
                   if (state is AuthAuthenticated) {
                     router.replaceAll([const NavigationRoute()]);
+                  } else if (state is AuthAuthenticatedAsAdmin) {
+                    router.replaceAll([const AdminNavigationRoute()]);
                   } else if (state is AuthUnauthenticated) {
                     router.replaceAll([const OnboardingRoute()]);
                   }

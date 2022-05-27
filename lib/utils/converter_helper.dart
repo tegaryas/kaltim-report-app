@@ -23,10 +23,10 @@ abstract class ConverterHelper {
     final hours = now.difference(date).inHours;
     final minutes = now.difference(date).inMinutes;
 
-    if (seconds < 60) difference = seconds.toString() + " detik yang lalu";
-    if (seconds > 60) difference = minutes.toString() + " menit yang lalu";
-    if (minutes > 60) difference = hours.toString() + " jam yang lalu";
-    if (hours > 24) difference = days.toString() + " hari yang lalu";
+    if (seconds < 60) difference = "$seconds detik yang lalu";
+    if (seconds > 60) difference = "$minutes menit yang lalu";
+    if (minutes > 60) difference = "$hours jam yang lalu";
+    if (hours > 24) difference = "$days hari yang lalu";
 
     return difference!;
   }

@@ -60,7 +60,7 @@ class GempaBumiCard extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  entry.tanggal + "  " + entry.jam,
+                  "${entry.tanggal}  ${entry.jam}",
                   style: TextStyle(
                     fontSize: 9.sp,
                     fontWeight: FontWeight.normal,

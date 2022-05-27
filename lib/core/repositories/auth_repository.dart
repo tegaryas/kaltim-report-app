@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/providers/auth_provider_interface.dart';
+import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 
 import 'auth_repository_interface.dart';
 
@@ -19,5 +20,10 @@ class AuthRepository implements AuthRepositoryInterface {
   @override
   Future<void> logOut() async {
     authProvider.logOut();
+  }
+
+  @override
+  Future<ProfileModel> getUserCurrentData() {
+    return authProvider.getUserCurrentData();
   }
 }

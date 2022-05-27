@@ -113,7 +113,7 @@ class _$EnvironmentModelCWProxyImpl implements _$EnvironmentModelCWProxy {
 }
 
 extension $EnvironmentModelCopyWith on EnvironmentModel {
-  /// Returns a callable class that can be used as follows: `instanceOfclass EnvironmentModel.name.copyWith(...)` or like so:`instanceOfclass EnvironmentModel.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfEnvironmentModel.copyWith(...)` or like so:`instanceOfEnvironmentModel.copyWith.fieldName(...)`.
   _$EnvironmentModelCWProxy get copyWith => _$EnvironmentModelCWProxyImpl(this);
 }
 

@@ -105,7 +105,7 @@ class _$NewsFilterModelCWProxyImpl implements _$NewsFilterModelCWProxy {
 }
 
 extension $NewsFilterModelCopyWith on NewsFilterModel {
-  /// Returns a callable class that can be used as follows: `instanceOfclass NewsFilterModel extends Equatable.name.copyWith(...)` or like so:`instanceOfclass NewsFilterModel extends Equatable.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfNewsFilterModel.copyWith(...)` or like so:`instanceOfNewsFilterModel.copyWith.fieldName(...)`.
   _$NewsFilterModelCWProxy get copyWith => _$NewsFilterModelCWProxyImpl(this);
 
   /// Copies the object with the specific fields set to `null`. If you pass `false` as a parameter, nothing will be done and it will be ignored. Don't do it. Prefer `copyWith(field: null)` or `NewsFilterModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.

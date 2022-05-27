@@ -18,4 +18,14 @@ class ApiPath {
       'https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json';
   static const String daftarGempaBumi =
       'https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json';
+
+  //Rumah Sakit
+  static const String rumahSakitBaseUrl =
+      'https://rs-bed-covid-api.vercel.app/api';
+  static const String getRSprovince = '/get-provinces';
+  static const String getRScities = '/get-cities';
+
+  //Vaksin
+  static const String vaksin =
+      'https://vaksincovid19-api.vercel.app/api/vaksin';
 }

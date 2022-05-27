@@ -21,6 +21,8 @@ abstract class _$ProfileModelCWProxy {
 
   ProfileModel profilePic(String? profilePic);
 
+  ProfileModel role(UserRole role);
+
   ProfileModel username(String username);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ProfileModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -37,6 +39,7 @@ abstract class _$ProfileModelCWProxy {
     String? password,
     String? phoneNumber,
     String? profilePic,
+    UserRole? role,
     String? username,
   });
 }
@@ -70,6 +73,9 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
   ProfileModel profilePic(String? profilePic) => this(profilePic: profilePic);
 
   @override
+  ProfileModel role(UserRole role) => this(role: role);
+
+  @override
   ProfileModel username(String username) => this(username: username);
 
   @override
@@ -88,6 +94,7 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
     Object? password = const $CopyWithPlaceholder(),
     Object? phoneNumber = const $CopyWithPlaceholder(),
     Object? profilePic = const $CopyWithPlaceholder(),
+    Object? role = const $CopyWithPlaceholder(),
     Object? username = const $CopyWithPlaceholder(),
   }) {
     return ProfileModel(
@@ -119,6 +126,10 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.profilePic
           // ignore: cast_nullable_to_non_nullable
           : profilePic as String?,
+      role: role == const $CopyWithPlaceholder() || role == null
+          ? _value.role
+          // ignore: cast_nullable_to_non_nullable
+          : role as UserRole,
       username: username == const $CopyWithPlaceholder() || username == null
           ? _value.username
           // ignore: cast_nullable_to_non_nullable
@@ -128,7 +139,7 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
 }
 
 extension $ProfileModelCopyWith on ProfileModel {
-  /// Returns a callable class that can be used as follows: `instanceOfclass ProfileModel.name.copyWith(...)` or like so:`instanceOfclass ProfileModel.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfProfileModel.copyWith(...)` or like so:`instanceOfProfileModel.copyWith.fieldName(...)`.
   _$ProfileModelCWProxy get copyWith => _$ProfileModelCWProxyImpl(this);
 }
 
@@ -145,6 +156,9 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       profilePic: json['profile_pic'] as String?,
       idToken: json['id_token'] as String?,
       address: json['address'] as String?,
+      role: $enumDecodeNullable(_$UserRoleEnumMap, json['role'],
+              unknownValue: UserRole.unknown) ??
+          UserRole.unknown,
     );
 
 Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
@@ -157,4 +171,11 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'profile_pic': instance.profilePic,
       'id_token': instance.idToken,
       'address': instance.address,
+      'role': _$UserRoleEnumMap[instance.role],
     };
+
+const _$UserRoleEnumMap = {
+  UserRole.admin: 'admin',
+  UserRole.user: 'user',
+  UserRole.unknown: 'unknown',
+};

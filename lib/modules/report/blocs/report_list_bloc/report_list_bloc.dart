@@ -24,7 +24,7 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
       pageSize: 6,
     );
 
-    const int _pageSize = 6;
+    const int pageSize = 6;
 
     void _fetchList(String lastDocumentKey) {
       add(ReportListFetch(lastDocumentKey));
@@ -34,12 +34,12 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
       try {
         final items = await reportRepository.getAllReportList(
           filter: filter.copyWith(
-            pageSize: _pageSize,
+            pageSize: pageSize,
             lastDocument: event.lastDocumentKey,
           ),
         );
 
-        final isLastPage = items.length < _pageSize;
+        final isLastPage = items.length < pageSize;
 
         if (isLastPage) {
           pagingController.appendLastPage(items);

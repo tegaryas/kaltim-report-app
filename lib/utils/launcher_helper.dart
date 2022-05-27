@@ -5,8 +5,8 @@ abstract class LauncherHelper {
   static Future<bool> launchCaller(int phoneNumber) async {
     try {
       var url = "tel:${phoneNumber.toString()}";
-      if (await canLaunch(url)) {
-        return await launch(url);
+      if (await canLaunchUrl(Uri.parse(url))) {
+        return await launchUrl(Uri.parse(url));
       } else {
         return false;
       }
@@ -17,8 +17,8 @@ abstract class LauncherHelper {
 
   static Future<bool> openUrl(String url) async {
     try {
-      if (await canLaunch(url)) {
-        return launch(url, forceSafariVC: false);
+      if (await canLaunchUrl(Uri.parse(url))) {
+        return launchUrl(Uri.parse(url));
       } else {
         return false;
       }
@@ -29,7 +29,7 @@ abstract class LauncherHelper {
 
   static Future<bool> openEmailDraft(String email, {String? subject}) async {
     try {
-      if (await canLaunch("mailto:$email")) {
+      if (await canLaunchUrl(Uri.parse("mailto:$email"))) {
         final Uri emailLaunchUri = Uri(
           scheme: 'mailto',
           path: email,
@@ -40,7 +40,7 @@ abstract class LauncherHelper {
               .join('&'),
         );
 
-        return launch(emailLaunchUri.toString());
+        return launchUrl(Uri.parse(emailLaunchUri.toString()));
       } else {
         return false;
       }

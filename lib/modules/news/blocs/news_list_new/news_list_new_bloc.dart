@@ -19,7 +19,7 @@ class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
     late final PagingController<int, NewsModel> pagingController =
         PagingController(firstPageKey: 0);
 
-    const int _pageSize = 40;
+    const int pageSize = 40;
 
     NewsCategory? category;
 
@@ -42,13 +42,13 @@ class NewsListNewBloc extends Bloc<NewsListNewEvent, NewsListNewState> {
           filter: filter.copyWith(
             apiKey: newsApiKey,
             country: 'id',
-            pageSize: _pageSize,
+            pageSize: pageSize,
             page: event.pageKey,
             category: category,
           ),
         );
 
-        final isLastPage = items.length < _pageSize;
+        final isLastPage = items.length < pageSize;
 
         if (isLastPage) {
           pagingController.appendLastPage(items);

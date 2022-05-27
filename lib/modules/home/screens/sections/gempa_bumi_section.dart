@@ -128,7 +128,7 @@ class GempaBumiHomeSection extends StatelessWidget {
                             height: 1.h,
                           ),
                           Text(
-                            state.data.tanggal + "  " + state.data.jam,
+                            "${state.data.tanggal}  ${state.data.jam}",
                             style: TextStyle(
                               fontSize: 9.sp,
                               fontWeight: FontWeight.normal,

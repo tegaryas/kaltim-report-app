@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 
 abstract class AuthRepositoryInterface {
   User get loggedUser;
@@ -6,4 +7,6 @@ abstract class AuthRepositoryInterface {
   bool isLoggedIn();
 
   Future<void> logOut();
+
+  Future<ProfileModel> getUserCurrentData();
 }

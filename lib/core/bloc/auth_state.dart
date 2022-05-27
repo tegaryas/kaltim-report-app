@@ -13,6 +13,8 @@ class AuthUnauthenticated extends AuthState {}
 
 class AuthAuthenticated extends AuthState {}
 
+class AuthAuthenticatedAsAdmin extends AuthState {}
+
 class AuthFailure extends AuthState {
   final Object e;
   final StackTrace s;

@@ -12,10 +12,10 @@ class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
 
   @override
-  _NavigationScreenState createState() => _NavigationScreenState();
+  NavigationScreenState createState() => NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
+class NavigationScreenState extends State<NavigationScreen> {
   @override
   void initState() {
     Future.delayed(

@@ -3,6 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_model.g.dart';
 
+enum UserRole {
+  admin,
+  user,
+  unknown,
+}
+
 @CopyWith()
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ProfileModel {
@@ -14,6 +20,8 @@ class ProfileModel {
   final String? profilePic;
   final String? idToken;
   final String? address;
+  @JsonKey(defaultValue: UserRole.unknown, unknownEnumValue: UserRole.unknown)
+  final UserRole role;
 
   const ProfileModel({
     required this.name,
@@ -24,6 +32,7 @@ class ProfileModel {
     this.profilePic,
     this.idToken,
     this.address,
+    required this.role,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

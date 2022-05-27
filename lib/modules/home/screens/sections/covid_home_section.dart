@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/theme.dart';
@@ -79,7 +80,10 @@ class CovidHomeSection extends StatelessWidget {
               context,
               data: state.config[index],
               onTap: () {
-                context.navigateNamedTo('/call');
+                context.navigateTo(CovidRouter(children: [
+                  PageRouteInfo(state.config[index].route,
+                      path: state.config[index].path)
+                ]));
               },
             ),
           ),
