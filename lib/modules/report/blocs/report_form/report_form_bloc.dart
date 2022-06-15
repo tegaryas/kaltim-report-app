@@ -29,6 +29,7 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
           ReportFormModel(
             id: event.form.id,
             userId: userId,
+            lastStatus: event.form.lastStatus,
             imageUrl: event.imageUrl,
             location: event.form.location,
             problem: event.form.problem,
@@ -39,7 +40,7 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
             reportProgress: event.form.reportProgress,
           ),
         );
-        emit(ReportFormAddedSucess());
+        emit(ReportFormAddedSucess(id: event.form.id));
       } catch (e, s) {
         firebaseCrashlytics.recordError(e, s);
         emit(ReportFormFailure(error: e, stackTrace: s));

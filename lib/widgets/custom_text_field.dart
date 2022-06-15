@@ -1,4 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class NormalTextField extends StatelessWidget {
@@ -178,6 +182,7 @@ class ParagraphTextField extends StatelessWidget {
   final String? initialValue;
   final TextEditingController? controller;
   final bool? enabled;
+  final String? label;
   final bool readOnly;
   final void Function(String? val)? onSaved;
   final Function(dynamic)? onChanged;
@@ -205,50 +210,292 @@ class ParagraphTextField extends StatelessWidget {
       this.suffixIcon,
       this.onTap,
       required this.hint,
-      this.textFieldHeight = 200})
+      this.textFieldHeight = 200,
+      this.label})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: onChanged,
-      onTap: onTap,
-      validator: validator,
-      initialValue: initialValue,
-      controller: controller,
-      enabled: enabled,
-      readOnly: readOnly,
-      onSaved: onSaved,
-      keyboardType: keyboardType,
-      textAlignVertical: TextAlignVertical.top,
-      maxLines: null,
-      maxLength: null,
-      style: isNotActive
-          ? TextStyle(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label != null)
+          Text(
+            label!,
+            style: TextStyle(
               fontSize: 10.sp,
-              fontWeight: FontWeight.w500,
-              height: 1.2,
-            )
-          : TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        if (label != null)
+          SizedBox(
+            height: 2.h,
+          ),
+        TextFormField(
+          onChanged: onChanged,
+          onTap: onTap,
+          validator: validator,
+          initialValue: initialValue,
+          controller: controller,
+          enabled: enabled,
+          readOnly: readOnly,
+          onSaved: onSaved,
+          keyboardType: keyboardType,
+          textAlignVertical: TextAlignVertical.top,
+          maxLines: null,
+          maxLength: null,
+          style: isNotActive
+              ? TextStyle(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  height: 1.2,
+                )
+              : TextStyle(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  height: 1.2,
+                ),
+          decoration: InputDecoration(
+            hintText: hint,
+            isDense: true,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 5.0),
+            ),
+            hintMaxLines: null,
+            hintStyle: TextStyle(
               fontSize: 10.sp,
-              fontWeight: FontWeight.w500,
+              color: Colors.grey.shade400,
               height: 1.2,
             ),
-      decoration: InputDecoration(
-        hintText: hint,
-        isDense: true,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 5.0),
+          ),
         ),
-        hintMaxLines: null,
-        hintStyle: TextStyle(
-          fontSize: 10.sp,
-          color: Colors.grey.shade400,
-          height: 1.2,
+      ],
+    );
+  }
+}
+
+class GhostDropdownTextField<T> extends StatelessWidget {
+  final String label;
+  final String hint;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final bool readOnly;
+  final Function(T? value)? onChanged;
+  final T? value;
+  final List<DropdownMenuItem<T>>? items;
+  final String? Function(T? value)? validator;
+  final void Function(T? value)? onSaved;
+  final List<Widget> Function(BuildContext context)? selectedItemBuilder;
+  final double? itemHeight;
+  final double? menuMaxHeight;
+  final bool isDense;
+  const GhostDropdownTextField(
+      {Key? key,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.readOnly = false,
+      this.onChanged,
+      this.value,
+      this.items,
+      this.onSaved,
+      required this.label,
+      required this.hint,
+      this.validator,
+      this.selectedItemBuilder,
+      this.itemHeight,
+      this.menuMaxHeight,
+      this.isDense = true})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
+        SizedBox(
+          height: 0.5.h,
+        ),
+        DropdownButtonFormField<T>(
+          value: value,
+          isDense: isDense,
+          itemHeight: itemHeight,
+          menuMaxHeight: menuMaxHeight,
+          validator: validator,
+          onSaved: onSaved,
+          onChanged: readOnly ? null : (value) => onChanged?.call(value),
+          selectedItemBuilder: selectedItemBuilder,
+          isExpanded: true,
+          hint: Text(
+            hint,
+            style: GoogleFonts.montserrat(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textFaded,
+            ),
+          ),
+          decoration: InputDecoration(
+            hintStyle: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textFaded,
+            ),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+          ),
+          style: GoogleFonts.montserrat(
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.textFaded,
+          ),
+          items: items,
+        ),
+      ],
+    );
+  }
+}
+
+class GhostPickerFieldValue<T> {
+  final String name;
+  final T? val;
+
+  const GhostPickerFieldValue({required this.name, this.val});
+}
+
+class FormValueController<T> extends ChangeNotifier {
+  T? _value;
+
+  FormValueController({T? value}) {
+    _value = value;
+  }
+
+  set value(T? val) {
+    _value = val;
+    notifyListeners();
+  }
+
+  T? get value {
+    return _value;
+  }
+}
+
+class GhostPickerField<T> extends StatefulWidget {
+  final GhostPickerFieldValue<T>? Function(GhostPickerFieldValue<T>? value)?
+      validator;
+  final GhostPickerFieldValue<T>? initialValue;
+  final void Function(GhostPickerFieldValue<T>? value)? onSaved;
+  final void Function(GhostPickerFieldValue<T>? value)? onChanged;
+  final String? label;
+  final String hint;
+  final Widget? prefixWidget;
+  final IconData? suffixIcon;
+  final Future<GhostPickerFieldValue<T>?> Function(
+      GhostPickerFieldValue<T>? value)? onTap;
+
+  final FormValueController<GhostPickerFieldValue<T>>? controller;
+
+  const GhostPickerField(
+      {Key? key,
+      this.onSaved,
+      this.onChanged,
+      this.validator,
+      this.initialValue,
+      this.prefixWidget,
+      this.suffixIcon,
+      this.onTap,
+      this.controller,
+      this.label,
+      required this.hint})
+      : super(key: key);
+
+  @override
+  _GhostPickerFieldState<T> createState() => _GhostPickerFieldState<T>();
+}
+
+class _GhostPickerFieldState<T> extends State<GhostPickerField<T>> {
+  late final TextEditingController controller;
+  GhostPickerFieldValue<T>? currentValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.controller == null) {
+      currentValue = widget.initialValue;
+      controller = TextEditingController(text: currentValue?.name);
+    } else {
+      currentValue = widget.controller!.value;
+      controller = TextEditingController(text: currentValue?.name);
+
+      widget.controller!.addListener(() {
+        setState(() {
+          currentValue = widget.controller!.value;
+          if (currentValue != null) {
+            controller.text = currentValue!.name;
+          }
+        });
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.label != null)
+          Text(
+            widget.label!,
+            style: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        if (widget.label != null)
+          SizedBox(
+            height: 0.5.h,
+          ),
+        TextFormField(
+          validator: (value) {
+            final val = widget.validator?.call(currentValue);
+            return val?.name;
+          },
+          controller: controller,
+          onTap: () async {
+            final choosen = await widget.onTap?.call(currentValue);
+            if (choosen != null) {
+              controller.text = choosen.name;
+              currentValue = choosen;
+              widget.onChanged?.call(currentValue);
+              widget.controller?.value = currentValue;
+            }
+          },
+          readOnly: true,
+          onSaved: (newValue) {
+            widget.onSaved?.call(currentValue);
+          },
+          decoration: InputDecoration(
+              prefixIcon: widget.prefixWidget,
+              hintText: widget.hint,
+              hintStyle: TextStyle(
+                fontSize: 10.sp,
+                color: Colors.grey.shade400,
+                height: 1.2,
+              ),
+              suffixIcon: Icon(
+                widget.suffixIcon,
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              )),
+        ),
+      ],
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:kaltim_report/modules/report/blocs/report_list_bloc/report_list_
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
+import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class ReportScreen extends StatelessWidget {
           title: Text(
             'SiLapor',
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -57,9 +58,19 @@ class ReportScreen extends StatelessWidget {
                         child: ReportCardComponent(
                           report: entry,
                           onTap: () {
-                            context.pushRoute(DetailReportRoute(report: entry));
+                            context.pushRoute(DetailReportRoute(id: entry.id));
                           },
                         ),
+                      );
+                    },
+                    firstPageErrorIndicatorBuilder: (context) {
+                      return ErrorPlaceholder(
+                        title: 'Ups Terjadi Kesalahan',
+                        subtitle:
+                            'Jangan panik, kamu bisa memuat ulang data dengan menekan tombol dibawah ini!',
+                        onTap: () {
+                          state.pagingController.refresh();
+                        },
                       );
                     },
                     firstPageProgressIndicatorBuilder: (context) {

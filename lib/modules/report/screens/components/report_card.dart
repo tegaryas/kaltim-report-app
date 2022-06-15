@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/modules/report/screens/components/status_report_badge.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
@@ -79,13 +80,21 @@ class ReportCardComponent extends StatelessWidget {
             SizedBox(
               width: 6.w,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: ImageNetworkBuild(
-                imageUrl: report.imageUrl,
-                height: 10.h,
-                width: 10.h,
-              ),
+            Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: ImageNetworkBuild(
+                    imageUrl: report.imageUrl,
+                    height: 10.h,
+                    width: 10.h,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _statusTypeToWidget(report.reportProgress!.last.statusType)
+              ],
             ),
           ],
         ),
@@ -94,6 +103,43 @@ class ReportCardComponent extends StatelessWidget {
   }
 
   static Widget loader() => const _ReportCardLoaderComponent();
+
+  Widget _statusTypeToWidget(ReportStatusType status) {
+    switch (status) {
+      case ReportStatusType.menunggu:
+        return const StatusReportBadge(
+          status: 'Menunggu',
+          backgroundColor: Colors.grey,
+        );
+      case ReportStatusType.proses:
+        return const StatusReportBadge(
+          status: 'Proses',
+          backgroundColor: Colors.orange,
+        );
+      case ReportStatusType.selesai:
+        return const StatusReportBadge(
+          status: 'Selesai',
+          backgroundColor: Colors.green,
+        );
+      case ReportStatusType.tindakLanjut:
+        return const StatusReportBadge(
+          status: 'Tindak Lanjut',
+          backgroundColor: Colors.blue,
+        );
+      case ReportStatusType.validasi:
+        return const StatusReportBadge(
+          status: 'Validasi',
+          backgroundColor: Colors.amber,
+        );
+      case ReportStatusType.tidakValid:
+        return const StatusReportBadge(
+          status: 'Tidak Valid',
+          backgroundColor: Colors.black,
+        );
+      default:
+        return Container();
+    }
+  }
 }
 
 class _ReportCardLoaderComponent extends StatelessWidget {

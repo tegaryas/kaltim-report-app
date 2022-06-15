@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/modules/auth/repositories/repositories.dart';
+import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
 
 part 'reset_password_event.dart';
 part 'reset_password_state.dart';

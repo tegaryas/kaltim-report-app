@@ -17,6 +17,7 @@ Future<void> setupConfiguration() async {
       DeviceOrientation.portraitDown,
     ],
   );
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -41,10 +42,14 @@ Future<void> setupConfiguration() async {
   setupBlocObserver();
 }
 
-void setupBlocObserver() {
-  // if (kDebugMode) {
-  //   Bloc.observer = SimpleBlocObserver();
-  // }
+BlocObserver? setupBlocObserver() {
+  if (kDebugMode) {
+    return SimpleBlocObserver();
+  } else if (kReleaseMode) {
+    return ErrorBlocObserver();
+  } else {
+    return null;
+  }
 }
 
 //To catch any unknown error in bloc
@@ -67,6 +72,14 @@ class SimpleBlocObserver extends BlocObserver {
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     // ignore: avoid_print
     print('${bloc.runtimeType} $error $stackTrace');
+    super.onError(bloc, error, stackTrace);
+  }
+}
+
+class ErrorBlocObserver extends BlocObserver {
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
     super.onError(bloc, error, stackTrace);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 part 'report_form_model.g.dart';
@@ -9,7 +10,7 @@ part 'report_form_model.g.dart';
 @JsonSerializable()
 class ReportFormModel {
   final String id;
-  final String imageUrl;
+  final String? imageUrl;
   @JsonKey(fromJson: _fromJsonGeoPoint, toJson: _toJsonGeoPoint)
   final GeoPoint location;
   final String problem;
@@ -18,13 +19,15 @@ class ReportFormModel {
   @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
   final DateTime dateInput;
   final String address;
-  final String? category;
+  @JsonKey(toJson: _reportCategoryToJson)
+  final ReportCategoryModel category;
+  final ReportStatusType lastStatus;
   @JsonKey(toJson: reportProgressToJson)
   final List<ReportProgressModel> reportProgress;
 
   ReportFormModel({
     required this.id,
-    required this.imageUrl,
+    this.imageUrl,
     required this.location,
     required this.problem,
     this.userId,
@@ -33,6 +36,7 @@ class ReportFormModel {
     required this.address,
     required this.category,
     required this.reportProgress,
+    required this.lastStatus,
   });
 
   factory ReportFormModel.fromJson(Map<String, dynamic> json) =>
@@ -52,6 +56,9 @@ class ReportFormModel {
   static GeoPoint _toJsonGeoPoint(GeoPoint geoPoint) {
     return geoPoint;
   }
+
+  static Map<String, dynamic> _reportCategoryToJson(ReportCategoryModel data) =>
+      data.toJson();
 
   static FieldValue reportProgressToJson(List<ReportProgressModel> status) {
     return FieldValue.arrayUnion(status.map((e) => e.toJson()).toList());

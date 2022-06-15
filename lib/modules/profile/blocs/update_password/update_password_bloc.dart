@@ -35,7 +35,7 @@ class UpdatePasswordBloc
             errorMessage = "Perlu login ulang untuk merubah password";
             break;
           default:
-            errorMessage = "An undefined Error happened. [${e.message}]";
+            errorMessage = e.message;
         }
         firebaseCrashlytics.recordError(e, s);
         emit(UpdatePasswordFailed(e: errorMessage!));

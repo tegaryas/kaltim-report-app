@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:kaltim_report/modules/auth/blocs/blocs.dart';
+import 'package:kaltim_report/modules/auth/blocs/login/login_bloc.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -34,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccess) {
             context.read<AuthBloc>().add(AuthStarted());
-          } else if (state is LoginFailed) {
+          }
+          if (state is LoginFailed) {
             FlushbarHelper.createError(
               message: state.error.toString(),
               title: "Ups gagal",
@@ -92,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       NormalTextField(
                         label: 'Email',
                         hint: "Masukkan Email",
+                        keyboardType: TextInputType.emailAddress,
                         validator: MultiValidator([
                           RequiredValidator(
                               errorText: "Harap Masukkan Email mu"),

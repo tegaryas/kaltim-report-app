@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_last_recently_bloc/gempa_bumi_last_recently_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_magnetudo_bloc/gempa_bumi_magnetudo_bloc.dart';
@@ -41,7 +42,7 @@ class _GempaBumiScreenState extends State<GempaBumiScreen> {
           title: Text(
             "Gempa Bumi",
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -164,7 +165,7 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                               infoWindow: InfoWindow(
                                 title: "Titik Gempa",
                                 snippet:
-                                    'Jarak dari lokasi anda ${distance.toStringAsFixed(2)} km',
+                                    'Jarak dari lokasi anda ${NumberFormat.decimalPattern().format(distance)} km',
                               ),
                               icon: BitmapDescriptor.defaultMarker,
                               position: LatLng(

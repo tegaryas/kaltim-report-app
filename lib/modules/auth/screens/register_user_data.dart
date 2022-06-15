@@ -26,6 +26,7 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
   String? userName;
   String? password;
   String? passwordConfirm;
+  String? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -58,70 +59,94 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
               ),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Masukkan data untuk mendaftar",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Masukkan data untuk mendaftar",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 6.h,
-                    ),
-                    NormalTextField(
-                      readOnly: isLoadingRegister,
-                      label: 'Nama Lengkap',
-                      hint: "Masukkan Nama Lengkap",
-                      onSaved: (val) {
-                        userName = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    NormalTextField(
-                      label: 'Email',
-                      hint: "Masukkan Email",
-                      initialValue: widget.email,
-                      enabled: false,
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    PasswordTextField(
-                      readOnly: isLoadingRegister,
-                      label: 'Password',
-                      hint: "Masukkan Password",
-                      validator: MultiValidator([
-                        RequiredValidator(
-                            errorText: "Harap Masukkan Password mu"),
-                        MinLengthValidator(6,
-                            errorText: "Masukkan minimal 6 karakter")
-                      ]),
-                      onChanged: (val) {
-                        password = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    PasswordTextField(
+                      SizedBox(
+                        height: 6.h,
+                      ),
+                      NormalTextField(
                         readOnly: isLoadingRegister,
-                        label: 'Konfirmasi Password',
-                        hint: "Masukkan Konfirmasi Password",
-                        validator: (val) {
-                          return MatchValidator(
-                                  errorText: "Masukkan password yang sama")
-                              .validateMatch(val!, password ?? "");
-                        }),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                  ],
+                        label: 'Nama Lengkap',
+                        hint: "Masukkan Nama Lengkap",
+                        validator: RequiredValidator(
+                            errorText: "Harap Masukkan Nama Lengkapmu"),
+                        onSaved: (val) {
+                          userName = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      NormalTextField(
+                        label: 'Email',
+                        hint: "Masukkan Email",
+                        initialValue: widget.email,
+                        enabled: false,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      NormalTextField(
+                        readOnly: isLoadingRegister,
+                        label: 'Nomor Telpon',
+                        hint: "Masukkan Nomor Telpon",
+                        keyboardType: TextInputType.phone,
+                        validator: MultiValidator([
+                          RequiredValidator(
+                              errorText: "Masukkan Nomor Telpon mu"),
+                          MinLengthValidator(10,
+                              errorText: "Masukkan minimal 10 karakter")
+                        ]),
+                        onSaved: (val) {
+                          phoneNumber = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      PasswordTextField(
+                        readOnly: isLoadingRegister,
+                        label: 'Password',
+                        hint: "Masukkan Password",
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: MultiValidator([
+                          RequiredValidator(
+                              errorText: "Harap Masukkan Password mu"),
+                          MinLengthValidator(8,
+                              errorText: "Masukkan minimal 8 karakter")
+                        ]),
+                        onChanged: (val) {
+                          password = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      PasswordTextField(
+                          readOnly: isLoadingRegister,
+                          label: 'Konfirmasi Password',
+                          hint: "Masukkan Konfirmasi Password",
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (val) {
+                            return MatchValidator(
+                                    errorText: "Masukkan password yang sama")
+                                .validateMatch(val!, password ?? "");
+                          }),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -145,6 +170,7 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
                           email: widget.email,
                           username: userName!,
                           password: password!,
+                          phoneNumber: phoneNumber,
                         )));
                   }
                 },

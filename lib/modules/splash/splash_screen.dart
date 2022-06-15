@@ -9,16 +9,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AuthBloc>().add(AuthStarted());
+
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
-        var isLoading = state is AuthLoading;
         return Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Theme.of(context).primaryColor,
-            automaticallyImplyLeading: false,
-          ),
+          backgroundColor: Theme.of(context).cardColor,
           body: SizedBox(
             height: 100.h,
             width: 100.w,
@@ -27,19 +23,18 @@ class SplashScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  Assets.icons.logo.path,
-                  height: 5.h,
+                  Assets.icons.logoTextLight.path,
+                  height: 8.h,
                   fit: BoxFit.fitHeight,
                 ),
-                SizedBox(
-                  height: 3.h,
+                const SizedBox(
+                  height: 20,
                 ),
-                if (isLoading)
-                  CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor,
-                    strokeWidth: 2,
-                    backgroundColor: Theme.of(context).highlightColor,
-                  ),
+                const Text('Aplikasi Siap Sedia Untukmu'),
+                const SizedBox(
+                  height: 20,
+                ),
+                const CircularProgressIndicator(),
               ],
             ),
           ),

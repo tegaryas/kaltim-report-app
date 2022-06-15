@@ -16,10 +16,12 @@ ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
       dateInput:
           ReportModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp),
       address: json['address'] as String,
-      category: json['category'] as String,
+      category: ReportCategoryModel.fromJson(
+          json['category'] as Map<String, dynamic>),
       reportProgress: (json['reportProgress'] as List<dynamic>?)
           ?.map((e) => ReportProgressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      lastStatus: $enumDecode(_$ReportStatusTypeEnumMap, json['lastStatus']),
     );
 
 Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
@@ -33,8 +35,18 @@ Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
       'dateInput': ReportModel._dateTimeToEpochUs(instance.dateInput),
       'address': instance.address,
       'category': instance.category,
+      'lastStatus': _$ReportStatusTypeEnumMap[instance.lastStatus],
       'reportProgress': instance.reportProgress,
     };
+
+const _$ReportStatusTypeEnumMap = {
+  ReportStatusType.selesai: 'selesai',
+  ReportStatusType.validasi: 'validasi',
+  ReportStatusType.tindakLanjut: 'tindakLanjut',
+  ReportStatusType.proses: 'proses',
+  ReportStatusType.menunggu: 'menunggu',
+  ReportStatusType.tidakValid: 'tidakValid',
+};
 
 ReportProgressModel _$ReportProgressModelFromJson(Map<String, dynamic> json) =>
     ReportProgressModel(
@@ -54,11 +66,3 @@ Map<String, dynamic> _$ReportProgressModelToJson(
       'imageUrl': instance.imageUrl,
       'description': instance.description,
     };
-
-const _$ReportStatusTypeEnumMap = {
-  ReportStatusType.selesai: 'selesai',
-  ReportStatusType.validasi: 'validasi',
-  ReportStatusType.tindakLanjut: 'tindakLanjut',
-  ReportStatusType.proses: 'proses',
-  ReportStatusType.menunggu: 'menunggu',
-};

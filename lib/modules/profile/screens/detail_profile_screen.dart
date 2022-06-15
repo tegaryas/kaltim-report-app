@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
+import 'package:kaltim_report/modules/profile/blocs/profile_picture_update/profile_picture_update_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
@@ -13,8 +16,12 @@ class DetailProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileBloc>(
-      create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProfileBloc>(
+          create: (context) => getIt.get<ProfileBloc>()..add(ProfileFetching()),
+        ),
+      ],
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoaded) {
@@ -33,7 +40,7 @@ class DetailProfileScreen extends StatelessWidget {
                 title: Text(
                   'Akun Saya',
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -48,8 +55,53 @@ class DetailProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: 2.5.h,
                     ),
-                    BuildProfilePicture(
-                      state: state,
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: ProfileImageNetworkBuild(
+                            imageUrl: state.profile.profilePic ?? '',
+                            height: 40.sp,
+                            width: 40.sp,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20),
+                                ),
+                              ),
+                              builder: (context) => const PhotoEditModal(),
+                            );
+                          },
+                          child: Text(
+                            "Ubah Foto Profile",
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textFaded,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            context.pushRoute(
+                                ProfileEditRoute(profile: state.profile));
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.blueGrey,
+                            size: 15.sp,
+                          ),
+                        )
+                      ],
                     ),
                     Divider(
                       height: 8.h,
@@ -130,51 +182,164 @@ class BuildProfileData extends StatelessWidget {
   }
 }
 
-class BuildProfilePicture extends StatefulWidget {
-  const BuildProfilePicture({Key? key, required this.state}) : super(key: key);
-
-  final ProfileLoaded state;
+class PhotoEditModal extends StatefulWidget {
+  const PhotoEditModal({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  BuildProfilePictureState createState() => BuildProfilePictureState();
+  PhotoEditModalState createState() => PhotoEditModalState();
 }
 
-class BuildProfilePictureState extends State<BuildProfilePicture> {
+class PhotoEditModalState extends State<PhotoEditModal> {
+  final ImagePicker imagePicker = ImagePicker();
+
+  late ProfilePictureUpdateBloc profilePictureUpdateBloc;
+
+  @override
+  void initState() {
+    profilePictureUpdateBloc = getIt.get<ProfilePictureUpdateBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    profilePictureUpdateBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: ProfileImageNetworkBuild(
-            imageUrl: widget.state.profile.profilePic ?? '',
-            height: 40.sp,
-            width: 40.sp,
-          ),
-        ),
-        SizedBox(
-          width: 5.w,
-        ),
-        Text(
-          "Ubah Foto Profile",
-          style: TextStyle(
-            fontSize: 10.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textFaded,
-          ),
-        ),
-        const Spacer(),
-        IconButton(
-          onPressed: () {
-            context.pushRoute(EditProfileRoute(profile: widget.state.profile));
-          },
-          icon: Icon(
-            Icons.edit,
-            color: Colors.blueGrey,
-            size: 15.sp,
-          ),
-        )
-      ],
+    return BlocProvider<ProfilePictureUpdateBloc>(
+      create: (context) => profilePictureUpdateBloc,
+      child: BlocConsumer<ProfilePictureUpdateBloc, ProfilePictureUpdateState>(
+        bloc: profilePictureUpdateBloc,
+        listener: (context, state) {
+          if (state is ProfilePictureUpdateSuccess) {
+            context.popRoute();
+          }
+        },
+        builder: (context, state) {
+          if (state is ProfilePictureUpdateLoading) {
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 25,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Ganti Foto Profile',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Center(child: CircularProgressIndicator()),
+                ],
+              ),
+            );
+          }
+
+          return Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 25,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Ganti Foto Profile',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  onTap: () {
+                    uploadImageGallery(context);
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 0,
+                  ),
+                  leading: const Icon(
+                    Iconsax.gallery,
+                  ),
+                  trailing: const Icon(
+                    Icons.keyboard_arrow_right,
+                  ),
+                  title: Text(
+                    'Pilih dari Galeri',
+                    style: TextStyle(fontSize: 10.sp),
+                  ),
+                ),
+                ListTile(
+                  onTap: () {
+                    uploadImageCamera(context);
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 0,
+                  ),
+                  leading: const Icon(
+                    Iconsax.camera,
+                  ),
+                  trailing: const Icon(
+                    Icons.keyboard_arrow_right,
+                  ),
+                  title: Text(
+                    'Pilih dari Camera',
+                    style: TextStyle(fontSize: 10.sp),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
+  }
+
+  Future<void> uploadImageGallery(BuildContext context) {
+    return imagePicker
+        .pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 60,
+      maxHeight: 1000,
+      maxWidth: 1000,
+    )
+        .then((image) {
+      if (image != null) {
+        context
+            .read<ProfilePictureUpdateBloc>()
+            .add(ProfilePictureUpdateAdd(image: image));
+      }
+    });
+  }
+
+  Future<void> uploadImageCamera(BuildContext context) async {
+    imagePicker
+        .pickImage(
+      source: ImageSource.camera,
+      imageQuality: 60,
+      maxHeight: 1000,
+      maxWidth: 1000,
+    )
+        .then((image) {
+      if (image != null) {
+        context
+            .read<ProfilePictureUpdateBloc>()
+            .add(ProfilePictureUpdateAdd(image: image));
+      }
+    });
   }
 }

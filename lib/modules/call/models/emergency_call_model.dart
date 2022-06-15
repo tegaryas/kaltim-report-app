@@ -5,7 +5,7 @@ part 'emergency_call_model.g.dart';
 @JsonSerializable()
 class EmergencyCallModel {
   final String name;
-  final int numberPhone;
+  final String numberPhone;
   final String imageUrl;
 
   EmergencyCallModel({

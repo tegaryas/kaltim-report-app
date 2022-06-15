@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:kaltim_report/modules/report/models/report_model.dart';
+import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportCardOnGrid extends StatelessWidget {
@@ -45,11 +46,22 @@ class ReportCardOnGrid extends StatelessWidget {
               SizedBox(
                 width: 2.w,
               ),
-              Text(
-                report.category,
-                style: TextStyle(
-                  fontSize: 11.sp,
-                ),
+              Row(
+                children: [
+                  ImageNetworkBuild(
+                      imageUrl: report.category.imageUrl!,
+                      height: 30,
+                      width: 30),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    report.category.name,
+                    style: TextStyle(
+                      fontSize: 11.sp,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kaltim_report/main.extend.dart';
+import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,9 +14,10 @@ import 'configs/routes/routes.gr.dart';
 
 Future main() async {
   await setupConfiguration();
-  runApp(MyApp(
-    appTheme: AppTheme(),
-  ));
+  BlocOverrides.runZoned(
+    () => runApp(MyApp(appTheme: AppTheme())),
+    blocObserver: setupBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,8 +31,11 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (_, __, ___) {
       return MultiBlocProvider(
         providers: [
-          BlocProvider<AuthBloc>(
-              create: (context) => getIt.get<AuthBloc>()..add(AuthStarted())),
+          BlocProvider<AuthBloc>(create: (context) => getIt.get<AuthBloc>()),
+          BlocProvider<GeolocationBloc>(
+            create: (context) =>
+                getIt.get<GeolocationBloc>()..add(LoadGeolocation()),
+          ),
         ],
         child: MaterialApp.router(
           routeInformationParser:
@@ -58,9 +63,11 @@ class MyApp extends StatelessWidget {
                 listener: (context, state) {
                   if (state is AuthAuthenticated) {
                     router.replaceAll([const NavigationRoute()]);
-                  } else if (state is AuthAuthenticatedAsAdmin) {
+                  }
+                  if (state is AuthAuthenticatedAsAdmin) {
                     router.replaceAll([const AdminNavigationRoute()]);
-                  } else if (state is AuthUnauthenticated) {
+                  }
+                  if (state is AuthUnauthenticated) {
                     router.replaceAll([const OnboardingRoute()]);
                   }
                 },

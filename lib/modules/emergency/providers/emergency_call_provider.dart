@@ -1,18 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/emergency/models/emergency_call_form_model.dart';
+import 'package:kaltim_report/modules/emergency/models/emergency_call_model.dart';
 import 'package:kaltim_report/modules/emergency/providers/emergency_call_provider_interface.dart';
 
 @Injectable(as: EmergencyCallProviderInterface)
 class EmergencyCallProvider implements EmergencyCallProviderInterface {
   final FirebaseFirestore firebaseFirestore;
+  final AuthRepositoryInterface authRepository;
 
-  EmergencyCallProvider(this.firebaseFirestore);
+  EmergencyCallProvider(this.firebaseFirestore, this.authRepository);
   @override
   Future<void> postUserEmergencyCall(EmergencyCallFormModel data) async {
     await firebaseFirestore
-        .collection("emergency_report")
-        .doc()
+        .collection("EmergencyHelp")
+        .doc(authRepository.loggedUser.uid)
         .set(data.toJson());
+  }
+
+  @override
+  Future<List<EmergencyCallModel>> getEmergencyCallList() async {
+    return firebaseFirestore
+        .collection("EmergencyHelp")
+        .where('userId', isNotEqualTo: authRepository.loggedUser.uid)
+        .get()
+        .then((value) => value.docs
+            .map((e) => EmergencyCallModel.fromJson(e.data()))
+            .toList());
   }
 }

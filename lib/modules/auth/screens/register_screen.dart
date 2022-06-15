@@ -46,7 +46,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   title: "Gagal Daftar",
                   duration: const Duration(seconds: 2),
                 ).show(context);
-              } else if (state is RegisterUser) {
+              }
+              if (state is RegisterUser) {
                 context.router.push(RegisterUserDataRoute(email: state.email));
               }
             },
@@ -55,7 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             listener: (context, state) {
               if (state is LoginSuccess) {
                 context.read<AuthBloc>().add(AuthStarted());
-              } else if (state is AuthFailure) {
+              }
+              if (state is AuthFailure) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
@@ -117,6 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       NormalTextField(
                         label: 'Email',
                         hint: "Masukkan Email",
+                        keyboardType: TextInputType.emailAddress,
                         validator: MultiValidator([
                           RequiredValidator(
                               errorText: "Harap Masukkan Email mu"),

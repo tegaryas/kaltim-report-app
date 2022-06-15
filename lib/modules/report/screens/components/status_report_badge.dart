@@ -15,8 +15,8 @@ class StatusReportBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 8,
+        horizontal: 8,
+        vertical: 6,
       ),
       decoration: BoxDecoration(
         color: backgroundColor,

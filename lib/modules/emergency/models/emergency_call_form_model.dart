@@ -12,14 +12,14 @@ class EmergencyCallFormModel {
   final GeoPoint location;
   @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
   final DateTime dateInput;
-  final String name;
-  final String phoneNumber;
+  final String? name;
+  final String? phoneNumber;
 
   EmergencyCallFormModel({
     this.userId,
     required this.location,
-    required this.name,
-    required this.phoneNumber,
+    this.name,
+    this.phoneNumber,
     required this.dateInput,
   });
 

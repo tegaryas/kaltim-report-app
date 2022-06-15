@@ -57,6 +57,7 @@ dependencies:
   sizer: ^2.0.15
   webview_flutter: ^3.0.1
   share_plus: ^4.0.2
+  syncfusion_flutter_charts: ^20.1.59
 
 
   #firebase
@@ -72,8 +73,8 @@ dependencies:
   google_sign_in: ^5.2.3
 
   #json
-  json_serializable: ^6.1.4
-  json_annotation: ^4.4.0
+  json_serializable: ^6.2.0
+  json_annotation: ^4.5.0
 
   #maps
   geolocator: ^8.0.3
@@ -86,6 +87,11 @@ dependencies:
   permission_handler: ^9.2.0
   universal_platform: ^1.0.0+1
   flutter_native_splash: ^2.1.1
+  collection: ^1.16.0
+
+  #bloc testing
+  mockito: ^5.0.16
+  bloc_test: ^9.0.3
 
   #http
   dio: ^4.0.4

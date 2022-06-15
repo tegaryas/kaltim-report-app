@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/core.dart';
-
-import 'package:kaltim_report/modules/auth/models/models.dart';
-import 'package:kaltim_report/modules/auth/repositories/repositories.dart';
+import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/modules/auth/models/register_model.dart';
+import 'package:kaltim_report/modules/auth/repositories/login_repository_interface.dart';
+import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -51,7 +51,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             errorMessage = "Email kamu tidak valid nih";
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = e.message;
         }
 
         firebaseCrashlytics.recordError(e, s);
@@ -78,6 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               username: currentUser.displayName!,
               password: currentUser.uid,
               idToken: currentUser.uid,
+              phoneNumber: currentUser.phoneNumber,
               profilePic: currentUser.photoURL,
             ));
           }
@@ -99,7 +100,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             errorMessage = "Email kamu tidak valid nih";
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = e.message;
         }
         firebaseCrashlytics.recordError(e, s);
 

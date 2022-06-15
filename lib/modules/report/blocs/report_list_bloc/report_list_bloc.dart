@@ -24,6 +24,8 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
       pageSize: 6,
     );
 
+    ReportStatusType? status;
+
     const int pageSize = 6;
 
     void _fetchList(String lastDocumentKey) {
@@ -36,6 +38,7 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
           filter: filter.copyWith(
             pageSize: pageSize,
             lastDocument: event.lastDocumentKey,
+            status: status,
           ),
         );
 
@@ -59,6 +62,8 @@ class ReportListBloc extends Bloc<ReportListEvent, ReportListState> {
             pagingController.nextPageKey! != "") {
           pagingController.refresh();
         }
+
+        status = event.status;
 
         pagingController.removePageRequestListener(_fetchList);
         pagingController.addPageRequestListener(_fetchList);

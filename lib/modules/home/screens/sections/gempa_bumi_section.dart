@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
+import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
@@ -296,6 +297,7 @@ class GempaBumiHomeSection extends StatelessWidget {
                   onTap: () async {
                     await Permission.locationWhenInUse.request().then((value) {
                       if (value == PermissionStatus.granted) {
+                        context.read<GeolocationBloc>().add(LoadGeolocation());
                         context.navigateTo(const GempaBumiRouter());
                       } else {
                         context.router.pop();

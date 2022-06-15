@@ -15,17 +15,20 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
   StreamSubscription? _geolocationSubscription;
   GeolocationBloc({required this.geolocatorRepository})
       : super(GeolocationInitial()) {
-    on<GeolocationEvent>((event, emit) async {
-      if (event is LoadGeolocation) {
+    on<LoadGeolocation>((event, emit) async {
+      try {
         _geolocationSubscription?.cancel();
         final Position? position =
             await geolocatorRepository.getCurrentLocation();
 
         add(UpdateGeolocation(position: position!));
+      } catch (e) {
+        emit(GeolocationError());
       }
-      if (event is UpdateGeolocation) {
-        emit(GeolocationLoaded(position: event.position));
-      }
+    });
+
+    on<UpdateGeolocation>((event, emit) async {
+      emit(GeolocationLoaded(position: event.position));
     });
   }
 

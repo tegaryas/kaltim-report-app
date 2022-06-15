@@ -18,8 +18,9 @@ class ReportListFetch extends ReportListEvent {
 
 class ReportListStarted extends ReportListEvent {
   final ReportListFilterModel? filter;
+  final ReportStatusType? status;
 
-  const ReportListStarted({this.filter});
+  const ReportListStarted({this.filter, this.status});
 
   @override
   List<Object?> get props => [filter];

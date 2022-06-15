@@ -5,7 +5,6 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_last_recently_bloc/gempa_bumi_last_recently_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_magnetudo_bloc/gempa_bumi_magnetudo_bloc.dart';
-import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 
 class GempaBumiWrapperScreen extends StatelessWidget {
   const GempaBumiWrapperScreen({Key? key}) : super(key: key);
@@ -14,10 +13,6 @@ class GempaBumiWrapperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<GeolocationBloc>(
-          create: (context) =>
-              getIt.get<GeolocationBloc>()..add(LoadGeolocation()),
-        ),
         BlocProvider<GempaBumiBloc>(
           create: (context) =>
               getIt.get<GempaBumiBloc>()..add(GempaBumiFetch()),

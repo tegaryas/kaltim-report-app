@@ -8,10 +8,13 @@ import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/covid_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/vaccination_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_data_validate_screen.dart';
+import 'package:kaltim_report/modules/emergency/screens/emergency_call_list_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
+import 'package:kaltim_report/modules/home/screens/home_admin_screen.dart';
+import 'package:kaltim_report/modules/home/screens/home_admin_wrapper_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen_wrapper.dart';
 import 'package:kaltim_report/modules/navigation/screens/admin_navigation_screen.dart';
@@ -23,14 +26,22 @@ import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
 import 'package:kaltim_report/modules/profile/screens/about_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/change_password_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/detail_profile_screen.dart';
-import 'package:kaltim_report/modules/profile/screens/edit_profile_screen.dart';
+import 'package:kaltim_report/modules/profile/screens/profile_edit_screen.dart';
+import 'package:kaltim_report/modules/profile/screens/profile_admin_screen.dart';
+import 'package:kaltim_report/modules/profile/screens/profile_admin_wrapper_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/profile_screen.dart';
 import 'package:kaltim_report/modules/profile/screens/profile_wrapper_screen.dart';
-import 'package:kaltim_report/modules/report/screens/add_report_screen.dart';
-import 'package:kaltim_report/modules/report/screens/detail_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_add_progress_admin_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_add_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_detail_admin_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_detail_progress_admin_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_detail_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_admin_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_admin_wrapper_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_export_data_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_location_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_detail_progress_screen.dart';
-import 'package:kaltim_report/modules/report/screens/my_report_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_user_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 import 'package:kaltim_report/modules/splash/splash_screen.dart';
@@ -53,13 +64,17 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         AutoRoute(path: "detail", page: DetailReportScreen),
         AutoRoute(path: "status", page: ReportDetailProgressScreen),
         AutoRoute(path: "location-maps", page: ReportLocationScreen),
+        AutoRoute(path: "detail-admin", page: ReportDetailAdminScreen),
+        AutoRoute(path: "status-admin", page: ReportDetailProgressAdminScreen),
+        AutoRoute(path: "add-status-admin", page: ReportAddProgressAdminScreen),
+        AutoRoute(path: "export-data", page: ReportExportDataScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),
     AutoRoute(path: "/news-detail", page: NewsDetailScreen),
     AutoRoute(path: "/add-report", page: AddReportScreen),
-    AutoRoute(path: "/my-report", page: MyReportScreen),
-    AutoRoute(path: "/edit-profile", page: EditProfileScreen),
+    AutoRoute(path: "/my-report", page: ReportUserScreen),
+    AutoRoute(path: "/edit-profile", page: ProfileEditScreen),
     AutoRoute(path: "/detail-profile", page: DetailProfileScreen),
     AutoRoute(path: "/change-password", page: ChangePasswordScreen),
     AutoRoute(path: "/about-app", page: AboutScreen),
@@ -90,14 +105,11 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
       name: 'EmergencyCallRouter',
       page: EmergencyCallWrapperScreen,
       children: [
-        AutoRoute(path: "", page: EmergencyCallScreen),
-        AutoRoute(path: "validate-data", page: EmergencyCallDataValidateScreen),
+        AutoRoute(path: "", page: EmergencyCallDataValidateScreen),
+        AutoRoute(path: "add", page: EmergencyCallScreen),
+        AutoRoute(path: "list-user", page: EmergencyCallListScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
-    ),
-    AutoRoute(
-      path: "/admin-menu",
-      page: AdminNavigationScreen,
     ),
     AutoRoute(
       path: "/menu",
@@ -136,6 +148,39 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
           page: ProfileWrapperScreen,
           children: [
             AutoRoute(path: '', page: ProfileScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
+        ),
+      ],
+    ),
+    AutoRoute(
+      path: "/menu-admin",
+      page: AdminNavigationScreen,
+      children: [
+        AutoRoute(
+          path: "home-admin",
+          name: 'HomeAdminRouter',
+          page: HomeAdminWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: HomeAdminScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
+        ),
+        AutoRoute(
+          path: "report-admin",
+          name: 'ReportAdminRouter',
+          page: ReportAdminWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: ReportAdminScreen),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
+        ),
+        AutoRoute(
+          path: "profile-admin",
+          name: 'ProfileAdminRouter',
+          page: ProfileAdminWrapperScreen,
+          children: [
+            AutoRoute(path: '', page: ProfileAdminScreen),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),

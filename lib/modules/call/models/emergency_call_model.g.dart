@@ -9,7 +9,7 @@ part of 'emergency_call_model.dart';
 EmergencyCallModel _$EmergencyCallModelFromJson(Map<String, dynamic> json) =>
     EmergencyCallModel(
       name: json['name'] as String,
-      numberPhone: json['numberPhone'] as int,
+      numberPhone: json['numberPhone'] as String,
       imageUrl: json['imageUrl'] as String,
     );
 

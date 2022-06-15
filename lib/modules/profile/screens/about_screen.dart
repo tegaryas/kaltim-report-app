@@ -16,7 +16,7 @@ class AboutScreen extends StatelessWidget {
         title: Text(
           'Tentang Aplikasi',
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
           ),
         ),

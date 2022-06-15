@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/core.dart';
-import 'package:kaltim_report/modules/auth/models/models.dart';
-import 'package:kaltim_report/modules/auth/repositories/repositories.dart';
+import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/modules/auth/models/register_model.dart';
+import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -38,13 +38,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             errorMessage = "Password yang anda masukkan masih lemah";
             break;
           case "email-already-in-use":
-            errorMessage = "Akun kamu dinonaktifkan sementara";
+            errorMessage = "Emali telah di pakai";
             break;
           case "invalid-email":
             errorMessage = "Email kamu tidak valid nih";
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = e.message;
         }
 
         firebaseCrashlytics.recordError(e, s);
@@ -70,6 +70,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
               username: event.data.username,
               password: event.data.password,
               idToken: userId,
+              phoneNumber: event.data.phoneNumber,
             ));
           });
 
@@ -87,7 +88,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             errorMessage = "Email kamu tidak valid nih";
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = e.message;
         }
         firebaseCrashlytics.recordError(e, s);
         emit(RegisterFailed(error: errorMessage!));

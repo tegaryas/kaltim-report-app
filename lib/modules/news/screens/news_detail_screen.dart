@@ -22,7 +22,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         title: Text(
           "Berita",
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
           ),
         ),

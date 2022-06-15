@@ -68,7 +68,7 @@ class LaporanSection extends StatelessWidget {
                       report: state.data[index],
                       onTap: () {
                         context.navigateTo(ReportRouter(children: [
-                          DetailReportRoute(report: state.data[index])
+                          DetailReportRoute(id: state.data[index].id)
                         ]));
                       },
                     ),

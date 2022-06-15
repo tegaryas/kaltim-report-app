@@ -9,7 +9,7 @@ part of 'report_form_model.dart';
 abstract class _$ReportFormModelCWProxy {
   ReportFormModel address(String address);
 
-  ReportFormModel category(String? category);
+  ReportFormModel category(ReportCategoryModel category);
 
   ReportFormModel dateInput(DateTime dateInput);
 
@@ -17,7 +17,9 @@ abstract class _$ReportFormModelCWProxy {
 
   ReportFormModel id(String id);
 
-  ReportFormModel imageUrl(String imageUrl);
+  ReportFormModel imageUrl(String? imageUrl);
+
+  ReportFormModel lastStatus(ReportStatusType lastStatus);
 
   ReportFormModel location(GeoPoint location);
 
@@ -35,11 +37,12 @@ abstract class _$ReportFormModelCWProxy {
   /// ````
   ReportFormModel call({
     String? address,
-    String? category,
+    ReportCategoryModel? category,
     DateTime? dateInput,
     String? description,
     String? id,
     String? imageUrl,
+    ReportStatusType? lastStatus,
     GeoPoint? location,
     String? problem,
     List<ReportProgressModel>? reportProgress,
@@ -57,7 +60,8 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
   ReportFormModel address(String address) => this(address: address);
 
   @override
-  ReportFormModel category(String? category) => this(category: category);
+  ReportFormModel category(ReportCategoryModel category) =>
+      this(category: category);
 
   @override
   ReportFormModel dateInput(DateTime dateInput) => this(dateInput: dateInput);
@@ -70,7 +74,11 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
   ReportFormModel id(String id) => this(id: id);
 
   @override
-  ReportFormModel imageUrl(String imageUrl) => this(imageUrl: imageUrl);
+  ReportFormModel imageUrl(String? imageUrl) => this(imageUrl: imageUrl);
+
+  @override
+  ReportFormModel lastStatus(ReportStatusType lastStatus) =>
+      this(lastStatus: lastStatus);
 
   @override
   ReportFormModel location(GeoPoint location) => this(location: location);
@@ -100,6 +108,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
     Object? description = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
     Object? imageUrl = const $CopyWithPlaceholder(),
+    Object? lastStatus = const $CopyWithPlaceholder(),
     Object? location = const $CopyWithPlaceholder(),
     Object? problem = const $CopyWithPlaceholder(),
     Object? reportProgress = const $CopyWithPlaceholder(),
@@ -110,10 +119,10 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.address
           // ignore: cast_nullable_to_non_nullable
           : address as String,
-      category: category == const $CopyWithPlaceholder()
+      category: category == const $CopyWithPlaceholder() || category == null
           ? _value.category
           // ignore: cast_nullable_to_non_nullable
-          : category as String?,
+          : category as ReportCategoryModel,
       dateInput: dateInput == const $CopyWithPlaceholder() || dateInput == null
           ? _value.dateInput
           // ignore: cast_nullable_to_non_nullable
@@ -126,10 +135,15 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as String,
-      imageUrl: imageUrl == const $CopyWithPlaceholder() || imageUrl == null
+      imageUrl: imageUrl == const $CopyWithPlaceholder()
           ? _value.imageUrl
           // ignore: cast_nullable_to_non_nullable
-          : imageUrl as String,
+          : imageUrl as String?,
+      lastStatus:
+          lastStatus == const $CopyWithPlaceholder() || lastStatus == null
+              ? _value.lastStatus
+              // ignore: cast_nullable_to_non_nullable
+              : lastStatus as ReportStatusType,
       location: location == const $CopyWithPlaceholder() || location == null
           ? _value.location
           // ignore: cast_nullable_to_non_nullable
@@ -163,7 +177,7 @@ extension $ReportFormModelCopyWith on ReportFormModel {
 ReportFormModel _$ReportFormModelFromJson(Map<String, dynamic> json) =>
     ReportFormModel(
       id: json['id'] as String,
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['imageUrl'] as String?,
       location: ReportFormModel._fromJsonGeoPoint(json['location'] as GeoPoint),
       problem: json['problem'] as String,
       userId: json['userId'] as String?,
@@ -171,10 +185,12 @@ ReportFormModel _$ReportFormModelFromJson(Map<String, dynamic> json) =>
       dateInput:
           ReportFormModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp),
       address: json['address'] as String,
-      category: json['category'] as String?,
+      category: ReportCategoryModel.fromJson(
+          json['category'] as Map<String, dynamic>),
       reportProgress: (json['reportProgress'] as List<dynamic>)
           .map((e) => ReportProgressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      lastStatus: $enumDecode(_$ReportStatusTypeEnumMap, json['lastStatus']),
     );
 
 Map<String, dynamic> _$ReportFormModelToJson(ReportFormModel instance) =>
@@ -187,7 +203,17 @@ Map<String, dynamic> _$ReportFormModelToJson(ReportFormModel instance) =>
       'description': instance.description,
       'dateInput': ReportFormModel._dateTimeToEpochUs(instance.dateInput),
       'address': instance.address,
-      'category': instance.category,
+      'category': ReportFormModel._reportCategoryToJson(instance.category),
+      'lastStatus': _$ReportStatusTypeEnumMap[instance.lastStatus],
       'reportProgress':
           ReportFormModel.reportProgressToJson(instance.reportProgress),
     };
+
+const _$ReportStatusTypeEnumMap = {
+  ReportStatusType.selesai: 'selesai',
+  ReportStatusType.validasi: 'validasi',
+  ReportStatusType.tindakLanjut: 'tindakLanjut',
+  ReportStatusType.proses: 'proses',
+  ReportStatusType.menunggu: 'menunggu',
+  ReportStatusType.tidakValid: 'tidakValid',
+};

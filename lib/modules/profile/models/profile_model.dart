@@ -35,6 +35,10 @@ class ProfileModel {
     required this.role,
   });
 
+  bool get isPhoneNumberExist {
+    return phoneNumber != null;
+  }
+
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
   Map<String, dynamic> toJson() => _$ProfileModelToJson(this);

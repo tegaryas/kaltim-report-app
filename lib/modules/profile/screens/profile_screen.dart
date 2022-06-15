@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
         title: Text(
           'Pengaturan',
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             _buidlListTile(
               onTap: () {
-                context.router.push(const MyReportRoute());
+                context.router.push(const ReportUserRoute());
               },
               icon: Iconsax.chart,
               title: "Laporan",

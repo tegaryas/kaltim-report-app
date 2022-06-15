@@ -22,7 +22,7 @@ class ReportDetailProgressScreen extends StatelessWidget {
         title: Text(
           'Riwayat Status Laporan',
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -57,7 +57,13 @@ class ReportDetailProgressScreen extends StatelessWidget {
             ),
             if (progress.last != progres)
               Container(
-                height: progres.imageUrl != null ? 240 : 50,
+                height: progres.description != null && progres.imageUrl != null
+                    ? progres.description!.length.toDouble() + 240
+                    : progres.imageUrl != null
+                        ? 240
+                        : progres.description != null
+                            ? progres.description!.length.toDouble() + 20
+                            : 50,
                 margin: const EdgeInsets.symmetric(
                   vertical: 10,
                 ),
@@ -109,20 +115,40 @@ class ReportDetailProgressScreen extends StatelessWidget {
                 ],
               ),
               if (progres.imageUrl != null)
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 2.h,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: ImageNetworkBuild(
+                      imageUrl: progres.imageUrl!,
+                      height: 180,
+                      width: 100.w,
                     ),
-                    ClipRRect(
+                  ),
+                ),
+              if (progres.description != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(10),
-                      child: ImageNetworkBuild(
-                        imageUrl: progres.imageUrl!,
-                        height: 180,
-                        width: 100.w,
+                    ),
+                    child: Text(
+                      progres.description!,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        height: 1.5,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ],
+                  ),
                 ),
             ],
           ),
@@ -157,6 +183,11 @@ class ReportDetailProgressScreen extends StatelessWidget {
         return const StatusReportBadge(
           status: 'Validasi',
           backgroundColor: Colors.amber,
+        );
+      case ReportStatusType.tidakValid:
+        return const StatusReportBadge(
+          status: 'Tidak Valid',
+          backgroundColor: Colors.black,
         );
       default:
         return Container();

@@ -7,10 +7,10 @@ abstract class EmergencyCallEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class EmergencyCallSendFrom extends EmergencyCallEvent {
+class EmergencyCallSendForm extends EmergencyCallEvent {
   final EmergencyCallFormModel data;
 
-  const EmergencyCallSendFrom({required this.data});
+  const EmergencyCallSendForm({required this.data});
 
   @override
   List<Object> get props => [];

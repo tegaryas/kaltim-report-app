@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 
 part 'report_model.g.dart';
 
@@ -15,7 +16,8 @@ class ReportModel {
   @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
   final DateTime dateInput;
   final String address;
-  final String category;
+  final ReportCategoryModel category;
+  final ReportStatusType lastStatus;
   final List<ReportProgressModel>? reportProgress;
 
   ReportModel({
@@ -29,6 +31,7 @@ class ReportModel {
     required this.address,
     required this.category,
     this.reportProgress,
+    required this.lastStatus,
   });
 
   factory ReportModel.fromJson(Map<String, dynamic> json) =>
@@ -56,6 +59,13 @@ enum ReportStatusType {
   tindakLanjut,
   proses,
   menunggu,
+  tidakValid,
+}
+
+extension ParseToString on ReportStatusType {
+  String toShortString() {
+    return toString().split('.').last;
+  }
 }
 
 @JsonSerializable()

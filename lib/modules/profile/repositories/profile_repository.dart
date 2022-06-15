@@ -1,3 +1,5 @@
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
@@ -22,5 +24,15 @@ class ProfileRepository implements ProfileRepositoryInterface {
   @override
   Future<void> updateUserPassword(String newPassword) {
     return profileProvider.updateUserPassword(newPassword);
+  }
+
+  @override
+  Future<ProfileModel> getUserData() {
+    return profileProvider.getUserData();
+  }
+
+  @override
+  UploadTask? uploadProfilePicture(XFile file) {
+    return profileProvider.uploadProfilePicture(file);
   }
 }
