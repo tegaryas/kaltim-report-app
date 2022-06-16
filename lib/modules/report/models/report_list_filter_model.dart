@@ -26,12 +26,3 @@ class ReportListFilterModel extends Equatable {
   @override
   List<Object?> get props => [lastDocument, pageSize];
 }
-
-enum ReportExportPeriod {
-  @JsonValue("last_2_week")
-  last_2Week,
-  @JsonValue("last_month")
-  lastMonth,
-  custom,
-  unknown
-}

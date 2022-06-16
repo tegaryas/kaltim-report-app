@@ -68,7 +68,7 @@ class ReportCardComponent extends StatelessWidget {
                     height: 1.h,
                   ),
                   Text(
-                    ConverterHelper.differenceTimeParse(report.dateInput),
+                    ConverterHelper.differenceTimeParse(report.dateInput!),
                     style: TextStyle(
                       fontSize: 9.sp,
                       color: AppColors.textFaded,

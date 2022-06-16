@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
+import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
 
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
@@ -59,5 +60,10 @@ class ReportRepository implements ReportRepositoryInterface {
   @override
   Future<List<ReportCategoryModel>> getReportCategories() {
     return reportProvider.getReportCategories();
+  }
+
+  @override
+  Future<void> exportReport(ReportExportFormModel form) {
+    return reportProvider.exportReport(form);
   }
 }

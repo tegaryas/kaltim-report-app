@@ -78,7 +78,7 @@ class ReportCardOnGrid extends StatelessWidget {
             height: 0.5.h,
           ),
           Text(
-            DateFormat.MMMMEEEEd().format(report.dateInput),
+            DateFormat.MMMMEEEEd().format(report.dateInput!),
             style: TextStyle(
               fontSize: 10.sp,
               color: Colors.grey,

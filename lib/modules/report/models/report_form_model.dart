@@ -17,7 +17,9 @@ class ReportFormModel {
   final String? userId;
   final String? description;
   @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
-  final DateTime dateInput;
+  final DateTime? dateInput;
+  @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
+  final DateTime? lastUpdate;
   final String address;
   @JsonKey(toJson: _reportCategoryToJson)
   final ReportCategoryModel category;
@@ -32,7 +34,8 @@ class ReportFormModel {
     required this.problem,
     this.userId,
     this.description,
-    required this.dateInput,
+    this.dateInput,
+    this.lastUpdate,
     required this.address,
     required this.category,
     required this.reportProgress,
@@ -44,7 +47,7 @@ class ReportFormModel {
 
   Map<String, dynamic> toJson() => _$ReportFormModelToJson(this);
 
-  static DateTime _dateTimeFromEpochUs(Timestamp us) => us.toDate();
+  static DateTime? _dateTimeFromEpochUs(Timestamp? us) => us?.toDate();
 
   static Timestamp? _dateTimeToEpochUs(DateTime? dateTime) =>
       Timestamp.fromDate(dateTime!);

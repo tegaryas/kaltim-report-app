@@ -9,14 +9,14 @@ abstract class ReportExportEvent extends Equatable {
 
 class ReportExportStart extends ReportExportEvent {
   final String? email;
-  final String? exportFormat;
+  final ReportExportFormat exportFormat;
   final DateTime? startDate;
   final DateTime? endDate;
   final ReportExportPeriod period;
 
   const ReportExportStart(
       {this.email,
-      this.exportFormat,
+      required this.exportFormat,
       this.startDate,
       this.endDate,
       required this.period});

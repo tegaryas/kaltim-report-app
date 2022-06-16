@@ -125,35 +125,61 @@ class StatisticSection extends StatelessWidget {
         _BuildStatisticContainer(
           title: "Total Laporan",
           value: state.data.fold(
-              0, (previousValue, element) => previousValue += element.length),
+              0,
+              (previousValue, element) =>
+                  previousValue += element?.length ?? 0),
         ),
         _BuildStatisticContainer(
           title: "Laporan Menunggu",
           value: state.data
-              .where((element) => element.type == ReportStatusType.menunggu)
-              .toList()
-              .length,
+                  .where(
+                      (element) => element?.type == ReportStatusType.menunggu)
+                  .toList()
+                  .isNotEmpty
+              ? state.data
+                  .where(
+                      (element) => element?.type == ReportStatusType.menunggu)
+                  .first!
+                  .length
+              : 0,
         ),
         _BuildStatisticContainer(
           title: "Laporan Selesai",
           value: state.data
-              .where((element) => element.type == ReportStatusType.selesai)
-              .toList()
-              .length,
+                  .where((element) => element?.type == ReportStatusType.selesai)
+                  .toList()
+                  .isNotEmpty
+              ? state.data
+                  .where((element) => element?.type == ReportStatusType.selesai)
+                  .first!
+                  .length
+              : 0,
         ),
         _BuildStatisticContainer(
           title: "Laporan Diproses",
           value: state.data
-              .where((element) => element.type == ReportStatusType.proses)
-              .toList()
-              .length,
+                  .where((element) => element?.type == ReportStatusType.proses)
+                  .toList()
+                  .isNotEmpty
+              ? state.data
+                  .where((element) => element?.type == ReportStatusType.proses)
+                  .first!
+                  .length
+              : 0,
         ),
         _BuildStatisticContainer(
           title: "Laporan Ditolak",
           value: state.data
-              .where((element) => element.type == ReportStatusType.tidakValid)
-              .toList()
-              .length,
+                  .where(
+                      (element) => element?.type == ReportStatusType.tidakValid)
+                  .toList()
+                  .isNotEmpty
+              ? state.data
+                  .where(
+                      (element) => element?.type == ReportStatusType.tidakValid)
+                  .first!
+                  .length
+              : 0,
         ),
       ],
     );

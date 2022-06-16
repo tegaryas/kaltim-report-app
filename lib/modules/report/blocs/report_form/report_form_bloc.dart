@@ -38,6 +38,7 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
             category: event.form.category,
             description: event.form.description,
             reportProgress: event.form.reportProgress,
+            lastUpdate: DateTime.now(),
           ),
         );
         emit(ReportFormAddedSucess(id: event.form.id));

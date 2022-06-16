@@ -44,7 +44,7 @@ class HomeRepository implements HomeRepositoryInterface {
   }
 
   @override
-  Future<List<ReportStatusChartModel>> getReportStatisticByStatus() {
+  Future<List<ReportStatusChartModel?>> getReportStatisticByStatus() {
     return homeProvider.getReportStatisticByStatus();
   }
 }

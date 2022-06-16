@@ -11,7 +11,7 @@ abstract class _$ReportFormModelCWProxy {
 
   ReportFormModel category(ReportCategoryModel category);
 
-  ReportFormModel dateInput(DateTime dateInput);
+  ReportFormModel dateInput(DateTime? dateInput);
 
   ReportFormModel description(String? description);
 
@@ -20,6 +20,8 @@ abstract class _$ReportFormModelCWProxy {
   ReportFormModel imageUrl(String? imageUrl);
 
   ReportFormModel lastStatus(ReportStatusType lastStatus);
+
+  ReportFormModel lastUpdate(DateTime? lastUpdate);
 
   ReportFormModel location(GeoPoint location);
 
@@ -43,6 +45,7 @@ abstract class _$ReportFormModelCWProxy {
     String? id,
     String? imageUrl,
     ReportStatusType? lastStatus,
+    DateTime? lastUpdate,
     GeoPoint? location,
     String? problem,
     List<ReportProgressModel>? reportProgress,
@@ -64,7 +67,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
       this(category: category);
 
   @override
-  ReportFormModel dateInput(DateTime dateInput) => this(dateInput: dateInput);
+  ReportFormModel dateInput(DateTime? dateInput) => this(dateInput: dateInput);
 
   @override
   ReportFormModel description(String? description) =>
@@ -79,6 +82,10 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
   @override
   ReportFormModel lastStatus(ReportStatusType lastStatus) =>
       this(lastStatus: lastStatus);
+
+  @override
+  ReportFormModel lastUpdate(DateTime? lastUpdate) =>
+      this(lastUpdate: lastUpdate);
 
   @override
   ReportFormModel location(GeoPoint location) => this(location: location);
@@ -109,6 +116,7 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
     Object? id = const $CopyWithPlaceholder(),
     Object? imageUrl = const $CopyWithPlaceholder(),
     Object? lastStatus = const $CopyWithPlaceholder(),
+    Object? lastUpdate = const $CopyWithPlaceholder(),
     Object? location = const $CopyWithPlaceholder(),
     Object? problem = const $CopyWithPlaceholder(),
     Object? reportProgress = const $CopyWithPlaceholder(),
@@ -123,10 +131,10 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
           ? _value.category
           // ignore: cast_nullable_to_non_nullable
           : category as ReportCategoryModel,
-      dateInput: dateInput == const $CopyWithPlaceholder() || dateInput == null
+      dateInput: dateInput == const $CopyWithPlaceholder()
           ? _value.dateInput
           // ignore: cast_nullable_to_non_nullable
-          : dateInput as DateTime,
+          : dateInput as DateTime?,
       description: description == const $CopyWithPlaceholder()
           ? _value.description
           // ignore: cast_nullable_to_non_nullable
@@ -144,6 +152,10 @@ class _$ReportFormModelCWProxyImpl implements _$ReportFormModelCWProxy {
               ? _value.lastStatus
               // ignore: cast_nullable_to_non_nullable
               : lastStatus as ReportStatusType,
+      lastUpdate: lastUpdate == const $CopyWithPlaceholder()
+          ? _value.lastUpdate
+          // ignore: cast_nullable_to_non_nullable
+          : lastUpdate as DateTime?,
       location: location == const $CopyWithPlaceholder() || location == null
           ? _value.location
           // ignore: cast_nullable_to_non_nullable
@@ -183,7 +195,9 @@ ReportFormModel _$ReportFormModelFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String?,
       description: json['description'] as String?,
       dateInput:
-          ReportFormModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp),
+          ReportFormModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp?),
+      lastUpdate: ReportFormModel._dateTimeFromEpochUs(
+          json['lastUpdate'] as Timestamp?),
       address: json['address'] as String,
       category: ReportCategoryModel.fromJson(
           json['category'] as Map<String, dynamic>),
@@ -202,6 +216,7 @@ Map<String, dynamic> _$ReportFormModelToJson(ReportFormModel instance) =>
       'userId': instance.userId,
       'description': instance.description,
       'dateInput': ReportFormModel._dateTimeToEpochUs(instance.dateInput),
+      'lastUpdate': ReportFormModel._dateTimeToEpochUs(instance.lastUpdate),
       'address': instance.address,
       'category': ReportFormModel._reportCategoryToJson(instance.category),
       'lastStatus': _$ReportStatusTypeEnumMap[instance.lastStatus],

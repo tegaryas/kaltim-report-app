@@ -51,7 +51,6 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
         builder: (context, state) {
           final isLoadingRegister = state is RegisterLoading;
           return Scaffold(
-            resizeToAvoidBottomInset: false,
             body: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,

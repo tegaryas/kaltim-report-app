@@ -22,7 +22,7 @@ class HomeStatisticDataFailed extends HomeStatisticDataState {
 }
 
 class HomeStatisticDataSuccess extends HomeStatisticDataState {
-  final List<ReportStatusChartModel> data;
+  final List<ReportStatusChartModel?> data;
 
   const HomeStatisticDataSuccess({required this.data});
 

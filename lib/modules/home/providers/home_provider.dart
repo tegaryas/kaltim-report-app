@@ -92,7 +92,7 @@ class HomeProvider implements HomeProviderInterface {
   }
 
   @override
-  Future<List<ReportStatusChartModel>> getReportStatisticByStatus() async {
+  Future<List<ReportStatusChartModel?>> getReportStatisticByStatus() async {
     final res = await firestore
         .collection('Report')
         .where("dateInput",

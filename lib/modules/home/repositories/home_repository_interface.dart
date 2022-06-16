@@ -18,5 +18,5 @@ abstract class HomeRepositoryInterface {
 
   Future<List<DonutChartModel>> getReportStatistic();
 
-  Future<List<ReportStatusChartModel>> getReportStatisticByStatus();
+  Future<List<ReportStatusChartModel?>> getReportStatisticByStatus();
 }

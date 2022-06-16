@@ -425,7 +425,7 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                 child: _buildDetailLaporan(
                   title: "Tanggal Masuk",
                   value: ConverterHelper.convertDateTimeToFullDateFormat(
-                      data.dateInput, context),
+                      data.dateInput!, context),
                 ),
               ),
               Expanded(

@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:csv/csv.dart';
+import 'package:excel/excel.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
+
 import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
-
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
@@ -106,7 +109,8 @@ class ReportProvider implements ReportProviderInterface {
   Future<void> updateReportStatus(String id, ReportProgressModel data) async {
     await firestore.collection("Report").doc(id).update({
       "lastStatus": data.statusType.toShortString(),
-      "reportProgress": FieldValue.arrayUnion([data.toJson()])
+      "reportProgress": FieldValue.arrayUnion([data.toJson()]),
+      'lastUpdate': data.date
     });
   }
 
@@ -122,8 +126,68 @@ class ReportProvider implements ReportProviderInterface {
   }
 
   @override
-  Future<void> exportReport(ReportExportFormModel form) {
-    // TODO: implement exportReport
-    throw UnimplementedError();
+  Future<void> exportReport(ReportExportFormModel form) async {
+    List<List<dynamic>> rows = [];
+
+    final res = await firestore
+        .collection('Report')
+        .where("dateInput", isGreaterThanOrEqualTo: form.startDate)
+        .where("dateInput", isLessThanOrEqualTo: form.endDate)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+
+    rows.add([
+      "ID",
+      "ID Pengguna",
+      "Alamat",
+      "Kategori",
+      "Tanggal Masuk",
+      "Status Terakhir",
+      "Detail Masalah",
+      "Detail Tambahan"
+    ]);
+
+    if (res.isNotEmpty) {
+      for (var i = 0; i < res.length; i++) {
+        List<dynamic> row = [];
+
+        row.add(res[i].id);
+        row.add(res[i].userId);
+        row.add(res[i].address);
+        row.add(res[i].category.name);
+        row.add(DateFormat('dd/MM/yyyy HH:mm').format(res[i].dateInput!));
+        row.add(res[i].lastStatus.toShortString());
+        row.add(res[i].problem);
+        row.add(res[i].description);
+        rows.add(row);
+      }
+
+      switch (form.format) {
+        case ReportExportFormat.csv:
+          final file =
+              await File("/storage/emulated/0/Download/data.csv").create();
+          String csv = const ListToCsvConverter().convert(rows);
+          file.writeAsString(csv);
+          break;
+        case ReportExportFormat.excel:
+          final file =
+              await File("/storage/emulated/0/Download/data.xlsx").create();
+          final excel = Excel.createExcel();
+
+          Sheet sheetObject = excel['Sheet 1'];
+
+          for (var row in rows) {
+            sheetObject.appendRow(row);
+          }
+
+          final cek = excel.encode();
+
+          file.writeAsBytes(cek!);
+
+          break;
+        default:
+      }
+    }
   }
 }
