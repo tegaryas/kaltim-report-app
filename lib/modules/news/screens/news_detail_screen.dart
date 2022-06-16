@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class NewsDetailScreen extends StatefulWidget {
+class WebviewScreen extends StatefulWidget {
   final String newsUrl;
-  const NewsDetailScreen({
+  const WebviewScreen({
     Key? key,
     required this.newsUrl,
   }) : super(key: key);
 
   @override
-  State<NewsDetailScreen> createState() => _NewsDetailScreenState();
+  State<WebviewScreen> createState() => _WebviewScreenState();
 }
 
-class _NewsDetailScreenState extends State<NewsDetailScreen> {
+class _WebviewScreenState extends State<WebviewScreen> {
   late WebViewController webViewController;
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,14 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              webViewController.reload();
+            },
+            icon: const Icon(Icons.refresh),
+          )
+        ],
       ),
       body: WebView(
         javascriptMode: JavascriptMode.unrestricted,

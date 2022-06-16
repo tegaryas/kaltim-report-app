@@ -4,7 +4,7 @@ import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 
 part 'report_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(anyMap: true, explicitToJson: true)
 class ReportModel {
   final String id;
   final String imageUrl;
@@ -44,8 +44,8 @@ class ReportModel {
 
   static DateTime? _dateTimeFromEpochUs(Timestamp? us) => us?.toDate();
 
-  static int? _dateTimeToEpochUs(DateTime? dateTime) =>
-      dateTime?.microsecondsSinceEpoch;
+  static Timestamp? _dateTimeToEpochUs(DateTime? dateTime) =>
+      Timestamp.fromDate(dateTime!);
 
   static GeoPoint _fromJsonGeoPoint(GeoPoint geoPoint) {
     return geoPoint;

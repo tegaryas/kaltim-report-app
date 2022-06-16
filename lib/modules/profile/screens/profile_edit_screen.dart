@@ -51,7 +51,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
           if (state is ProfileEditFailed) {
             FlushbarHelper.createError(
-              message: "Gagal melakukan update data profile mu",
+              message: "Gagal melakukan update data profilemu",
               title: "Ups Gagal",
               duration: const Duration(seconds: 2),
             ).show(context);
@@ -148,7 +148,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       initialValue: name,
                       validator: MultiValidator([
                         RequiredValidator(
-                            errorText: "Harap Masukkan Nama Lengkap mu"),
+                            errorText: "Harap Masukkan Nama Lengkapmu"),
                         MinLengthValidator(2,
                             errorText: "Masukkan minimal 2 karakter")
                       ]),
@@ -166,7 +166,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       keyboardType: TextInputType.phone,
                       validator: MultiValidator([
                         RequiredValidator(
-                            errorText: "Harap Masukkan Nomor Handphone mu"),
+                            errorText: "Harap Masukkan Nomor Handphonemu"),
                         MinLengthValidator(10,
                             errorText: "Masukkan minimal 10 karakter")
                       ]),
@@ -182,8 +182,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       hint: "Masukkan Alamat Anda",
                       initialValue: address,
                       validator: MultiValidator([
-                        RequiredValidator(
-                            errorText: "Harap Masukkan Alamat mu"),
+                        RequiredValidator(errorText: "Harap Masukkan Alamatmu"),
                         MinLengthValidator(10,
                             errorText: "Masukkan minimal 10 karakter")
                       ]),

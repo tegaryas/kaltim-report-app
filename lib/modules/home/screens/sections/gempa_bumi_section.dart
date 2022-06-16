@@ -282,7 +282,7 @@ class GempaBumiHomeSection extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  'Kasih izin dong buat akses lokasi mu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
+                  'Kasih izin dong buat akses lokasimu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
                   style: TextStyle(
                     fontSize: 10.sp,
                     color: AppColors.textFaded,

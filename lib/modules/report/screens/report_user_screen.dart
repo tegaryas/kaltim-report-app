@@ -5,8 +5,7 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/report/blocs/report_user/report_user_bloc.dart';
-
-import 'package:kaltim_report/modules/report/screens/components/report_card_list.dart';
+import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportUserScreen extends StatelessWidget {
@@ -24,7 +23,7 @@ class ReportUserScreen extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Laporan Ku',
+              'Laporanku',
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
@@ -72,27 +71,34 @@ class ReportUserScreen extends StatelessWidget {
                     ],
                   ));
                 }
-                return ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    itemBuilder: (context, index) {
-                      final myReports = state.myReports![index];
-                      return ReportCardOnList(
+                return RefreshIndicator(
+                  onRefresh: () => Future.sync(() => context
+                      .read<ReportUserBloc>()
+                      .add(FetchReportUserList())),
+                  child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      itemBuilder: (context, index) {
+                        final myReports = state.myReports![index];
+                        return ReportCardComponent(
                           onTap: () {
                             context.navigateTo(ReportRouter(children: [
                               DetailReportRoute(id: myReports.id)
                             ]));
                           },
-                          report: myReports);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: 2.5.h,
-                      );
-                    },
-                    itemCount: state.myReports!.length);
+                          report: myReports,
+                          isShowBookmark: false,
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 5.h,
+                        );
+                      },
+                      itemCount: state.myReports!.length),
+                );
               }
 
               if (state is ReportUserFailed) {

@@ -102,7 +102,7 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
                         keyboardType: TextInputType.phone,
                         validator: MultiValidator([
                           RequiredValidator(
-                              errorText: "Masukkan Nomor Telpon mu"),
+                              errorText: "Masukkan Nomor Telponmu"),
                           MinLengthValidator(10,
                               errorText: "Masukkan minimal 10 karakter")
                         ]),
@@ -120,7 +120,7 @@ class _RegisterUserDataScreenState extends State<RegisterUserDataScreen> {
                         keyboardType: TextInputType.visiblePassword,
                         validator: MultiValidator([
                           RequiredValidator(
-                              errorText: "Harap Masukkan Password mu"),
+                              errorText: "Harap Masukkan Passwordmu"),
                           MinLengthValidator(8,
                               errorText: "Masukkan minimal 8 karakter")
                         ]),

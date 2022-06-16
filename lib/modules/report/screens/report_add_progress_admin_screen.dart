@@ -201,8 +201,7 @@ class _ReportAddProgressAdminScreenState
                   hint: "Masukkan Keterangan progress laporan terbaru",
                   keyboardType: TextInputType.multiline,
                   validator: MultiValidator([
-                    RequiredValidator(
-                        errorText: "Harap Masukkan Keterangan mu"),
+                    RequiredValidator(errorText: "Harap Masukkan Keteranganmu"),
                     MinLengthValidator(10,
                         errorText: "Masukkan minimal 10 karakter")
                   ]),

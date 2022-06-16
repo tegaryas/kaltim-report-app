@@ -4,12 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-
 import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 import 'package:kaltim_report/modules/profile/providers/profile_provider_interface.dart';
-import 'package:kaltim_report/modules/report/models/report_model.dart';
 
 @Injectable(as: ProfileProviderInterface)
 class ProfileProvider implements ProfileProviderInterface {
@@ -30,12 +28,6 @@ class ProfileProvider implements ProfileProviderInterface {
         .doc(authRepository.loggedUser.uid)
         .snapshots()
         .map((event) => ProfileModel.fromJson(event.data()!));
-  }
-
-  @override
-  Stream<ReportModel> getSavedReport() {
-    // TODO: implement getSavedReport
-    throw UnimplementedError();
   }
 
   @override

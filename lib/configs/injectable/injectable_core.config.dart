@@ -76,9 +76,9 @@ import '../../modules/gempa_bumi/repositories/gempa_bumi_repository.dart'
     as _i14;
 import '../../modules/gempa_bumi/repositories/gempa_bumi_repository_interface.dart'
     as _i13;
-import '../../modules/home/blocs/banner/banner_bloc.dart' as _i91;
-import '../../modules/home/blocs/feature/feature_bloc.dart' as _i92;
-import '../../modules/home/blocs/home_covid/home_covid_bloc.dart' as _i93;
+import '../../modules/home/blocs/banner/banner_bloc.dart' as _i93;
+import '../../modules/home/blocs/feature/feature_bloc.dart' as _i94;
+import '../../modules/home/blocs/home_covid/home_covid_bloc.dart' as _i95;
 import '../../modules/home/blocs/home_report/home_report_bloc.dart' as _i77;
 import '../../modules/home/blocs/home_statistic_chart/home_statistic_chart_bloc.dart'
     as _i80;
@@ -108,15 +108,19 @@ import '../../modules/profile/repositories/profile_repository.dart' as _i58;
 import '../../modules/profile/repositories/profile_repository_interface.dart'
     as _i57;
 import '../../modules/report/blocs/geolocation/geolocation_bloc.dart' as _i52;
-import '../../modules/report/blocs/report_category/report_category_bloc.dart'
+import '../../modules/report/blocs/report_bookmark/report_bookmark_bloc.dart'
     as _i86;
-import '../../modules/report/blocs/report_detail/report_detail_bloc.dart'
+import '../../modules/report/blocs/report_bookmark_user/report_bookmark_user_bloc.dart'
     as _i87;
-import '../../modules/report/blocs/report_export/report_export_bloc.dart'
+import '../../modules/report/blocs/report_category/report_category_bloc.dart'
     as _i88;
-import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i89;
-import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
+import '../../modules/report/blocs/report_detail/report_detail_bloc.dart'
+    as _i89;
+import '../../modules/report/blocs/report_export/report_export_bloc.dart'
     as _i90;
+import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i91;
+import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
+    as _i92;
 import '../../modules/report/blocs/report_update_form/report_update_form_bloc.dart'
     as _i66;
 import '../../modules/report/blocs/report_user/report_user_bloc.dart' as _i67;
@@ -127,7 +131,7 @@ import '../../modules/report/repositories/report_repository_interface.dart'
     as _i64;
 import '../../services/geolocator/geolocator_repository.dart' as _i16;
 import '../../services/geolocator/geolocator_repository_interface.dart' as _i15;
-import '../../services/native_api_service.dart' as _i94;
+import '../../services/native_api_service.dart' as _i96;
 import '../../services/remote_config_service/remote_config_service.dart'
     as _i61;
 import '../../services/remote_config_service/remote_config_service_interface.dart'
@@ -285,25 +289,29 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
   gh.factory<_i85.ProfilePictureUpdateBloc>(() => _i85.ProfilePictureUpdateBloc(
       get<_i57.ProfileRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i86.ReportCategoryBloc>(() => _i86.ReportCategoryBloc(
+  gh.factory<_i86.ReportBookmarkBloc>(() => _i86.ReportBookmarkBloc(
       get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i87.ReportDetailBloc>(() => _i87.ReportDetailBloc(
+  gh.factory<_i87.ReportBookmarkUserBloc>(() => _i87.ReportBookmarkUserBloc(
       get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i88.ReportExportBloc>(() => _i88.ReportExportBloc(
+  gh.factory<_i88.ReportCategoryBloc>(() => _i88.ReportCategoryBloc(
       get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i89.ReportFormBloc>(() => _i89.ReportFormBloc(
+  gh.factory<_i89.ReportDetailBloc>(() => _i89.ReportDetailBloc(
+      get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i90.ReportExportBloc>(() => _i90.ReportExportBloc(
+      get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i91.ReportFormBloc>(() => _i91.ReportFormBloc(
       reportRepository: get<_i64.ReportRepositoryInterface>(),
       authRepository: get<_i35.AuthRepositoryInterface>(),
       firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i90.ReportListBloc>(() => _i90.ReportListBloc(
+  gh.factory<_i92.ReportListBloc>(() => _i92.ReportListBloc(
       get<_i64.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i91.BannerBloc>(() => _i91.BannerBloc(
+  gh.factory<_i93.BannerBloc>(() => _i93.BannerBloc(
       get<_i78.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i92.FeatureBloc>(() =>
-      _i92.FeatureBloc(homeRepository: get<_i75.HomeProviderInterface>()));
-  gh.factory<_i93.HomeCovidBloc>(() => _i93.HomeCovidBloc(
+  gh.factory<_i94.FeatureBloc>(() =>
+      _i94.FeatureBloc(homeRepository: get<_i75.HomeProviderInterface>()));
+  gh.factory<_i95.HomeCovidBloc>(() => _i95.HomeCovidBloc(
       get<_i78.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
   return get;
 }
 
-class _$NativeApiService extends _i94.NativeApiService {}
+class _$NativeApiService extends _i96.NativeApiService {}

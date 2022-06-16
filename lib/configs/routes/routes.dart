@@ -10,6 +10,7 @@ import 'package:kaltim_report/modules/covid/screens/vaccination_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_data_validate_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_list_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_screen.dart';
+import 'package:kaltim_report/modules/emergency/screens/emergency_call_success_screen.dart';
 import 'package:kaltim_report/modules/emergency/screens/emergency_call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
@@ -41,6 +42,7 @@ import 'package:kaltim_report/modules/report/screens/report_admin_wrapper_screen
 import 'package:kaltim_report/modules/report/screens/report_export_data_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_location_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_detail_progress_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_user_bookmark_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_user_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
@@ -68,10 +70,11 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         AutoRoute(path: "status-admin", page: ReportDetailProgressAdminScreen),
         AutoRoute(path: "add-status-admin", page: ReportAddProgressAdminScreen),
         AutoRoute(path: "export-data", page: ReportExportDataScreen),
+        AutoRoute(path: "bookmark", page: ReportUserBookmarkScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),
-    AutoRoute(path: "/news-detail", page: NewsDetailScreen),
+    AutoRoute(path: "/webview", page: WebviewScreen),
     AutoRoute(path: "/add-report", page: AddReportScreen),
     AutoRoute(path: "/my-report", page: ReportUserScreen),
     AutoRoute(path: "/edit-profile", page: ProfileEditScreen),
@@ -108,6 +111,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         AutoRoute(path: "", page: EmergencyCallDataValidateScreen),
         AutoRoute(path: "add", page: EmergencyCallScreen),
         AutoRoute(path: "list-user", page: EmergencyCallListScreen),
+        AutoRoute(path: "success", page: EmergencyCallSuccessScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),

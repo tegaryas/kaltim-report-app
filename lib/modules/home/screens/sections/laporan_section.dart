@@ -39,7 +39,7 @@ class LaporanSection extends StatelessWidget {
             horizontal: 20,
           ),
           child: Text(
-            'Pantau kondisi laporan mu setiap saat dengan mudah',
+            'Pantau kondisi laporanmu setiap saat dengan mudah',
             style: TextStyle(
               fontSize: 10.sp,
               color: AppColors.textFaded,

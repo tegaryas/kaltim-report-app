@@ -106,7 +106,7 @@ class NavigationScreenState extends State<NavigationScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        Iconsax.camera5,
+                        Iconsax.add,
                         size: 3.h,
                         color: Colors.white,
                       ),
@@ -168,7 +168,7 @@ class NavigationScreenState extends State<NavigationScreen> {
                   height: 1.h,
                 ),
                 Text(
-                  'Kasih izin dong buat akses lokasi mu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
+                  'Kasih izin dong buat akses lokasimu, biar saat melaporkan masalah bisa kasih lokasi yang akurat',
                   style: TextStyle(
                     fontSize: 10.sp,
                     color: AppColors.textFaded,

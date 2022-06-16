@@ -105,7 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         firebaseCrashlytics.recordError(e, s);
 
         emit(LoginFailed(error: errorMessage!));
-      } catch (e, s) {
+      } catch (e) {
         emit(LoginAborted());
       }
     });

@@ -91,7 +91,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       label: 'Email',
                       hint: "Masukkan Email",
                       validator: MultiValidator([
-                        RequiredValidator(errorText: "Harap Masukkan Email mu"),
+                        RequiredValidator(errorText: "Harap Masukkan Emailmu"),
                         EmailValidator(errorText: "Email tidak valid")
                       ]),
                       onSaved: (val) {

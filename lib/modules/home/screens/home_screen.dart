@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.5.h,
                   ),
                   Text(
-                    'Laporankan kejadian disekitar mu dengan mudah, silahkan tekan tombol tambah untuk membuat laporan',
+                    'Laporkan kejadian disekitarmu dengan mudah, silakan tekan tombol tambah untuk membuat laporan',
                     style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.normal,

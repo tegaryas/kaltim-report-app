@@ -89,6 +89,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
           body: SingleChildScrollView(
             child: Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -174,12 +175,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  _buildTextTitle("Ceritakan Detail Laporan kamu"),
+                  _buildTextTitle("Ceritakan Detail Laporanmu"),
                   SizedBox(
                     height: 1.h,
                   ),
                   const CustomInfoContainer(
-                    title: "Ceritakan Laporan Mu",
+                    title: "Ceritakan Laporanmu",
                     desc:
                         "Detail permasalahan dapat memuat info berupa waktu kejadian, jenis pelanggaran, dan lainnya",
                   ),
@@ -321,7 +322,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  _buildTextTitle("Tambahan :"),
+                  _buildTextTitle("Tambahan (Opsional):"),
                   SizedBox(
                     height: 1.h,
                   ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
+import 'package:kaltim_report/modules/report/blocs/report_bookmark/report_bookmark_bloc.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/components/status_report_badge.dart';
 import 'package:kaltim_report/theme.dart';
@@ -10,11 +13,18 @@ import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
 
 class ReportCardComponent extends StatelessWidget {
-  const ReportCardComponent({Key? key, required this.report, this.onTap})
-      : super(key: key);
+  const ReportCardComponent({
+    Key? key,
+    required this.report,
+    this.onTap,
+    this.onTapBookmark,
+    this.isShowBookmark = true,
+  }) : super(key: key);
 
   final ReportModel report;
   final VoidCallback? onTap;
+  final bool? isShowBookmark;
+  final VoidCallback? onTapBookmark;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +84,11 @@ class ReportCardComponent extends StatelessWidget {
                       color: AppColors.textFaded,
                     ),
                   ),
+                  if (isShowBookmark!)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  if (isShowBookmark!) _buildBookmarkWidget(report.id)
                 ],
               ),
             ),
@@ -98,6 +113,53 @@ class ReportCardComponent extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBookmarkWidget(String id) {
+    return BlocProvider<ReportBookmarkBloc>(
+      create: (context) =>
+          getIt.get<ReportBookmarkBloc>()..add(ReportBookmarkIsAdded(id: id)),
+      child: BlocBuilder<ReportBookmarkBloc, ReportBookmarkState>(
+        builder: (context, state) {
+          if (state is ReportBookmarkExist) {
+            return InkWell(
+              onTap: () {
+                //
+                context
+                    .read<ReportBookmarkBloc>()
+                    .add(ReportBookmarkRemove(report: report));
+
+                context
+                    .read<ReportBookmarkBloc>()
+                    .add(ReportBookmarkIsAdded(id: id));
+
+                onTapBookmark?.call();
+              },
+              child: const Icon(
+                Icons.bookmark,
+              ),
+            );
+          } else {
+            return InkWell(
+              onTap: () {
+                context
+                    .read<ReportBookmarkBloc>()
+                    .add(ReportBookmarkAdd(report: report));
+
+                context
+                    .read<ReportBookmarkBloc>()
+                    .add(ReportBookmarkIsAdded(id: id));
+
+                onTapBookmark?.call();
+              },
+              child: const Icon(
+                Icons.bookmark_border,
+              ),
+            );
+          }
+        },
       ),
     );
   }

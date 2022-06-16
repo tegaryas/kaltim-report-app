@@ -65,12 +65,15 @@ class ProfileScreen extends StatelessWidget {
                 context.router.push(const ReportUserRoute());
               },
               icon: Iconsax.chart,
-              title: "Laporan",
+              title: "Laporanku",
             ),
             _buidlListTile(
-              onTap: () {},
+              onTap: () {
+                context.pushRoute(
+                    const ReportRouter(children: [ReportUserBookmarkRoute()]));
+              },
               icon: Iconsax.save_2,
-              title: "Disimpan",
+              title: "Laporan Disimpan",
             ),
             _buidlListTile(
               onTap: () {

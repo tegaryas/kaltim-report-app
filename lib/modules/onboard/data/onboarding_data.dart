@@ -13,19 +13,19 @@ class OnboardingData {
 List<OnboardingData> data = [
   OnboardingData(
     imageAssets: "assets/images/onboarding_slide1.png",
-    title: 'Aplikasi Siap Sedia Untuk mu',
+    title: 'Aplikasi Siap Sedia Untukmu',
     subtitle: "Bisa akses banyak fitur yang mendukung keseharianmu",
   ),
   OnboardingData(
     imageAssets: "assets/images/onboarding_slide2.png",
     title: 'Deteksi & Laporkan Daerah Rawan',
     subtitle:
-        "Laporan mu akan dilihat oleh semua warga didaerahmu secara langsung",
+        "Laporanmu akan dilihat oleh semua warga didaerahmu secara langsung",
   ),
   OnboardingData(
     imageAssets: "assets/images/onboarding_slide3.png",
     title: 'Panggilan & Daftar Telpon Darurat',
     subtitle:
-        "Kamu hanya tinggal menekan tombol panggil dan kami akan melayani keluhan mu",
+        "Kamu hanya tinggal menekan tombol panggil dan kami akan melayani keluhanmu",
   )
 ];

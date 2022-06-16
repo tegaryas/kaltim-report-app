@@ -4,6 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/emergency/blocs/emergency_call/emergency_call_bloc.dart';
 import 'package:kaltim_report/modules/emergency/models/emergency_call_form_model.dart';
 import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
@@ -19,6 +21,8 @@ class EmergencyCallScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is EmergencyCallSuccess) {
           context.router.root.popUntilRoot();
+          context.pushRoute(const EmergencyCallRouter(
+              children: [EmergencyCallSuccessRoute()]));
         }
       },
       child: Scaffold(
@@ -77,46 +81,9 @@ class EmergencyCallScreen extends StatelessWidget {
                   return BlocBuilder<GeolocationBloc, GeolocationState>(
                     builder: (context, state) {
                       if (state is GeolocationLoaded) {
-                        return InkWell(
-                          onLongPress: isLoading
-                              ? () {}
-                              : () {
-                                  Timer(const Duration(seconds: 3), () {
-                                    context.read<EmergencyCallBloc>().add(
-                                          EmergencyCallSendForm(
-                                            data: EmergencyCallFormModel(
-                                              location: GeoPoint(
-                                                state.position.latitude,
-                                                state.position.longitude,
-                                              ),
-                                              dateInput: DateTime.now(),
-                                            ),
-                                          ),
-                                        );
-                                  });
-                                },
-                          borderRadius: BorderRadius.circular(100),
-                          child: Container(
-                            height: 18.h,
-                            width: 18.h,
-                            margin: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(1, 1),
-                                  blurRadius: 20,
-                                ),
-                              ],
-                            ),
-                            child: Icon(
-                              Icons.call,
-                              color: Colors.white,
-                              size: 30.sp,
-                            ),
-                          ),
+                        return HoverButtonEmergency(
+                          isLoading: isLoading,
+                          position: state.position,
                         );
                       } else {
                         return InkWell(
@@ -179,6 +146,62 @@ class EmergencyCallScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class HoverButtonEmergency extends StatelessWidget {
+  const HoverButtonEmergency({
+    Key? key,
+    required this.isLoading,
+    required this.position,
+  }) : super(key: key);
+
+  final bool isLoading;
+  final Position position;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onLongPress: isLoading
+          ? () {}
+          : () {
+              Timer(const Duration(seconds: 3), () {
+                context.read<EmergencyCallBloc>().add(
+                      EmergencyCallSendForm(
+                        data: EmergencyCallFormModel(
+                          location: GeoPoint(
+                            position.latitude,
+                            position.longitude,
+                          ),
+                          dateInput: DateTime.now(),
+                        ),
+                      ),
+                    );
+              });
+            },
+      borderRadius: BorderRadius.circular(100),
+      child: Container(
+        height: 18.h,
+        width: 18.h,
+        margin: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          color: Colors.red,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(1, 1),
+              blurRadius: 20,
+            ),
+          ],
+        ),
+        child: Icon(
+          Icons.call,
+          color: Colors.white,
+          size: 30.sp,
         ),
       ),
     );

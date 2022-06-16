@@ -190,4 +190,65 @@ class ReportProvider implements ReportProviderInterface {
       }
     }
   }
+
+  @override
+  Future<void> addBookmarkReport(ReportModel report) async {
+    await firestore
+        .collection("Users")
+        .doc(authRepository.loggedUser.uid)
+        .collection('Bookmarks')
+        .doc(report.id)
+        .set(report.toJson());
+  }
+
+  @override
+  Future<bool> isAlreadyBookmark(String id) async {
+    final res = await firestore
+        .collection("Users")
+        .doc(authRepository.loggedUser.uid)
+        .collection('Bookmarks')
+        .doc(id)
+        .get();
+
+    return res.data() != null;
+  }
+
+  @override
+  Future<void> removeBookmarkReport(ReportModel report) async {
+    await firestore
+        .collection("Users")
+        .doc(authRepository.loggedUser.uid)
+        .collection('Bookmarks')
+        .doc(report.id)
+        .delete();
+  }
+
+  @override
+  Future<List<ReportModel>> getBookmarkReport(
+      ReportListFilterModel filter) async {
+    if (filter.lastDocument == "") {
+      return await firestore
+          .collection("Users")
+          .doc(authRepository.loggedUser.uid)
+          .collection('Bookmarks')
+          .orderBy("id", descending: true)
+          .where('lastStatus', isEqualTo: filter.status?.toShortString())
+          .limit(filter.pageSize)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+    } else {
+      return await firestore
+          .collection("Users")
+          .doc(authRepository.loggedUser.uid)
+          .collection('Bookmarks')
+          .orderBy("id", descending: true)
+          .where('lastStatus', isEqualTo: filter.status?.toShortString())
+          .startAfter([filter.lastDocument])
+          .limit(filter.pageSize)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
+    }
+  }
 }

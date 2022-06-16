@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 0.5.h,
                       ),
                       Text(
-                        "Silahkan Login",
+                        "Silakan Login",
                         style: TextStyle(
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validator: MultiValidator([
                           RequiredValidator(
-                              errorText: "Harap Masukkan Email mu"),
+                              errorText: "Harap Masukkan Emailmu"),
                           EmailValidator(errorText: "Email tidak valid")
                         ]),
                         onSaved: (val) {
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hint: "Masukkan Password",
                         validator: MultiValidator([
                           RequiredValidator(
-                              errorText: "Harap Masukkan Password mu"),
+                              errorText: "Harap Masukkan Passwordmu"),
                         ]),
                         onSaved: (val) {
                           password = val;

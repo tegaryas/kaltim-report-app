@@ -31,7 +31,7 @@ class NewsTabView extends StatelessWidget {
                     onTap: () {
                       if (entry.url != null) {
                         context.navigateTo(
-                          NewsDetailRoute(newsUrl: entry.url!),
+                          WebviewRoute(newsUrl: entry.url!),
                         );
                       }
                     },

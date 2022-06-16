@@ -49,7 +49,7 @@ class AboutScreen extends StatelessWidget {
               height: 3.h,
             ),
             Text(
-              "SIGAP adalah Platform Aplikasi yang menyediakan layanan dan informasi, yang dapat digunakan untuk semua warga Desa Singa Gembara",
+              "SIGAP adalah platform aplikasi yang menyediakan layanan dan informasi, yang dapat digunakan untuk semua warga Desa Singa Gembara",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10.sp,

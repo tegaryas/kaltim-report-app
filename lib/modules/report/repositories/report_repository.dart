@@ -66,4 +66,24 @@ class ReportRepository implements ReportRepositoryInterface {
   Future<void> exportReport(ReportExportFormModel form) {
     return reportProvider.exportReport(form);
   }
+
+  @override
+  Future<void> addBookmarkReport(ReportModel report) {
+    return reportProvider.addBookmarkReport(report);
+  }
+
+  @override
+  Future<bool> isAlreadyBookmark(String id) {
+    return reportProvider.isAlreadyBookmark(id);
+  }
+
+  @override
+  Future<void> removeBookmarkReport(ReportModel report) {
+    return reportProvider.removeBookmarkReport(report);
+  }
+
+  @override
+  Future<List<ReportModel>> getBookmarkReport(ReportListFilterModel filter) {
+    return reportProvider.getBookmarkReport(filter);
+  }
 }

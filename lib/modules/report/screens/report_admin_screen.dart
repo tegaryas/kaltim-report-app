@@ -169,6 +169,7 @@ class _ReportAdminScreenState extends State<ReportAdminScreen> {
                         context.navigateTo(ReportRouter(
                             children: [ReportDetailAdminRoute(id: entry.id)]));
                       },
+                      isShowBookmark: false,
                     ),
                   );
                 },
@@ -257,6 +258,7 @@ class _ReportAdminScreenState extends State<ReportAdminScreen> {
                   color: Colors.black38,
                   fontSize: 10.sp,
                 ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

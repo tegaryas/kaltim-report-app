@@ -65,7 +65,7 @@ class _EmergencyCallDataValidateScreenState
               }
               if (state is ProfileEditFailed) {
                 FlushbarHelper.createError(
-                  message: "Gagal melakukan update nnomor handphone mu",
+                  message: "Gagal melakukan update nnomor handphonemu",
                   title: "Ups Gagal",
                   duration: const Duration(seconds: 2),
                 ).show(context);

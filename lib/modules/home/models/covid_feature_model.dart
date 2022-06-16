@@ -10,6 +10,8 @@ enum CovidFeatureType {
   unknown
 }
 
+enum FeatureActionType { url, screen, unknown }
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CovidFeatureConfigModel {
   CovidFeatureConfigModel({
@@ -17,18 +19,20 @@ class CovidFeatureConfigModel {
     this.image,
     required this.title,
     required this.subtitle,
-    required this.path,
+    this.path,
     required this.route,
+    required this.actionType,
   });
   @JsonKey(
       defaultValue: CovidFeatureType.unknown,
       unknownEnumValue: CovidFeatureType.unknown)
-  CovidFeatureType type;
-  String? image;
-  String title;
-  String subtitle;
-  String path;
-  String route;
+  final CovidFeatureType type;
+  final String? image;
+  final String title;
+  final String subtitle;
+  final String? path;
+  final String route;
+  final FeatureActionType actionType;
 
   factory CovidFeatureConfigModel.fromJson(Map<String, dynamic> json) =>
       _$CovidFeatureConfigModelFromJson(json);

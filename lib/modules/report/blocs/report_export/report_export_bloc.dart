@@ -16,7 +16,6 @@ class ReportExportBloc extends Bloc<ReportExportEvent, ReportExportState> {
   ReportExportBloc(this.reportRepository, this.firebaseCrashlytics)
       : super(ReportExportInitial()) {
     on<ReportExportStart>((event, emit) async {
-      // TODO: implement event handler
       try {
         emit(ReportExportLoading());
         final now = DateTime.now();

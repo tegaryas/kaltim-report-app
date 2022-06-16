@@ -28,4 +28,12 @@ abstract class ReportRepositoryInterface {
   Future<List<ReportCategoryModel>> getReportCategories();
 
   Future<void> exportReport(ReportExportFormModel form);
+
+  Future<void> addBookmarkReport(ReportModel report);
+
+  Future<void> removeBookmarkReport(ReportModel report);
+
+  Future<bool> isAlreadyBookmark(String id);
+
+  Future<List<ReportModel>> getBookmarkReport(ReportListFilterModel filter);
 }

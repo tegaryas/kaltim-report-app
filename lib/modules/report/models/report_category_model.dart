@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'report_category_model.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(fieldRename: FieldRename.snake, anyMap: true)
 class ReportCategoryModel {
   final int id;
   final String name;

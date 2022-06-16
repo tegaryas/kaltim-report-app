@@ -6,7 +6,7 @@ part of 'report_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
+ReportModel _$ReportModelFromJson(Map json) => ReportModel(
       id: json['id'] as String,
       imageUrl: json['imageUrl'] as String,
       location: ReportModel._fromJsonGeoPoint(json['location'] as GeoPoint),
@@ -17,9 +17,10 @@ ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
           ReportModel._dateTimeFromEpochUs(json['dateInput'] as Timestamp?),
       address: json['address'] as String,
       category: ReportCategoryModel.fromJson(
-          json['category'] as Map<String, dynamic>),
+          Map<String, dynamic>.from(json['category'] as Map)),
       reportProgress: (json['reportProgress'] as List<dynamic>?)
-          ?.map((e) => ReportProgressModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              ReportProgressModel.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
       lastUpdate:
           ReportModel._dateTimeFromEpochUs(json['lastUpdate'] as Timestamp?),
@@ -37,9 +38,10 @@ Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
       'dateInput': ReportModel._dateTimeToEpochUs(instance.dateInput),
       'lastUpdate': ReportModel._dateTimeToEpochUs(instance.lastUpdate),
       'address': instance.address,
-      'category': instance.category,
+      'category': instance.category.toJson(),
       'lastStatus': _$ReportStatusTypeEnumMap[instance.lastStatus],
-      'reportProgress': instance.reportProgress,
+      'reportProgress':
+          instance.reportProgress?.map((e) => e.toJson()).toList(),
     };
 
 const _$ReportStatusTypeEnumMap = {

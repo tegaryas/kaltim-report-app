@@ -58,6 +58,7 @@ dependencies:
   webview_flutter: ^3.0.1
   share_plus: ^4.0.2
   syncfusion_flutter_charts: ^20.1.59
+  galleryimage: ^1.2.0
 
 
   #firebase

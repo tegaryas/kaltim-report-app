@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validator: MultiValidator([
                           RequiredValidator(
-                              errorText: "Harap Masukkan Email mu"),
+                              errorText: "Harap Masukkan Emailmu"),
                           EmailValidator(errorText: "Email tidak valid")
                         ]),
                         onSaved: (val) {

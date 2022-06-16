@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/theme.dart';
+import 'package:kaltim_report/utils/launcher_helper.dart';
 import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';
@@ -52,7 +52,7 @@ class CovidHomeSection extends StatelessWidget {
         BlocBuilder<HomeCovidBloc, HomeCovidState>(
           builder: (context, state) {
             if (state is HomeCovidSuccess) {
-              return _buildWidgetSuccess(state, context);
+              return _buildWidgetSuccess(state.config, context);
             } else if (state is HomeCovidFailed) {
               return _buildWidgetfFailed(context);
             } else {
@@ -64,7 +64,8 @@ class CovidHomeSection extends StatelessWidget {
     );
   }
 
-  Widget _buildWidgetSuccess(HomeCovidSuccess state, BuildContext context) {
+  Widget _buildWidgetSuccess(
+      List<CovidFeatureConfigModel> config, BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
@@ -75,15 +76,19 @@ class CovidHomeSection extends StatelessWidget {
         ),
         child: Row(
           children: List.generate(
-            state.config.length,
+            config.length,
             (index) => _buildCardCovidFeature(
               context,
-              data: state.config[index],
+              data: config[index],
               onTap: () {
-                context.navigateTo(CovidRouter(children: [
-                  PageRouteInfo(state.config[index].route,
-                      path: state.config[index].path)
-                ]));
+                if (config[index].actionType == FeatureActionType.screen &&
+                    config[index].path != null) {
+                  context.router.root.navigateNamed(config[index].path!,
+                      includePrefixMatches: true);
+                } else if (config[index].actionType == FeatureActionType.url &&
+                    config[index].path != null) {
+                  LauncherHelper.openUrl(config[index].path!);
+                }
               },
             ),
           ),

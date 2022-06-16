@@ -85,7 +85,7 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                     child: Text("Magnitudo 5"),
                   ),
                   Tab(
-                    child: Text("Beberapa Hari Lalu"),
+                    child: Text("Beberapa hari lalu"),
                   ),
                 ],
               ),
