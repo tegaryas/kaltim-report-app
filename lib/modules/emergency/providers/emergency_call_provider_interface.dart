@@ -7,4 +7,6 @@ abstract class EmergencyCallProviderInterface {
   Future<List<EmergencyCallModel>> getEmergencyCallList();
 
   Future<void> removeUserEmergencyCall(String id);
+
+  Stream<List<EmergencyCallModel>> getEmergencyCallListStream();
 }

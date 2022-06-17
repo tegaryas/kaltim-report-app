@@ -499,3 +499,122 @@ class _GhostPickerFieldState<T> extends State<GhostPickerField<T>> {
     );
   }
 }
+
+class GhostCustomPickerField<T> extends StatefulWidget {
+  final GhostPickerFieldValue<T>? Function(GhostPickerFieldValue<T>?)?
+      validator;
+  final GhostPickerFieldValue<T>? initialValue;
+  final void Function(GhostPickerFieldValue<T>?)? onSaved;
+  final String? label;
+  final Widget Function(BuildContext, GhostPickerFieldValue<T>) selectedBuilder;
+  final Widget Function(BuildContext) unselectedBuilder;
+
+  final Future<GhostPickerFieldValue<T>?> Function(GhostPickerFieldValue<T>?)?
+      onTap;
+
+  const GhostCustomPickerField(
+      {Key? key,
+      this.onSaved,
+      this.validator,
+      this.initialValue,
+      this.onTap,
+      this.label,
+      required this.selectedBuilder,
+      required this.unselectedBuilder})
+      : super(key: key);
+
+  @override
+  _GhostCustomPickerFieldState<T> createState() =>
+      _GhostCustomPickerFieldState<T>();
+}
+
+class _GhostCustomPickerFieldState<T> extends State<GhostCustomPickerField<T>> {
+  GhostPickerFieldValue<T>? currentValue;
+  late final TextEditingController controller;
+  bool isValid = true;
+
+  @override
+  void initState() {
+    currentValue = widget.initialValue;
+    controller = TextEditingController(text: currentValue?.name);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.label != null)
+          Text(
+            widget.label!,
+            style: TextStyle(
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        if (widget.label != null) SizedBox(height: 0.5.h),
+        Material(
+          child: InkWell(
+            onTap: () async {
+              final choosen = await widget.onTap?.call(currentValue);
+              if (choosen != null) {
+                setState(() {
+                  currentValue = choosen;
+                  controller.text = choosen.name;
+                });
+              }
+            },
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    if (currentValue != null)
+                      widget.selectedBuilder.call(context, currentValue!)
+                    else
+                      widget.unselectedBuilder.call(context),
+                    SizedBox(height: isValid ? 0 : 25)
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      controller: controller,
+                      validator: (value) {
+                        final val = widget.validator?.call(currentValue);
+                        setState(() {
+                          isValid = val?.name == null;
+                        });
+                        return val?.name;
+                      },
+                      readOnly: true,
+                      onSaved: (newValue) {
+                        widget.onSaved?.call(currentValue);
+                      },
+                      style:
+                          const TextStyle(height: 1, color: Colors.transparent),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).errorColor)),
+                        errorStyle: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).errorColor),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}

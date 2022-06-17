@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/emergency/blocs/emergency_call_list/emergency_call_list_bloc.dart';
+import 'package:kaltim_report/modules/emergency/blocs/emergency_call_stream/emergency_call_stream_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_bloc/gempa_bumi_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/banner/banner_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/feature/feature_bloc.dart';
@@ -38,9 +39,9 @@ class HomeWrapperScreen extends StatelessWidget {
           create: (context) =>
               getIt.get<HomeCovidBloc>()..add(HomeCovidFetch()),
         ),
-        BlocProvider<EmergencyCallListBloc>(
-          create: (context) =>
-              getIt.get<EmergencyCallListBloc>()..add(EmergencyCallListFetch()),
+        BlocProvider<EmergencyCallStreamBloc>(
+          create: (context) => getIt.get<EmergencyCallStreamBloc>()
+            ..add(EmergencyCallStreamFetch()),
         ),
       ],
       child: const AutoRouter(),

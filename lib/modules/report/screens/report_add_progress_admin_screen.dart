@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/report/blocs/report_update_form/report_update_form_bloc.dart';
@@ -38,6 +39,24 @@ class _ReportAddProgressAdminScreenState
   void initState() {
     reportUpdateFormBloc = getIt.get<ReportUpdateFormBloc>();
     super.initState();
+  }
+
+  Future<bool?> uploadImage(BuildContext context,
+      {required ImageSource source}) async {
+    XFile? image = await _imagePicker.pickImage(
+      source: source,
+      imageQuality: 60,
+    );
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+      });
+
+      return true;
+    }
+
+    return false;
   }
 
   @override
@@ -125,16 +144,9 @@ class _ReportAddProgressAdminScreenState
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    XFile? image = await _imagePicker.pickImage(
-                      source: ImageSource.camera,
-                      imageQuality: 60,
-                    );
-
-                    if (image != null) {
-                      setState(() {
-                        _selectedImage = image;
-                      });
+                  onTap: () {
+                    if (_selectedImage == null) {
+                      modalSelectImageSource(context);
                     }
                   },
                   child: _selectedImage != null
@@ -241,6 +253,79 @@ class _ReportAddProgressAdminScreenState
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> modalSelectImageSource(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (context) => Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 25,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Pilih Gambar Aduan',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              onTap: () {
+                uploadImage(context, source: ImageSource.gallery).then((value) {
+                  if (value == true) context.popRoute();
+                });
+              },
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 0,
+              ),
+              leading: const Icon(
+                Iconsax.gallery,
+              ),
+              trailing: const Icon(
+                Icons.keyboard_arrow_right,
+              ),
+              title: Text(
+                'Pilih dari Galeri',
+                style: TextStyle(fontSize: 10.sp),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                uploadImage(context, source: ImageSource.camera).then((value) {
+                  if (value == true) context.popRoute();
+                });
+              },
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 0,
+              ),
+              leading: const Icon(
+                Iconsax.camera,
+              ),
+              trailing: const Icon(
+                Icons.keyboard_arrow_right,
+              ),
+              title: Text(
+                'Pilih dari Camera',
+                style: TextStyle(fontSize: 10.sp),
+              ),
+            ),
+          ],
         ),
       ),
     );

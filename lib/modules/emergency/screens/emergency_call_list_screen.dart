@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/emergency/blocs/emergency_call_list/emergency_call_list_bloc.dart';
 import 'package:kaltim_report/modules/emergency/models/emergency_call_model.dart';
 import 'package:kaltim_report/theme.dart';
@@ -16,26 +17,37 @@ class EmergencyCallListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Panggilan Darurat Warga',
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w500,
+    return BlocProvider<EmergencyCallListBloc>(
+      create: (context) =>
+          getIt.get<EmergencyCallListBloc>()..add(EmergencyCallListFetch()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Panggilan Darurat Warga',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-      ),
-      body: BlocBuilder<EmergencyCallListBloc, EmergencyCallListState>(
-        builder: (context, state) {
-          if (state is EmergencyCallListSuccess) {
-            return _buildWidgetSuccess(context, state, isAdmin);
-          } else if (state is EmergencyCallListFailed) {
-            return _buildWidgetFailed(context);
-          } else {
-            return _buildWidgetLoading();
-          }
-        },
+        body: BlocConsumer<EmergencyCallListBloc, EmergencyCallListState>(
+          listener: (context, state) {
+            if (state is EmergencyCallListSuccess) {
+              if (state.data.isEmpty) {
+                context.popRoute();
+              }
+            }
+          },
+          builder: (context, state) {
+            if (state is EmergencyCallListSuccess) {
+              return _buildWidgetSuccess(context, state, isAdmin);
+            } else if (state is EmergencyCallListFailed) {
+              return _buildWidgetFailed(context);
+            } else {
+              return _buildWidgetLoading();
+            }
+          },
+        ),
       ),
     );
   }
@@ -168,6 +180,8 @@ class DismissibleEmergencyCard extends StatelessWidget {
         context
             .read<EmergencyCallListBloc>()
             .add(EmergencyCallListRemoveById(id: data.userId!));
+
+        context.read<EmergencyCallListBloc>().add(EmergencyCallListFetch());
       }),
       dismissThresholds: const {
         DismissDirection.startToEnd: 1,

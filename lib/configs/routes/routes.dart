@@ -48,7 +48,7 @@ import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 import 'package:kaltim_report/modules/splash/splash_screen.dart';
 
-@CupertinoAutoRouter(
+@MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: <AutoRoute>[
     AutoRoute(path: "/splash-screen", page: SplashScreen),

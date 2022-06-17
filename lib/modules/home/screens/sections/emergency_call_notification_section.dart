@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/emergency/blocs/emergency_call_list/emergency_call_list_bloc.dart';
+import 'package:kaltim_report/modules/emergency/blocs/emergency_call_stream/emergency_call_stream_bloc.dart';
+import 'package:kaltim_report/modules/emergency/models/emergency_call_model.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,14 +16,14 @@ class EmergencyCallNotificationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EmergencyCallListBloc, EmergencyCallListState>(
+    return BlocBuilder<EmergencyCallStreamBloc, EmergencyCallStreamState>(
       builder: (context, state) {
-        if (state is EmergencyCallListSuccess) {
+        if (state is EmergencyCallStreamSuccess) {
           if (state.data.isEmpty) {
             return Container();
           }
-          return _buildWidgetSuccess(context, state);
-        } else if (state is EmergencyCallListFailed) {
+          return _buildWidgetSuccess(context, state.data);
+        } else if (state is EmergencyCallStreamFailed) {
           return _buildWidgetFailed(context);
         } else {
           return Container();
@@ -31,7 +33,7 @@ class EmergencyCallNotificationSection extends StatelessWidget {
   }
 
   Widget _buildWidgetSuccess(
-      BuildContext context, EmergencyCallListSuccess state) {
+      BuildContext context, List<EmergencyCallModel> data) {
     return Material(
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
@@ -70,7 +72,7 @@ class EmergencyCallNotificationSection extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      "Sekarang lagi ada ${state.data.length} warga yang meminta bantuan, segera bantu ke lokasi mereka!",
+                      "Sekarang lagi ada ${data.length} warga yang meminta bantuan, segera bantu ke lokasi mereka!",
                       style: TextStyle(
                         fontSize: 9.sp,
                         color: Colors.white,

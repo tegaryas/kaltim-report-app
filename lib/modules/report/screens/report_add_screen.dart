@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
@@ -15,7 +16,9 @@ import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/report_category_picker_screen.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/generate_uid.dart';
+import 'package:kaltim_report/widgets/image_network_builder.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/widgets/custom_button.dart';
@@ -43,6 +46,24 @@ class _AddReportScreenState extends State<AddReportScreen> {
   String? permasalahText;
   String? lokasiText;
   String? tambahanText;
+
+  Future<bool?> uploadImage(BuildContext context,
+      {required ImageSource source}) async {
+    XFile? image = await _imagePicker.pickImage(
+      source: source,
+      imageQuality: 60,
+    );
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+      });
+
+      return true;
+    }
+
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +123,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      XFile? image = await _imagePicker.pickImage(
-                        source: ImageSource.camera,
-                        imageQuality: 60,
-                      );
-
-                      if (image != null) {
-                        setState(() {
-                          _selectedImage = image;
-                        });
+                      if (_selectedImage == null) {
+                        modalSelectImageSource(context);
                       }
                     },
                     child: _selectedImage != null
@@ -273,7 +287,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
-                    child: GhostPickerField<ReportCategoryModel>(
+                    child: GhostCustomPickerField<ReportCategoryModel>(
                       initialValue: _categoryModel != null
                           ? GhostPickerFieldValue(
                               name: _categoryModel!.name, val: _categoryModel)
@@ -288,9 +302,73 @@ class _AddReportScreenState extends State<AddReportScreen> {
                           return null;
                         }
                       },
-                      hint: 'Pilih Kategori Laporan',
+                      unselectedBuilder: (context) {
+                        return Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.textFaded,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Pilih Kategori Laporan',
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                              const Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                size: 24,
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      selectedBuilder: (context, val) {
+                        final data = val.val!;
+                        return Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.textFaded,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              ImageNetworkBuild(
+                                  imageUrl: data.imageUrl!,
+                                  height: 30,
+                                  width: 30),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                child: Text(
+                                  data.name,
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              const Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                size: 24,
+                              )
+                            ],
+                          ),
+                        );
+                      },
                       onSaved: (val) => _categoryModel = val?.val,
-                      suffixIcon: Icons.arrow_drop_down,
                       onTap: (val) async {
                         final selected = await context.router
                             .pushWidget<ReportCategoryModel?>(
@@ -347,6 +425,79 @@ class _AddReportScreenState extends State<AddReportScreen> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> modalSelectImageSource(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (context) => Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 25,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Pilih Gambar Aduan',
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              onTap: () {
+                uploadImage(context, source: ImageSource.gallery).then((value) {
+                  if (value == true) context.popRoute();
+                });
+              },
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 0,
+              ),
+              leading: const Icon(
+                Iconsax.gallery,
+              ),
+              trailing: const Icon(
+                Icons.keyboard_arrow_right,
+              ),
+              title: Text(
+                'Pilih dari Galeri',
+                style: TextStyle(fontSize: 10.sp),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                uploadImage(context, source: ImageSource.camera).then((value) {
+                  if (value == true) context.popRoute();
+                });
+              },
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 0,
+              ),
+              leading: const Icon(
+                Iconsax.camera,
+              ),
+              trailing: const Icon(
+                Icons.keyboard_arrow_right,
+              ),
+              title: Text(
+                'Pilih dari Camera',
+                style: TextStyle(fontSize: 10.sp),
+              ),
+            ),
+          ],
         ),
       ),
     );

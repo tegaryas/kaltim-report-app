@@ -81,38 +81,38 @@ class AppRouter extends _i49.RootStackRouter {
   @override
   final Map<String, _i49.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.SplashScreen());
     },
     OnboardingRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.OnboardingScreen());
     },
     LoginRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.LoginScreen());
     },
     RegisterRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i4.RegisterScreen());
     },
     RegisterUserDataRoute.name: (routeData) {
       final args = routeData.argsAs<RegisterUserDataRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i5.RegisterUserDataScreen(key: args.key, email: args.email));
     },
     ResetPasswordRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i6.ResetPasswordScreen());
     },
     ReportRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i7.ReportWrapperScreem());
     },
     WebviewRoute.name: (routeData) {
       final args = routeData.argsAs<WebviewRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i8.WebviewScreen(
               key: args.key, webUrl: args.webUrl, title: args.title));
@@ -120,189 +120,189 @@ class AppRouter extends _i49.RootStackRouter {
     AddReportRoute.name: (routeData) {
       final args = routeData.argsAs<AddReportRouteArgs>(
           orElse: () => const AddReportRouteArgs());
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i9.AddReportScreen(
               key: args.key, reportTitle: args.reportTitle));
     },
     ReportUserRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i10.ReportUserScreen());
     },
     ProfileEditRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileEditRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i11.ProfileEditScreen(key: args.key, profile: args.profile));
     },
     DetailProfileRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i12.DetailProfileScreen());
     },
     ChangePasswordRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i13.ChangePasswordScreen());
     },
     AboutRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i14.AboutScreen());
     },
     CovidRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i15.CovidWrapperScreen());
     },
     GempaBumiRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i16.GempaBumiWrapperScreen());
     },
     EmergencyCallRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i17.EmergencyCallWrapperScreen());
     },
     NavigationRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i18.NavigationScreen());
     },
     AdminNavigationRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i19.AdminNavigationScreen());
     },
     ReportRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i20.ReportScreen());
     },
     DetailReportRoute.name: (routeData) {
       final args = routeData.argsAs<DetailReportRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i21.DetailReportScreen(key: args.key, id: args.id));
     },
     ReportDetailProgressRoute.name: (routeData) {
       final args = routeData.argsAs<ReportDetailProgressRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i22.ReportDetailProgressScreen(
               key: args.key, progress: args.progress));
     },
     ReportLocationRoute.name: (routeData) {
       final args = routeData.argsAs<ReportLocationRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i23.ReportLocationScreen(key: args.key, latLng: args.latLng));
     },
     ReportDetailAdminRoute.name: (routeData) {
       final args = routeData.argsAs<ReportDetailAdminRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i24.ReportDetailAdminScreen(key: args.key, id: args.id));
     },
     ReportDetailProgressAdminRoute.name: (routeData) {
       final args = routeData.argsAs<ReportDetailProgressAdminRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i25.ReportDetailProgressAdminScreen(
               key: args.key, progress: args.progress, id: args.id));
     },
     ReportAddProgressAdminRoute.name: (routeData) {
       final args = routeData.argsAs<ReportAddProgressAdminRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i26.ReportAddProgressAdminScreen(key: args.key, id: args.id));
     },
     ReportExportDataRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i27.ReportExportDataScreen());
     },
     ReportUserBookmarkRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i28.ReportUserBookmarkScreen());
     },
     VaksinDataRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i29.VaccinationScreen());
     },
     GempaBumiRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i30.GempaBumiScreen());
     },
     EmergencyCallDataValidateRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: const _i31.EmergencyCallDataValidateScreen());
     },
     EmergencyCallRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i32.EmergencyCallScreen());
     },
     EmergencyCallListRoute.name: (routeData) {
       final args = routeData.argsAs<EmergencyCallListRouteArgs>();
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i33.EmergencyCallListScreen(
               key: args.key, isAdmin: args.isAdmin));
     },
     EmergencyCallSuccessRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i34.EmergencyCallSuccessScreen());
     },
     HomeRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i35.HomeWrapperScreen());
     },
     NewsRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i36.NewsWrapperScreen());
     },
     CallRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i37.CallWrapperScreen());
     },
     ProfileRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i38.ProfileWrapperScreen());
     },
     HomeRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i39.HomeScreen());
     },
     NewsRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i40.NewsScreen());
     },
     CallRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i41.CallScreen());
     },
     ProfileRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i42.ProfileScreen());
     },
     HomeAdminRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i43.HomeAdminWrapperScreen());
     },
     ReportAdminRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i44.ReportAdminWrapperScreen());
     },
     ProfileAdminRouter.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i45.ProfileAdminWrapperScreen());
     },
     HomeAdminRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i46.HomeAdminScreen());
     },
     ReportAdminRoute.name: (routeData) {
       final args = routeData.argsAs<ReportAdminRouteArgs>(
           orElse: () => const ReportAdminRouteArgs());
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i47.ReportAdminScreen(
               key: args.key, initialIndex: args.initialIndex));
     },
     ProfileAdminRoute.name: (routeData) {
-      return _i49.CupertinoPageX<dynamic>(
+      return _i49.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i48.ProfileAdminScreen());
     }
   };

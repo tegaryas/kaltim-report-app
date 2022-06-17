@@ -38,4 +38,17 @@ class EmergencyCallProvider implements EmergencyCallProviderInterface {
   Future<void> removeUserEmergencyCall(String id) async {
     await firebaseFirestore.collection("EmergencyHelp").doc(id).delete();
   }
+
+  @override
+  Stream<List<EmergencyCallModel>> getEmergencyCallListStream() {
+    return firebaseFirestore
+        .collection("EmergencyHelp")
+        .where('userId', isNotEqualTo: authRepository.loggedUser.uid)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => EmergencyCallModel.fromJson(doc.data()))
+          .toList();
+    });
+  }
 }

@@ -327,8 +327,8 @@ class PhotoEditModalState extends State<PhotoEditModal> {
     );
   }
 
-  Future<void> uploadImageGallery(BuildContext context) {
-    return imagePicker
+  Future<void> uploadImageGallery(BuildContext context) async {
+    imagePicker
         .pickImage(
       source: ImageSource.gallery,
       imageQuality: 60,

@@ -5,6 +5,7 @@ import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/modules/report/blocs/report_category/report_category_bloc.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
+import 'package:sizer/sizer.dart';
 
 class ReportCategoryPickerScreen extends StatefulWidget {
   final int? initialValue;
@@ -49,7 +50,15 @@ class _ReportCategoryPickerScreenState
 
   Widget _buildWidgetSuccess(List<ReportCategoryModel> datas) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Kategori Laporan",
+          style: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: ListView.builder(
         itemCount: datas.length,
         itemBuilder: (context, index) {
