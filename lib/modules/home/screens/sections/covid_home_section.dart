@@ -5,7 +5,6 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/theme.dart';
-import 'package:kaltim_report/utils/launcher_helper.dart';
 import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
 import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';

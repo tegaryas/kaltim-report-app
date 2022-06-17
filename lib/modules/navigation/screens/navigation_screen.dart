@@ -115,7 +115,7 @@ class NavigationScreenState extends State<NavigationScreen> {
                 ),
               ),
               Text(
-                'Tambah',
+                'Lapor',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 8.sp,
