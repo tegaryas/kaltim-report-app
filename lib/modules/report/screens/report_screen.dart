@@ -38,67 +38,71 @@ class ReportScreen extends StatelessWidget {
         body: BlocBuilder<ReportListBloc, ReportListState>(
           builder: (context, state) {
             if (state is ReportListSuccess) {
-              return RefreshIndicator(
-                onRefresh: () => Future.sync(() {
-                  state.pagingController.refresh();
-                }),
-                child: PagedListView<String, ReportModel>.separated(
-                  pagingController: state.pagingController,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    bottom: 40,
-                    top: 20,
-                  ),
-                  builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, entry, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: ReportCardComponent(
-                          report: entry,
-                          onTap: () {
-                            context.pushRoute(DetailReportRoute(id: entry.id));
-                          },
-                        ),
-                      );
-                    },
-                    firstPageErrorIndicatorBuilder: (context) {
-                      return ErrorPlaceholder(
-                        title: 'Ups Terjadi Kesalahan',
-                        subtitle:
-                            'Jangan panik, kamu bisa memuat ulang data dengan menekan tombol dibawah ini!',
-                        onTap: () {
-                          state.pagingController.refresh();
-                        },
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (context) {
-                      return SizedBox(
-                        height: 100.h,
-                        width: 100.w,
-                        child: Column(
-                          children: List.generate(
-                              6, (index) => ReportCardComponent.loader()),
-                        ),
-                      );
-                    },
-                  ),
-                  separatorBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Divider(
-                      height: 6.h,
-                      thickness: 2,
-                    ),
-                  ),
-                ),
-              );
+              return _buildWidgetSuccess(state);
             } else {
               return ReportCardComponent.loader();
             }
           },
         ));
+  }
+
+  Widget _buildWidgetSuccess(ReportListSuccess state) {
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(() {
+        state.pagingController.refresh();
+      }),
+      child: PagedListView<String, ReportModel>.separated(
+        pagingController: state.pagingController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.only(
+          bottom: 40,
+          top: 20,
+        ),
+        builderDelegate: PagedChildBuilderDelegate(
+          itemBuilder: (context, entry, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: ReportCardComponent(
+                report: entry,
+                onTap: () {
+                  context.pushRoute(DetailReportRoute(id: entry.id));
+                },
+              ),
+            );
+          },
+          firstPageErrorIndicatorBuilder: (context) {
+            return ErrorPlaceholder(
+              title: 'Ups Terjadi Kesalahan',
+              subtitle:
+                  'Jangan panik, kamu bisa memuat ulang data dengan menekan tombol dibawah ini!',
+              onTap: () {
+                state.pagingController.refresh();
+              },
+            );
+          },
+          firstPageProgressIndicatorBuilder: (context) {
+            return SizedBox(
+              height: 100.h,
+              width: 100.w,
+              child: Column(
+                children:
+                    List.generate(6, (index) => ReportCardComponent.loader()),
+              ),
+            );
+          },
+        ),
+        separatorBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: Divider(
+            height: 6.h,
+            thickness: 2,
+          ),
+        ),
+      ),
+    );
   }
 }

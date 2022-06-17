@@ -3,10 +3,12 @@ import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebviewScreen extends StatefulWidget {
-  final String newsUrl;
+  final String webUrl;
+  final String title;
   const WebviewScreen({
     Key? key,
-    required this.newsUrl,
+    required this.webUrl,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Berita",
+          widget.title,
           style: TextStyle(
             fontSize: 12.sp,
             fontWeight: FontWeight.w500,
@@ -37,7 +39,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
       ),
       body: WebView(
         javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: widget.newsUrl,
+        initialUrl: widget.webUrl,
         onWebViewCreated: (controller) {
           webViewController = controller;
         },

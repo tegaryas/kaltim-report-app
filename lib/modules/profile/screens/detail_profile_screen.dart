@@ -8,7 +8,7 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile_picture_update/profile_picture_update_bloc.dart';
 import 'package:kaltim_report/theme.dart';
-import 'package:kaltim_report/widgets/image_network_builder.dart';
+import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
 class DetailProfileScreen extends StatelessWidget {
@@ -25,121 +25,139 @@ class DetailProfileScreen extends StatelessWidget {
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           if (state is ProfileLoaded) {
-            return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                leading: IconButton(
+            return _buildWidgetSuccess(context, state);
+          } else if (state is ProfileFailed) {
+            return _buildWidgetFailed(context);
+          } else {
+            return _buildWidgetLoading();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildWidgetLoading() {
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+  }
+
+  Widget _buildWidgetFailed(BuildContext context) {
+    return ErrorPlaceholder(
+      title: 'Ups ada kesalahan',
+      subtitle: 'Silahkan tekan tombol dibawah ini untuk memuat ulang data',
+      onTap: () {
+        context.read<ProfileBloc>().add(ProfileFetching());
+      },
+    );
+  }
+
+  Widget _buildWidgetSuccess(BuildContext context, ProfileLoaded state) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            context.router.pop();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            size: 18.sp,
+          ),
+        ),
+        title: Text(
+          'Akun Saya',
+          style: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 2.5.h,
+            ),
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: ProfileImageNetworkBuild(
+                    imageUrl: state.profile.profilePic ?? '',
+                    height: 40.sp,
+                    width: 40.sp,
+                  ),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      builder: (context) => const PhotoEditModal(),
+                    );
+                  },
+                  child: Text(
+                    "Ubah Foto Profile",
+                    style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textFaded,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
                   onPressed: () {
-                    context.router.pop();
+                    context.pushRoute(ProfileEditRoute(profile: state.profile));
                   },
                   icon: Icon(
-                    Icons.arrow_back,
-                    size: 18.sp,
+                    Icons.edit,
+                    color: Colors.blueGrey,
+                    size: 15.sp,
                   ),
-                ),
-                title: Text(
-                  'Akun Saya',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: ProfileImageNetworkBuild(
-                            imageUrl: state.profile.profilePic ?? '',
-                            height: 40.sp,
-                            width: 40.sp,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20),
-                                ),
-                              ),
-                              builder: (context) => const PhotoEditModal(),
-                            );
-                          },
-                          child: Text(
-                            "Ubah Foto Profile",
-                            style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textFaded,
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            context.pushRoute(
-                                ProfileEditRoute(profile: state.profile));
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Colors.blueGrey,
-                            size: 15.sp,
-                          ),
-                        )
-                      ],
-                    ),
-                    Divider(
-                      height: 8.h,
-                    ),
-                    BuildProfileData(
-                      label: "Alamat Email",
-                      data: state.profile.email,
-                    ),
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    BuildProfileData(
-                      label: "Nama Lengkap",
-                      data: state.profile.name,
-                    ),
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    BuildProfileData(
-                      label: "Nomor Handphone",
-                      data: state.profile.phoneNumber ?? "Belum Diisi",
-                    ),
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    BuildProfileData(
-                      label: "Alamat",
-                      data: state.profile.address ?? "Belum Diisi",
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
-        },
+                )
+              ],
+            ),
+            Divider(
+              height: 8.h,
+            ),
+            BuildProfileData(
+              label: "Alamat Email",
+              data: state.profile.email,
+            ),
+            SizedBox(
+              height: 2.5.h,
+            ),
+            BuildProfileData(
+              label: "Nama Lengkap",
+              data: state.profile.name,
+            ),
+            SizedBox(
+              height: 2.5.h,
+            ),
+            BuildProfileData(
+              label: "Nomor Handphone",
+              data: state.profile.phoneNumber ?? "Belum Diisi",
+            ),
+            SizedBox(
+              height: 2.5.h,
+            ),
+            BuildProfileData(
+              label: "Alamat",
+              data: state.profile.address ?? "Belum Diisi",
+            ),
+          ],
+        ),
       ),
     );
   }

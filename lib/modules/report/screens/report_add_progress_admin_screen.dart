@@ -53,6 +53,14 @@ class _ReportAddProgressAdminScreenState
               duration: const Duration(seconds: 2),
             ).show(context).whenComplete(() => context.popRoute(true));
           }
+
+          if (state is ReportUpdateFormFailed) {
+            FlushbarHelper.createError(
+              message: 'Update tatus laporan belum berhasil',
+              title: "Gagal",
+              duration: const Duration(seconds: 2),
+            ).show(context);
+          }
         },
         child: Scaffold(
           appBar: AppBar(
@@ -201,12 +209,6 @@ class _ReportAddProgressAdminScreenState
                       value: ReportStatusType.selesai,
                       child: Text(
                         "Selesai",
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: ReportStatusType.tindakLanjut,
-                      child: Text(
-                        'Tidak Lanjut',
                       ),
                     ),
                     DropdownMenuItem(

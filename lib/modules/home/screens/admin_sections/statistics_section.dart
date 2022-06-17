@@ -14,9 +14,7 @@ class StatisticSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 15,
-      ),
+      margin: const EdgeInsets.only(top: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,11 +64,7 @@ class StatisticSection extends StatelessWidget {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
-      padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
-        top: 20,
-      ),
+      padding: const EdgeInsets.all(20),
       childAspectRatio: 4 / 1.6,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
@@ -114,11 +108,7 @@ class StatisticSection extends StatelessWidget {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
-      padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
-        top: 20,
-      ),
+      padding: const EdgeInsets.all(20),
       childAspectRatio: 4 / 1.6,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,

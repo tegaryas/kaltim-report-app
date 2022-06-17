@@ -56,44 +56,9 @@ class LaporanSection extends StatelessWidget {
               if (state.data.isEmpty) {
                 return _buildReportEmpty();
               }
-              return ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                    ),
-                    child: ReportCardComponent(
-                      report: state.data[index],
-                      onTap: () {
-                        context.navigateTo(ReportRouter(children: [
-                          DetailReportRoute(id: state.data[index].id)
-                        ]));
-                      },
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Divider(
-                    height: 5.h,
-                    thickness: 2,
-                  ),
-                ),
-                itemCount: state.data.length,
-              );
+              return _buildWidgetSuccess(state);
             } else if (state is HomeReportFailed) {
-              return ErrorPlaceholder(
-                title: 'Ups terjadi kesalahan',
-                subtitle:
-                    'Kamu bisa memuat ulang data dengan menekan tombol dibawah ini',
-                onTap: () {
-                  context.read<HomeReportBloc>().add(HomeReportFetch());
-                },
-              );
+              return _buildWidgetFailed(context);
             } else {
               return ReportCardComponent.loader();
             }
@@ -103,6 +68,47 @@ class LaporanSection extends StatelessWidget {
           height: 8.h,
         ),
       ],
+    );
+  }
+
+  Widget _buildWidgetFailed(BuildContext context) {
+    return ErrorPlaceholder(
+      title: 'Ups terjadi kesalahan',
+      subtitle: 'Kamu bisa memuat ulang data dengan menekan tombol dibawah ini',
+      onTap: () {
+        context.read<HomeReportBloc>().add(HomeReportFetch());
+      },
+    );
+  }
+
+  Widget _buildWidgetSuccess(HomeReportSuccess state) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+          ),
+          child: ReportCardComponent(
+            report: state.data[index],
+            onTap: () {
+              context.navigateTo(ReportRouter(
+                  children: [DetailReportRoute(id: state.data[index].id)]));
+            },
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Divider(
+          height: 5.h,
+          thickness: 2,
+        ),
+      ),
+      itemCount: state.data.length,
     );
   }
 

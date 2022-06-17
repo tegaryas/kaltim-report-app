@@ -131,7 +131,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
     return ErrorPlaceholder(
       title: 'Yah ada kesalahan nih!',
       subtitle:
-          "Terjadi kesalahan saat memuat data gempa, kamu bisa ulangi dengan menekan tombol dibawah ini",
+          "Terjadi kesalahan saat memuat data, kamu bisa ulangi dengan menekan tombol dibawah ini",
       onTap: () {
         reportDetailBloc.add(ReportDetailFetch(id: widget.id));
       },

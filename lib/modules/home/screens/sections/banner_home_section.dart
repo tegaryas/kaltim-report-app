@@ -24,64 +24,76 @@ class _BannerHomeSectionState extends State<BannerHomeSection> {
     return BlocBuilder<BannerBloc, BannerState>(
       builder: (context, state) {
         if (state is BannerSuccess) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCarouselSlider(state),
-              _buildDotIndicator(state),
-            ],
-          );
+          return _buildWidgetSuccess(state);
         } else if (state is BannerFailed) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-            ),
-            child: ErrorPlaceholder(
-              title: 'Yah Ada Kesalahan',
-              subtitle: 'Silahkan refresh untuk memuat ulang data',
-              onTap: () {
-                context.read<BannerBloc>().add(BannerFetch());
-              },
-            ),
-          );
+          return _buildWidgetFailed(context);
         } else {
-          return Container(
-            margin: const EdgeInsets.only(
-              left: 24,
-              top: 20,
-            ),
-            child: Column(
-              children: [
-                SkeletonLoaderSquare(
-                  height: 160,
-                  width: 85.w,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    SkeletonLoaderSquare(
-                      height: 6,
-                      width: 15,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    SkeletonLoaderSquare(
-                      height: 6,
-                      width: 6,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
+          return _buildWIdgetLoading();
         }
       },
+    );
+  }
+
+  Widget _buildWIdgetLoading() {
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 24,
+        top: 20,
+      ),
+      child: Column(
+        children: [
+          SkeletonLoaderSquare(
+            height: 160,
+            width: 85.w,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              SkeletonLoaderSquare(
+                height: 6,
+                width: 15,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              const SizedBox(
+                width: 2,
+              ),
+              SkeletonLoaderSquare(
+                height: 6,
+                width: 6,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWidgetFailed(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      child: ErrorPlaceholder(
+        title: 'Yah Ada Kesalahan',
+        subtitle: 'Silahkan refresh untuk memuat ulang data',
+        onTap: () {
+          context.read<BannerBloc>().add(BannerFetch());
+        },
+      ),
+    );
+  }
+
+  Widget _buildWidgetSuccess(BannerSuccess state) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildCarouselSlider(state),
+        _buildDotIndicator(state),
+      ],
     );
   }
 

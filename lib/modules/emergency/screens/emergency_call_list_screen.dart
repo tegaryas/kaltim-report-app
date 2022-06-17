@@ -6,7 +6,6 @@ import 'package:kaltim_report/modules/emergency/models/emergency_call_model.dart
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
 import 'package:kaltim_report/utils/launcher_helper.dart';
-import 'package:kaltim_report/widgets/error_screen_placeholder.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,45 +29,54 @@ class EmergencyCallListScreen extends StatelessWidget {
       body: BlocBuilder<EmergencyCallListBloc, EmergencyCallListState>(
         builder: (context, state) {
           if (state is EmergencyCallListSuccess) {
-            return RefreshIndicator(
-              onRefresh: () => Future.sync(() => context
-                  .read<EmergencyCallListBloc>()
-                  .add(EmergencyCallListFetch())),
-              child: ListView.separated(
-                itemCount: state.data.length,
-                separatorBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Divider(
-                      height: 5,
-                      color: AppColors.textFaded,
-                    ),
-                  );
-                },
-                itemBuilder: (context, index) {
-                  final data = state.data[index];
-                  return EmergencyCallCard(data: data);
-                },
-              ),
-            );
+            return _buildWidgetSuccess(context, state);
           } else if (state is EmergencyCallListFailed) {
-            return ErrorPlaceholder(
-              title: 'Ups Terjadi Kesalahan',
-              subtitle:
-                  'Kamu bisa menekan tombol dibawah ini untuk memuat ulang data',
-              onTap: () {
-                context
-                    .read<EmergencyCallListBloc>()
-                    .add(EmergencyCallListFetch());
-              },
-            );
+            return _buildWidgetFailed(context);
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return _buildWidgetLoading();
           }
+        },
+      ),
+    );
+  }
+
+  Widget _buildWidgetLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildWidgetFailed(BuildContext context) {
+    return ErrorPlaceholder(
+      title: 'Ups Terjadi Kesalahan',
+      subtitle: 'Kamu bisa menekan tombol dibawah ini untuk memuat ulang data',
+      onTap: () {
+        context.read<EmergencyCallListBloc>().add(EmergencyCallListFetch());
+      },
+    );
+  }
+
+  Widget _buildWidgetSuccess(
+      BuildContext context, EmergencyCallListSuccess state) {
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(() =>
+          context.read<EmergencyCallListBloc>().add(EmergencyCallListFetch())),
+      child: ListView.separated(
+        itemCount: state.data.length,
+        separatorBuilder: (context, index) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Divider(
+              height: 5,
+              color: AppColors.textFaded,
+            ),
+          );
+        },
+        itemBuilder: (context, index) {
+          final data = state.data[index];
+          return EmergencyCallCard(data: data);
         },
       ),
     );
