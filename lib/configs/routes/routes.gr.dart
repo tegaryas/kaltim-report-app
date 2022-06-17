@@ -40,7 +40,6 @@ import '../../modules/home/screens/home_screen.dart' as _i39;
 import '../../modules/home/screens/home_screen_wrapper.dart' as _i35;
 import '../../modules/navigation/screens/admin_navigation_screen.dart' as _i19;
 import '../../modules/navigation/screens/navigation_screen.dart' as _i18;
-import '../../modules/news/screens/news_detail_screen.dart' as _i8;
 import '../../modules/news/screens/news_screen.dart' as _i40;
 import '../../modules/news/screens/news_wrapper_screen.dart' as _i36;
 import '../../modules/onboard/screens/onboarding_page.dart' as _i2;
@@ -73,6 +72,7 @@ import '../../modules/report/screens/report_user_bookmark_screen.dart' as _i28;
 import '../../modules/report/screens/report_user_screen.dart' as _i10;
 import '../../modules/report/screens/report_wrapper_screen.dart' as _i7;
 import '../../modules/splash/splash_screen.dart' as _i1;
+import '../../widgets/webview_screen.dart' as _i8;
 
 class AppRouter extends _i49.RootStackRouter {
   AppRouter([_i50.GlobalKey<_i50.NavigatorState>? navigatorKey])
@@ -114,7 +114,8 @@ class AppRouter extends _i49.RootStackRouter {
       final args = routeData.argsAs<WebviewRouteArgs>();
       return _i49.CupertinoPageX<dynamic>(
           routeData: routeData,
-          child: _i8.WebviewScreen(key: args.key, newsUrl: args.newsUrl));
+          child: _i8.WebviewScreen(
+              key: args.key, webUrl: args.webUrl, title: args.title));
     },
     AddReportRoute.name: (routeData) {
       final args = routeData.argsAs<AddReportRouteArgs>(
@@ -552,24 +553,26 @@ class ReportRouter extends _i49.PageRouteInfo<void> {
 /// generated route for
 /// [_i8.WebviewScreen]
 class WebviewRoute extends _i49.PageRouteInfo<WebviewRouteArgs> {
-  WebviewRoute({_i50.Key? key, required String newsUrl})
+  WebviewRoute({_i50.Key? key, required String webUrl, required String title})
       : super(WebviewRoute.name,
             path: '/webview',
-            args: WebviewRouteArgs(key: key, newsUrl: newsUrl));
+            args: WebviewRouteArgs(key: key, webUrl: webUrl, title: title));
 
   static const String name = 'WebviewRoute';
 }
 
 class WebviewRouteArgs {
-  const WebviewRouteArgs({this.key, required this.newsUrl});
+  const WebviewRouteArgs({this.key, required this.webUrl, required this.title});
 
   final _i50.Key? key;
 
-  final String newsUrl;
+  final String webUrl;
+
+  final String title;
 
   @override
   String toString() {
-    return 'WebviewRouteArgs{key: $key, newsUrl: $newsUrl}';
+    return 'WebviewRouteArgs{key: $key, webUrl: $webUrl, title: $title}';
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/home/blocs/home_covid/home_covid_bloc.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/theme.dart';
@@ -54,7 +55,7 @@ class CovidHomeSection extends StatelessWidget {
             if (state is HomeCovidSuccess) {
               return _buildWidgetSuccess(state.config, context);
             } else if (state is HomeCovidFailed) {
-              return _buildWidgetfFailed(context);
+              return _buildWidgetFailed(context);
             } else {
               return _buildWigetLoading(context);
             }
@@ -87,7 +88,8 @@ class CovidHomeSection extends StatelessWidget {
                       includePrefixMatches: true);
                 } else if (config[index].actionType == FeatureActionType.url &&
                     config[index].path != null) {
-                  LauncherHelper.openUrl(config[index].path!);
+                  context.pushRoute(WebviewRoute(
+                      webUrl: config[index].path!, title: config[index].title));
                 }
               },
             ),
@@ -97,7 +99,7 @@ class CovidHomeSection extends StatelessWidget {
     );
   }
 
-  Widget _buildWidgetfFailed(BuildContext context) {
+  Widget _buildWidgetFailed(BuildContext context) {
     return ErrorPlaceholder(
       title: 'Ups ada kesalahan',
       subtitle: 'Silahkan tekan tombol dibawah ini untuk memuat ulang data',

@@ -29,7 +29,7 @@ class EmergencyCallListScreen extends StatelessWidget {
       body: BlocBuilder<EmergencyCallListBloc, EmergencyCallListState>(
         builder: (context, state) {
           if (state is EmergencyCallListSuccess) {
-            return _buildWidgetSuccess(context, state);
+            return _buildWidgetSuccess(context, state, isAdmin);
           } else if (state is EmergencyCallListFailed) {
             return _buildWidgetFailed(context);
           } else {
@@ -57,7 +57,7 @@ class EmergencyCallListScreen extends StatelessWidget {
   }
 
   Widget _buildWidgetSuccess(
-      BuildContext context, EmergencyCallListSuccess state) {
+      BuildContext context, EmergencyCallListSuccess state, bool isAdmin) {
     return RefreshIndicator(
       onRefresh: () => Future.sync(() =>
           context.read<EmergencyCallListBloc>().add(EmergencyCallListFetch())),
@@ -76,7 +76,9 @@ class EmergencyCallListScreen extends StatelessWidget {
         },
         itemBuilder: (context, index) {
           final data = state.data[index];
-          return EmergencyCallCard(data: data);
+          return isAdmin
+              ? DismissibleEmergencyCard(data: data)
+              : EmergencyCallCard(data: data);
         },
       ),
     );
@@ -88,6 +90,70 @@ class EmergencyCallCard extends StatelessWidget {
     Key? key,
     required this.data,
   }) : super(key: key);
+
+  final EmergencyCallModel data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.name!,
+                    style: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    ConverterHelper.convertDateTimeToFullDateFormat(
+                        data.dateInput, context),
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                LauncherHelper.launchCaller(data.phoneNumber!);
+              },
+              icon: const Icon(
+                Icons.call,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            IconButton(
+              onPressed: () {
+                LauncherHelper.launchMaps(data.location);
+              },
+              icon: const Icon(
+                Icons.map,
+              ),
+            )
+          ],
+        ));
+  }
+}
+
+class DismissibleEmergencyCard extends StatelessWidget {
+  const DismissibleEmergencyCard({Key? key, required this.data})
+      : super(key: key);
 
   final EmergencyCallModel data;
 

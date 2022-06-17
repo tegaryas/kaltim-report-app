@@ -20,7 +20,7 @@ import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen_wrapper.dart';
 import 'package:kaltim_report/modules/navigation/screens/admin_navigation_screen.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
-import 'package:kaltim_report/modules/news/screens/news_detail_screen.dart';
+import 'package:kaltim_report/widgets/webview_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_wrapper_screen.dart';
 import 'package:kaltim_report/modules/onboard/screens/onboarding_page.dart';
