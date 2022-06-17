@@ -5,4 +5,6 @@ abstract class EmergencyCallRepositoryInterface {
   Future<void> postUserEmergencyCall(EmergencyCallFormModel data);
 
   Future<List<EmergencyCallModel>> getEmergencyCallList();
+
+  Future<void> removeUserEmergencyCall(String id);
 }

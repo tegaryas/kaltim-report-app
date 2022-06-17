@@ -119,7 +119,7 @@ class _ReportAddProgressAdminScreenState
                 GestureDetector(
                   onTap: () async {
                     XFile? image = await _imagePicker.pickImage(
-                      source: ImageSource.gallery,
+                      source: ImageSource.camera,
                       imageQuality: 60,
                     );
 
@@ -130,16 +130,43 @@ class _ReportAddProgressAdminScreenState
                     }
                   },
                   child: _selectedImage != null
-                      ? Container(
-                          height: 30.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(File(_selectedImage!.path)),
+                      ? Stack(
+                          children: [
+                            Container(
+                              height: 30.h,
+                              width: 100.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: FileImage(File(_selectedImage!.path)),
+                                ),
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              top: 10,
+                              right: 10,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.grey,
+                                  shape: BoxShape.circle,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _selectedImage = null;
+                                    });
+                                  },
+                                  child: const Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       : Container(
                           height: 30.h,

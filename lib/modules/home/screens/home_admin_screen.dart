@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kaltim_report/constant/constant.dart';
+import 'package:kaltim_report/modules/emergency/blocs/emergency_call_list/emergency_call_list_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/home_statistic_chart/home_statistic_chart_bloc.dart';
 import 'package:kaltim_report/modules/home/blocs/home_statistic_data/home_statistic_data_bloc.dart';
 import 'package:kaltim_report/modules/home/screens/admin_sections/analysis_section.dart';
 import 'package:kaltim_report/modules/home/screens/admin_sections/statistics_section.dart';
+import 'package:kaltim_report/modules/home/screens/sections/emergency_call_notification_section.dart';
 
 class HomeAdminScreen extends StatelessWidget {
   const HomeAdminScreen({Key? key}) : super(key: key);
@@ -26,10 +28,13 @@ class HomeAdminScreen extends StatelessWidget {
         onRefresh: () => Future.sync(() {
           context.read<HomeStatisticChartBloc>().add(HomeStatisticChartFetch());
           context.read<HomeStatisticDataBloc>().add(HomeStatisticDataFetch());
+          context.read<EmergencyCallListBloc>().add(EmergencyCallListFetch());
         }),
         child: ListView(
           children: const [
             StatisticSection(),
+            EmergencyCallNotificationSection(isAdmin: true),
+            SizedBox(height: 20),
             AnalysisSection(),
           ],
         ),

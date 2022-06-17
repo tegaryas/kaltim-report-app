@@ -14,6 +14,12 @@ abstract class ConverterHelper {
         .format(date);
   }
 
+  static convertDateTimeToHoursMinuteTimeFormat(
+      DateTime date, BuildContext context) {
+    return DateFormat("HH:mm", Localizations.localeOf(context).toString())
+        .format(date);
+  }
+
   static String differenceTimeParse(DateTime date) {
     final now = DateTime.now();
 

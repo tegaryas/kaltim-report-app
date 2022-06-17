@@ -10,6 +10,7 @@ import 'package:kaltim_report/modules/report/blocs/report_detail/report_detail_b
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
+import 'package:kaltim_report/widgets/image_gallery_screen.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -169,12 +170,20 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: ImageNetworkBuild(
-          imageUrl: data.imageUrl,
-          height: 30.h,
-          width: 100.w,
+      child: Material(
+        child: InkWell(
+          onTap: () {
+            context.router
+                .pushWidget(ImageGalleryScreen(imageUrls: [data.imageUrl]));
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: ImageNetworkBuild(
+              imageUrl: data.imageUrl,
+              height: 30.h,
+              width: 100.w,
+            ),
+          ),
         ),
       ),
     );

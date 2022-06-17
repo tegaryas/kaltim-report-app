@@ -8,3 +8,12 @@ abstract class EmergencyCallListEvent extends Equatable {
 }
 
 class EmergencyCallListFetch extends EmergencyCallListEvent {}
+
+class EmergencyCallListRemoveById extends EmergencyCallListEvent {
+  final String id;
+
+  const EmergencyCallListRemoveById({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}

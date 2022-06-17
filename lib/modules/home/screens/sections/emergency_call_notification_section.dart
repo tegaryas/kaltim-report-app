@@ -7,8 +7,10 @@ import 'package:kaltim_report/modules/emergency/blocs/emergency_call_list/emerge
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
 
-class EmergencyCallNotificationScreen extends StatelessWidget {
-  const EmergencyCallNotificationScreen({Key? key}) : super(key: key);
+class EmergencyCallNotificationSection extends StatelessWidget {
+  final bool isAdmin;
+  const EmergencyCallNotificationSection({Key? key, required this.isAdmin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,8 @@ class EmergencyCallNotificationScreen extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
-          context.pushRoute(
-              const EmergencyCallRouter(children: [EmergencyCallListRoute()]));
+          context.pushRoute(EmergencyCallRouter(
+              children: [EmergencyCallListRoute(isAdmin: isAdmin)]));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(

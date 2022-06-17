@@ -18,4 +18,9 @@ class EmergencyCallRepository implements EmergencyCallRepositoryInterface {
   Future<List<EmergencyCallModel>> getEmergencyCallList() {
     return emergencyCallProvider.getEmergencyCallList();
   }
+
+  @override
+  Future<void> removeUserEmergencyCall(String id) {
+    return emergencyCallProvider.removeUserEmergencyCall(id);
+  }
 }

@@ -234,8 +234,11 @@ class AppRouter extends _i49.RootStackRouter {
           routeData: routeData, child: const _i32.EmergencyCallScreen());
     },
     EmergencyCallListRoute.name: (routeData) {
+      final args = routeData.argsAs<EmergencyCallListRouteArgs>();
       return _i49.CupertinoPageX<dynamic>(
-          routeData: routeData, child: const _i33.EmergencyCallListScreen());
+          routeData: routeData,
+          child: _i33.EmergencyCallListScreen(
+              key: args.key, isAdmin: args.isAdmin));
     },
     EmergencyCallSuccessRoute.name: (routeData) {
       return _i49.CupertinoPageX<dynamic>(
@@ -916,11 +919,27 @@ class EmergencyCallRoute extends _i49.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i33.EmergencyCallListScreen]
-class EmergencyCallListRoute extends _i49.PageRouteInfo<void> {
-  const EmergencyCallListRoute()
-      : super(EmergencyCallListRoute.name, path: 'list-user');
+class EmergencyCallListRoute
+    extends _i49.PageRouteInfo<EmergencyCallListRouteArgs> {
+  EmergencyCallListRoute({_i50.Key? key, required bool isAdmin})
+      : super(EmergencyCallListRoute.name,
+            path: 'list-user',
+            args: EmergencyCallListRouteArgs(key: key, isAdmin: isAdmin));
 
   static const String name = 'EmergencyCallListRoute';
+}
+
+class EmergencyCallListRouteArgs {
+  const EmergencyCallListRouteArgs({this.key, required this.isAdmin});
+
+  final _i50.Key? key;
+
+  final bool isAdmin;
+
+  @override
+  String toString() {
+    return 'EmergencyCallListRouteArgs{key: $key, isAdmin: $isAdmin}';
+  }
 }
 
 /// generated route for

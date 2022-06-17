@@ -5,6 +5,7 @@ import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/components/status_report_badge.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
+import 'package:kaltim_report/widgets/image_gallery_screen.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -141,12 +142,18 @@ class ReportDetailProgressAdminScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: ImageNetworkBuild(
-                      imageUrl: progres.imageUrl!,
-                      height: 180,
-                      width: 100.w,
+                  child: InkWell(
+                    onTap: () {
+                      context.router.pushWidget(
+                          ImageGalleryScreen(imageUrls: [progres.imageUrl!]));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: ImageNetworkBuild(
+                        imageUrl: progres.imageUrl!,
+                        height: 180,
+                        width: 100.w,
+                      ),
                     ),
                   ),
                 ),

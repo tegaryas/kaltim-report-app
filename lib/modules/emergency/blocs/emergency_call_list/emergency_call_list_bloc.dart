@@ -25,5 +25,9 @@ class EmergencyCallListBloc
         emit(EmergencyCallListFailed(e, s));
       }
     });
+
+    on<EmergencyCallListRemoveById>((event, emit) async {
+      await emergencyCallRepository.removeUserEmergencyCall(event.id);
+    });
   }
 }

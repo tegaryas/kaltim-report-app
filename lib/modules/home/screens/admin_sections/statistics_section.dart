@@ -66,9 +66,10 @@ class StatisticSection extends StatelessWidget {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 20,
       ),
       childAspectRatio: 4 / 1.6,
       mainAxisSpacing: 10,
@@ -113,9 +114,10 @@ class StatisticSection extends StatelessWidget {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 20,
       ),
       childAspectRatio: 4 / 1.6,
       mainAxisSpacing: 10,

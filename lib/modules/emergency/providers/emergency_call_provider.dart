@@ -21,12 +21,21 @@ class EmergencyCallProvider implements EmergencyCallProviderInterface {
 
   @override
   Future<List<EmergencyCallModel>> getEmergencyCallList() async {
-    return firebaseFirestore
+    final res = await firebaseFirestore
         .collection("EmergencyHelp")
         .where('userId', isNotEqualTo: authRepository.loggedUser.uid)
         .get()
         .then((value) => value.docs
             .map((e) => EmergencyCallModel.fromJson(e.data()))
             .toList());
+
+    res.sort((a, b) => a.dateInput.compareTo(b.dateInput));
+
+    return res;
+  }
+
+  @override
+  Future<void> removeUserEmergencyCall(String id) async {
+    await firebaseFirestore.collection("EmergencyHelp").doc(id).delete();
   }
 }

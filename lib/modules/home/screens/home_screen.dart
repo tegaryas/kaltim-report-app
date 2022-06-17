@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 4.h,
                   ),
                   const FeatureHomeSection(),
-                  const EmergencyCallNotificationScreen(),
+                  const EmergencyCallNotificationSection(isAdmin: false),
                   const BannerHomeSection(),
                   Divider(
                     thickness: 6,
