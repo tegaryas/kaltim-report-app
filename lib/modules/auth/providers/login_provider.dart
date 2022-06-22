@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/constant/constant.dart';
 import 'package:kaltim_report/modules/auth/providers/login_provider_interface.dart';
 
 @Injectable(as: LoginProviderInterface)
@@ -38,7 +39,7 @@ class LoginProvider implements LoginProviderInterface {
   @override
   Future<bool> isUserRegister(String email) async {
     final result = await firebaseFirestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .where("email", isEqualTo: email.toString())
         .get();
 

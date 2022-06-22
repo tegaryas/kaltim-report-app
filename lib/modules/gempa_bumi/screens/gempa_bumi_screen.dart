@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:kaltim_report/constant/constant.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_last_recently_bloc/gempa_bumi_last_recently_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/blocs/gempa_bumi_magnetudo_bloc/gempa_bumi_magnetudo_bloc.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/components/gempa_bumi_card.dart';
@@ -39,12 +39,18 @@ class _GempaBumiScreenState extends State<GempaBumiScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            "Gempa Bumi",
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-            ),
+          title: Row(
+            children: [
+              Assets.icons.bmkgLogo.image(height: 30, width: 30),
+              const SizedBox(width: 8),
+              Text(
+                "Gempa Bumi",
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
           ),
           actions: [
             IconButton(
@@ -66,7 +72,7 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                 );
               },
               icon: Icon(
-                Ionicons.share_social_outline,
+                Iconsax.share,
                 size: 16.sp,
               ),
             )

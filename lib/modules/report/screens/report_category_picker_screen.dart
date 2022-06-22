@@ -49,6 +49,36 @@ class _ReportCategoryPickerScreenState
   }
 
   Widget _buildWidgetSuccess(List<ReportCategoryModel> datas) {
+    return RefreshIndicator(
+      onRefresh: () =>
+          Future.sync(() => reportCategoryBloc.add(ReportCategoryFetch())),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Kategori Laporan",
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        body: ListView.builder(
+          itemCount: datas.length,
+          itemBuilder: (context, index) {
+            final data = datas[index];
+            return ReportCategoryCard(
+                data: data,
+                selectedCategory: widget.initialValue == data.id,
+                onTap: () {
+                  context.popRoute(data);
+                });
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWidgetFailed() {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -59,24 +89,6 @@ class _ReportCategoryPickerScreenState
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: datas.length,
-        itemBuilder: (context, index) {
-          final data = datas[index];
-          return ReportCategoryCard(
-              data: data,
-              selectedCategory: widget.initialValue == data.id,
-              onTap: () {
-                context.popRoute(data);
-              });
-        },
-      ),
-    );
-  }
-
-  Widget _buildWidgetFailed() {
-    return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: ErrorPlaceholder(
           title: 'Ups Terjadi Kesalahan',
@@ -92,7 +104,15 @@ class _ReportCategoryPickerScreenState
 
   Widget _buildWidgetLoading() {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Kategori Laporan",
+          style: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       body: const Center(
         child: CircularProgressIndicator(),
       ),
@@ -114,25 +134,28 @@ class ReportCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: ListTile(
-        onTap: onTap,
-        leading: ImageNetworkBuild(
+    return ListTile(
+      onTap: onTap,
+      leading: SizedBox(
+        width: 35,
+        height: 35,
+        child: ImageNetworkBuild(
           imageUrl: data.imageUrl!,
           width: 35,
           height: 35,
         ),
-        selected: selectedCategory,
-        selectedTileColor: Theme.of(context).primaryColorLight.withOpacity(0.2),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        title: Text(data.name,
-            style: const TextStyle(fontWeight: FontWeight.w600)),
-        trailing: selectedCategory
-            ? const Icon(
-                Icons.check_circle,
-              )
-            : null,
       ),
+      dense: true,
+      selected: selectedCategory,
+      selectedTileColor: Theme.of(context).primaryColorLight.withOpacity(0.2),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      title:
+          Text(data.name, style: const TextStyle(fontWeight: FontWeight.w600)),
+      trailing: selectedCategory
+          ? const Icon(
+              Icons.check_circle,
+            )
+          : null,
     );
   }
 }

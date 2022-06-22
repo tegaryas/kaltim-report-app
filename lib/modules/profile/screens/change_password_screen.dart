@@ -82,8 +82,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       validator: MultiValidator([
                         RequiredValidator(
                             errorText: "Harap Masukkan Kata Sandi Baru Anda"),
-                        MinLengthValidator(6,
-                            errorText: "Masukkan minimal 6 karakter")
+                        MinLengthValidator(8,
+                            errorText: "Masukkan minimal 8 karakter")
                       ]),
                       onChanged: (val) {
                         newPassword = val;

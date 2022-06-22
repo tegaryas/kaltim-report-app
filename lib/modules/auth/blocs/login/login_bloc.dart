@@ -3,10 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/core/notification/providers/notification_provider_interface.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
 import 'package:kaltim_report/modules/auth/repositories/login_repository_interface.dart';
 import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
+import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
+import 'package:kaltim_report/modules/profile/repositories/profile_repository_interface.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -17,6 +20,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepositoryInterface authRepository;
   final RegisterRepositoryInterface registerRepository;
   final FirebaseCrashlytics firebaseCrashlytics;
+  final OneSignalNotificationProviderInterface notificationProvider;
+  final ProfileRepositoryInterface profileRepository;
 
   String? errorMessage;
   LoginBloc({
@@ -24,6 +29,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.authRepository,
     required this.registerRepository,
     required this.firebaseCrashlytics,
+    required this.notificationProvider,
+    required this.profileRepository,
   }) : super(LoginInitial()) {
     on<LoginStart>((event, emit) async {
       try {
@@ -32,6 +39,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.email, event.password);
         bool isSignedIn = authRepository.isLoggedIn();
         if (isSignedIn) {
+          final deviceToken = await notificationProvider.getOneSignalId();
+
+          await profileRepository
+              .updateProfileData(ProfileFormModel(deviceToken: deviceToken));
+
           emit(LoginSuccess());
         } else {
           emit(const LoginFailed(error: "Harap login beberapa saat lagi"));
@@ -76,12 +88,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               name: currentUser.displayName!,
               email: currentUser.email!,
               username: currentUser.displayName!,
-              password: currentUser.uid,
               idToken: currentUser.uid,
               phoneNumber: currentUser.phoneNumber,
               profilePic: currentUser.photoURL,
             ));
           }
+
+          final deviceToken = await notificationProvider.getOneSignalId();
+
+          await profileRepository
+              .updateProfileData(ProfileFormModel(deviceToken: deviceToken));
 
           emit(LoginSuccess());
         }

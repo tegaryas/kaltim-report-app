@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/auth/models/register_model.dart';
 import 'package:kaltim_report/modules/auth/repositories/register_repository_interface.dart';
 
@@ -61,7 +61,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         if (isEmailExsist.isEmpty) {
           await registerRepository
               .registerWithEmailAndPassword(
-                  event.data.email, event.data.password)
+                  event.data.email, event.data.password!)
               .then((value) async {
             var userId = authRepository.loggedUser.uid;
             await registerRepository.registerUserData(RegisterModel(

@@ -6,6 +6,7 @@ import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/constant/assets.gen.dart';
 import 'package:kaltim_report/modules/report/blocs/report_user/report_user_bloc.dart';
 import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -95,7 +96,7 @@ class ReportUserScreen extends StatelessWidget {
         Text(
           'Laporan kamu nanti akan kami tampilkan disini',
           style: TextStyle(
-            color: Colors.black38,
+            color: AppColors.textFaded,
             fontSize: 10.sp,
           ),
         ),

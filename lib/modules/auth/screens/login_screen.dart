@@ -10,7 +10,7 @@ import 'package:sizer/sizer.dart';
 
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/core/auth/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

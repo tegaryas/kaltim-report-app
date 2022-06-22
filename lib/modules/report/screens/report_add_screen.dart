@@ -85,7 +85,8 @@ class _AddReportScreenState extends State<AddReportScreen> {
               context.navigateTo(
                   ReportRouter(children: [DetailReportRoute(id: state.id)]));
             });
-          } else if (state is ReportFormFailure) {
+          }
+          if (state is ReportFormFailure) {
             FlushbarHelper.createError(
               message: '${state.error}',
               title: 'Yah Gagal',
@@ -574,7 +575,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
     );
   }
 
-  _buildTextTitle(String title) {
+  Widget _buildTextTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20.0,

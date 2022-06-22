@@ -166,7 +166,9 @@ class ReportDetailProgressAdminScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade300
+                          : Colors.black12,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(

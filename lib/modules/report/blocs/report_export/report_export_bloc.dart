@@ -31,7 +31,7 @@ class ReportExportBloc extends Bloc<ReportExportEvent, ReportExportState> {
             endDate = nowDate;
             startDate = DateTime(endDate.year, endDate.month - 1, endDate.day);
             break;
-          default: //custom
+          default:
             startDate = event.startDate!;
             endDate = event.endDate!;
         }
@@ -43,6 +43,7 @@ class ReportExportBloc extends Bloc<ReportExportEvent, ReportExportState> {
             format: event.exportFormat,
           ),
         );
+
         emit(ReportExportSuccess());
       } catch (e, s) {
         firebaseCrashlytics.recordError(e, s);

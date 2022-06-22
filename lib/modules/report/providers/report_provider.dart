@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 import 'package:excel/excel.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:kaltim_report/constant/constant.dart';
 
-import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
@@ -31,7 +33,7 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<void> addReportForm(ReportFormModel reportForm) async {
     await firestore
-        .collection("Report")
+        .collection(ApiPath.report)
         .doc(reportForm.id)
         .set(reportForm.toJson());
   }
@@ -48,7 +50,7 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Stream<List<ReportModel>> getCurrentUserReport() {
     return firestore
-        .collection("Report")
+        .collection(ApiPath.report)
         .orderBy("dateInput", descending: true)
         .where("userId", isEqualTo: authRepository.loggedUser.uid)
         .snapshots()
@@ -64,7 +66,7 @@ class ReportProvider implements ReportProviderInterface {
       ReportListFilterModel filter) async {
     if (filter.lastDocument == "") {
       return await firestore
-          .collection('Report')
+          .collection(ApiPath.report)
           .orderBy("id", descending: true)
           .where('lastStatus', isEqualTo: filter.status?.toShortString())
           .limit(filter.pageSize)
@@ -73,7 +75,7 @@ class ReportProvider implements ReportProviderInterface {
               value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
     } else {
       return await firestore
-          .collection('Report')
+          .collection(ApiPath.report)
           .orderBy("id", descending: true)
           .where('lastStatus', isEqualTo: filter.status?.toShortString())
           .startAfter([filter.lastDocument])
@@ -87,7 +89,7 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<List<ReportModel>> getCurrentUserReportHome() async {
     return await firestore
-        .collection('Report')
+        .collection(ApiPath.report)
         .orderBy("dateInput", descending: true)
         .where("userId", isEqualTo: authRepository.loggedUser.uid)
         .limit(4)
@@ -99,7 +101,7 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<ReportModel> getReportById(String id) async {
     return await firestore
-        .collection("Report")
+        .collection(ApiPath.report)
         .doc(id)
         .get()
         .then((value) => ReportModel.fromJson(value.data()!));
@@ -107,7 +109,7 @@ class ReportProvider implements ReportProviderInterface {
 
   @override
   Future<void> updateReportStatus(String id, ReportProgressModel data) async {
-    await firestore.collection("Report").doc(id).update({
+    await firestore.collection(ApiPath.report).doc(id).update({
       "lastStatus": data.statusType.toShortString(),
       "reportProgress": FieldValue.arrayUnion([data.toJson()]),
       'lastUpdate': data.date
@@ -116,13 +118,15 @@ class ReportProvider implements ReportProviderInterface {
 
   @override
   Future<void> deleteReportById(String id) async {
-    await firestore.collection("Report").doc(id).delete();
+    await firestore.collection(ApiPath.report).doc(id).delete();
   }
 
   @override
   Future<List<ReportCategoryModel>> getReportCategories() async {
-    return await firestore.collection('ReportCategory').get().then((value) =>
-        value.docs.map((e) => ReportCategoryModel.fromJson(e.data())).toList());
+    return await firestore.collection(ApiPath.reportCategory).get().then(
+        (value) => value.docs
+            .map((e) => ReportCategoryModel.fromJson(e.data()))
+            .toList());
   }
 
   @override
@@ -130,7 +134,7 @@ class ReportProvider implements ReportProviderInterface {
     List<List<dynamic>> rows = [];
 
     final res = await firestore
-        .collection('Report')
+        .collection(ApiPath.report)
         .where("dateInput", isGreaterThanOrEqualTo: form.startDate)
         .where("dateInput", isLessThanOrEqualTo: form.endDate)
         .get()
@@ -194,9 +198,9 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<void> addBookmarkReport(ReportModel report) async {
     await firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
-        .collection('Bookmarks')
+        .collection(ApiPath.bookmarkReport)
         .doc(report.id)
         .set(report.toJson());
   }
@@ -204,9 +208,9 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<bool> isAlreadyBookmark(String id) async {
     final res = await firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
-        .collection('Bookmarks')
+        .collection(ApiPath.bookmarkReport)
         .doc(id)
         .get();
 
@@ -216,9 +220,9 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<void> removeBookmarkReport(ReportModel report) async {
     await firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
-        .collection('Bookmarks')
+        .collection(ApiPath.bookmarkReport)
         .doc(report.id)
         .delete();
   }
@@ -228,9 +232,9 @@ class ReportProvider implements ReportProviderInterface {
       ReportListFilterModel filter) async {
     if (filter.lastDocument == "") {
       return await firestore
-          .collection("Users")
+          .collection(ApiPath.users)
           .doc(authRepository.loggedUser.uid)
-          .collection('Bookmarks')
+          .collection(ApiPath.bookmarkReport)
           .orderBy("id", descending: true)
           .where('lastStatus', isEqualTo: filter.status?.toShortString())
           .limit(filter.pageSize)
@@ -239,9 +243,9 @@ class ReportProvider implements ReportProviderInterface {
               value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
     } else {
       return await firestore
-          .collection("Users")
+          .collection(ApiPath.users)
           .doc(authRepository.loggedUser.uid)
-          .collection('Bookmarks')
+          .collection(ApiPath.bookmarkReport)
           .orderBy("id", descending: true)
           .where('lastStatus', isEqualTo: filter.status?.toShortString())
           .startAfter([filter.lastDocument])
@@ -250,5 +254,10 @@ class ReportProvider implements ReportProviderInterface {
           .then((value) =>
               value.docs.map((e) => ReportModel.fromJson(e.data())).toList());
     }
+  }
+
+  @override
+  Future<void> sendExportReportToEmail(Email email) {
+    return FlutterEmailSender.send(email);
   }
 }

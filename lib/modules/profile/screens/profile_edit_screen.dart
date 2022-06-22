@@ -149,8 +149,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       validator: MultiValidator([
                         RequiredValidator(
                             errorText: "Harap Masukkan Nama Lengkapmu"),
-                        MinLengthValidator(2,
-                            errorText: "Masukkan minimal 2 karakter")
+                        MinLengthValidator(3,
+                            errorText: "Masukkan minimal 3 karakter")
                       ]),
                       onChanged: (val) {
                         name = val;
@@ -168,7 +168,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         RequiredValidator(
                             errorText: "Harap Masukkan Nomor Handphonemu"),
                         MinLengthValidator(10,
-                            errorText: "Masukkan minimal 10 karakter")
+                            errorText: "Masukkan minimal 10 karakter"),
+                        MaxLengthValidator(13, errorText: "Maximal 13 karakter")
                       ]),
                       onChanged: (val) {
                         phoneNumber = val;

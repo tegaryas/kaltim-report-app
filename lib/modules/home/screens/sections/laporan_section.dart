@@ -64,6 +64,44 @@ class LaporanSection extends StatelessWidget {
             }
           },
         ),
+        const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: Divider(
+            thickness: 1,
+            height: 40,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: InkWell(
+            onTap: () {
+              context.pushRoute(const ReportUserRoute());
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Selengkapnya',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right,
+                      size: 14.sp,
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
         SizedBox(
           height: 8.h,
         ),

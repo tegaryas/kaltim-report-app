@@ -9,6 +9,8 @@ part of 'profile_model.dart';
 abstract class _$ProfileModelCWProxy {
   ProfileModel address(String? address);
 
+  ProfileModel deviceToken(String? deviceToken);
+
   ProfileModel email(String email);
 
   ProfileModel idToken(String? idToken);
@@ -33,6 +35,7 @@ abstract class _$ProfileModelCWProxy {
   /// ````
   ProfileModel call({
     String? address,
+    String? deviceToken,
     String? email,
     String? idToken,
     String? name,
@@ -52,6 +55,10 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
 
   @override
   ProfileModel address(String? address) => this(address: address);
+
+  @override
+  ProfileModel deviceToken(String? deviceToken) =>
+      this(deviceToken: deviceToken);
 
   @override
   ProfileModel email(String email) => this(email: email);
@@ -88,6 +95,7 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
   /// ````
   ProfileModel call({
     Object? address = const $CopyWithPlaceholder(),
+    Object? deviceToken = const $CopyWithPlaceholder(),
     Object? email = const $CopyWithPlaceholder(),
     Object? idToken = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
@@ -102,6 +110,10 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.address
           // ignore: cast_nullable_to_non_nullable
           : address as String?,
+      deviceToken: deviceToken == const $CopyWithPlaceholder()
+          ? _value.deviceToken
+          // ignore: cast_nullable_to_non_nullable
+          : deviceToken as String?,
       email: email == const $CopyWithPlaceholder() || email == null
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
@@ -159,6 +171,7 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       role: $enumDecodeNullable(_$UserRoleEnumMap, json['role'],
               unknownValue: UserRole.unknown) ??
           UserRole.unknown,
+      deviceToken: json['device_token'] as String?,
     );
 
 Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
@@ -171,6 +184,7 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'profile_pic': instance.profilePic,
       'id_token': instance.idToken,
       'address': instance.address,
+      'device_token': instance.deviceToken,
       'role': _$UserRoleEnumMap[instance.role],
     };
 

@@ -208,7 +208,7 @@ class _BuildStatisticContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade300,
+                color: Colors.grey.shade200,
                 offset: const Offset(1, 1),
                 blurRadius: 10,
               ),

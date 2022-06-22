@@ -184,6 +184,8 @@ Widget _buildFeatureContainer(FeatureModel feature) {
     width: 13.w,
     height: 8.h,
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ImageNetworkBuild(
           imageUrl: feature.imageUrl,

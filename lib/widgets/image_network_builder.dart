@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kaltim_report/widgets/custom_skeleton_builder.dart';
 
 class ImageNetworkBuild extends StatelessWidget {
   const ImageNetworkBuild({
@@ -33,10 +32,19 @@ class ImageNetworkBuild extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           }
-          return SkeletonLoaderSquare(
+          return SizedBox(
             height: height,
             width: width,
-            borderRadius: BorderRadius.circular(0),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blueGrey,
+                strokeWidth: 1,
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            ),
           );
         });
   }
@@ -82,10 +90,19 @@ class ProfileImageNetworkBuild extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           }
-          return SkeletonLoaderSquare(
+          return SizedBox(
             height: height,
             width: width,
-            borderRadius: BorderRadius.circular(0),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blueGrey,
+                strokeWidth: 1,
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            ),
           );
         });
   }

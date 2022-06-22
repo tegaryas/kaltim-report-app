@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kaltim_report/constant/constant.dart';
 import 'package:kaltim_report/modules/home/models/banner_model.dart';
 import 'package:kaltim_report/modules/home/models/covid_feature_model.dart';
 import 'package:kaltim_report/modules/home/models/statistic_model.dart';
@@ -19,20 +20,8 @@ class HomeProvider implements HomeProviderInterface {
   @override
   Future<List<DocumentSnapshot>> getReportList() async {
     return (await firestore
-            .collection("Report")
+            .collection(ApiPath.report)
             .orderBy("dateInput", descending: true)
-            .limit(10)
-            .get())
-        .docs;
-  }
-
-  @override
-  Future<List<DocumentSnapshot<Object?>>> getReportNextList(
-      List<DocumentSnapshot<Object?>> documentList) async {
-    return (await firestore
-            .collection("Report")
-            .orderBy("dateInput", descending: true)
-            .startAfterDocument(documentList[documentList.length - 1])
             .limit(10)
             .get())
         .docs;
@@ -41,7 +30,7 @@ class HomeProvider implements HomeProviderInterface {
   @override
   Stream<List<FeatureModel>> getFeatureList() {
     return firestore
-        .collection("Features")
+        .collection(ApiPath.feature)
         .orderBy("name", descending: true)
         .snapshots()
         .map((snapshot) {
@@ -53,7 +42,7 @@ class HomeProvider implements HomeProviderInterface {
 
   @override
   Future<List<BannerModel>> getBanner() async {
-    return await firestore.collection('banner').get().then((value) =>
+    return await firestore.collection(ApiPath.banner).get().then((value) =>
         value.docs.map((e) => BannerModel.fromJson(e.data())).toList());
   }
 
@@ -69,7 +58,7 @@ class HomeProvider implements HomeProviderInterface {
   @override
   Future<List<DonutChartModel>> getReportStatistic() async {
     final res = await firestore
-        .collection('Report')
+        .collection(ApiPath.report)
         .where("dateInput",
             isGreaterThanOrEqualTo: DateTime(DateTime.now().year,
                 DateTime.now().month - 1, DateTime.now().day))
@@ -94,7 +83,7 @@ class HomeProvider implements HomeProviderInterface {
   @override
   Future<List<ReportStatusChartModel?>> getReportStatisticByStatus() async {
     final res = await firestore
-        .collection('Report')
+        .collection(ApiPath.report)
         .where("dateInput",
             isGreaterThanOrEqualTo: DateTime(DateTime.now().year,
                 DateTime.now().month - 1, DateTime.now().day))

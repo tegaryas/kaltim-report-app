@@ -20,6 +20,7 @@ class ProfileModel {
   final String? profilePic;
   final String? idToken;
   final String? address;
+  final String? deviceToken;
   @JsonKey(defaultValue: UserRole.unknown, unknownEnumValue: UserRole.unknown)
   final UserRole role;
 
@@ -33,6 +34,7 @@ class ProfileModel {
     this.idToken,
     this.address,
     required this.role,
+    this.deviceToken,
   });
 
   bool get isPhoneNumberExist {

@@ -16,8 +16,7 @@ class CovidRepository implements CovidRepositoryInterface {
 
   @override
   Future<List<CovidPlaceModel>> getProvincesList() {
-    // TODO: implement getProvincesList
-    throw UnimplementedError();
+    return covidProvider.getProvincesList();
   }
 
   @override

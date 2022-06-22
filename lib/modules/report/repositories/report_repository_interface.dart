@@ -1,4 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
@@ -36,4 +37,6 @@ abstract class ReportRepositoryInterface {
   Future<bool> isAlreadyBookmark(String id);
 
   Future<List<ReportModel>> getBookmarkReport(ReportListFilterModel filter);
+
+  Future<void> sendExportReportToEmail(Email email);
 }

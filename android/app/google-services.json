@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "780404867144-fjpaifo7ko27924tg6bf46fmerdb55c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kaltim.report",
+            "certificate_hash": "515254122cd491b40ed6e2758ebf21534ef4a08c"
+          }
+        },
+        {
           "client_id": "780404867144-faqb1fohqkeqr9vim8bs50bj3lb3ugs0.apps.googleusercontent.com",
           "client_type": 3
         }

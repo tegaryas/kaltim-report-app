@@ -12,6 +12,7 @@ ProfileFormModel _$ProfileFormModelFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phone_number'] as String?,
       address: json['address'] as String?,
       profilePic: json['profile_pic'] as String?,
+      deviceToken: json['device_token'] as String?,
     );
 
 Map<String, dynamic> _$ProfileFormModelToJson(ProfileFormModel instance) {
@@ -27,5 +28,6 @@ Map<String, dynamic> _$ProfileFormModelToJson(ProfileFormModel instance) {
   writeNotNull('phone_number', instance.phoneNumber);
   writeNotNull('address', instance.address);
   writeNotNull('profile_pic', instance.profilePic);
+  writeNotNull('device_token', instance.deviceToken);
   return val;
 }

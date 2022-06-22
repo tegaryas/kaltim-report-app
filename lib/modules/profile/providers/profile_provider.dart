@@ -4,7 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/constant/constant.dart';
+import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
 import 'package:kaltim_report/modules/profile/providers/profile_provider_interface.dart';
@@ -24,7 +25,7 @@ class ProfileProvider implements ProfileProviderInterface {
   @override
   Stream<ProfileModel> getCurrentUserData() {
     return firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
         .snapshots()
         .map((event) => ProfileModel.fromJson(event.data()!));
@@ -33,7 +34,7 @@ class ProfileProvider implements ProfileProviderInterface {
   @override
   Future<void> updateProfileData(ProfileFormModel data) async {
     await firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
         .update(data.toJson());
   }
@@ -46,7 +47,7 @@ class ProfileProvider implements ProfileProviderInterface {
   @override
   Future<ProfileModel> getUserData() {
     return firestore
-        .collection("Users")
+        .collection(ApiPath.users)
         .doc(authRepository.loggedUser.uid)
         .get()
         .then((value) => ProfileModel.fromJson(value.data()!));

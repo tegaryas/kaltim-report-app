@@ -1,11 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/core/notification/blocs/notification/notification_bloc.dart';
 import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 import 'package:kaltim_report/theme.dart';
+import 'package:kaltim_report/utils/launcher_helper.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
@@ -52,10 +56,25 @@ class NavigationScreenState extends State<NavigationScreen> {
       return false;
     }
 
-    return BlocListener<GeolocationBloc, GeolocationState>(
-      listener: (context, state) {
-        //Trigger Geolocation
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<GeolocationBloc, GeolocationState>(
+          listener: (context, state) {
+            //Trigger Geolocation
+          },
+        ),
+        BlocListener<NotificationBloc, NotificationState>(
+          listener: (context, state) {
+            if (state is NotificationOpenUrl) {
+              LauncherHelper.openUrl(state.url);
+            }
+            if (state is NotificationOpenScreen) {
+              context.router.root.navigateNamed(state.data.screenPath,
+                  includePrefixMatches: true);
+            }
+          },
+        ),
+      ],
       child: AutoTabsScaffold(
         routes: const [
           HomeRouter(),

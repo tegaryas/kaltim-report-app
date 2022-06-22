@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/core/auth/bloc/auth_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/modules/profile/models/environment_model.dart';
 import 'package:kaltim_report/theme.dart';

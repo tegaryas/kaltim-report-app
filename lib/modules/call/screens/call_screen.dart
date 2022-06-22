@@ -26,7 +26,7 @@ class CallScreen extends StatelessWidget {
           if (state is CallLoaded) {
             return _buildWidgetSuccess(state);
           } else if (state is CallFailed) {
-            return _buildWIdgetFailed(context);
+            return _buildWidgetFailed(context);
           } else {
             return _buildWidgetLoading();
           }
@@ -41,7 +41,7 @@ class CallScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWIdgetFailed(BuildContext context) {
+  Widget _buildWidgetFailed(BuildContext context) {
     return ErrorPlaceholder(
       title: 'Ups Terjadi Kesalahan',
       subtitle:

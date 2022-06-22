@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/core/notification/blocs/notification/notification_bloc.dart';
 import 'package:kaltim_report/theme.dart';
+import 'package:kaltim_report/utils/launcher_helper.dart';
 import 'package:sizer/sizer.dart';
 
 class AdminNavigationScreen extends StatefulWidget {
@@ -37,24 +40,39 @@ class _AdminNavigationScreenState extends State<AdminNavigationScreen> {
       return false;
     }
 
-    return AutoTabsScaffold(
-      routes: const [
-        HomeAdminRouter(),
-        ReportAdminRouter(),
-        ProfileAdminRouter(),
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) {
-        return WillPopScope(
-          onWillPop: () async {
-            if (onTabsWillPop(tabsRouter)) {
-              return onWillPop();
-            } else {
-              return false;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<NotificationBloc, NotificationState>(
+          listener: (context, state) {
+            if (state is NotificationOpenUrl) {
+              LauncherHelper.openUrl(state.url);
+            }
+            if (state is NotificationOpenScreen) {
+              context.router.root.navigateNamed(state.data.screenPath,
+                  includePrefixMatches: true);
             }
           },
-          child: _customNavBar(tabsRouter),
-        );
-      },
+        ),
+      ],
+      child: AutoTabsScaffold(
+        routes: const [
+          HomeAdminRouter(),
+          ReportAdminRouter(),
+          ProfileAdminRouter(),
+        ],
+        bottomNavigationBuilder: (_, tabsRouter) {
+          return WillPopScope(
+            onWillPop: () async {
+              if (onTabsWillPop(tabsRouter)) {
+                return onWillPop();
+              } else {
+                return false;
+              }
+            },
+            child: _customNavBar(tabsRouter),
+          );
+        },
+      ),
     );
   }
 

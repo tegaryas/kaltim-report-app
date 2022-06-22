@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
 
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/core/auth/bloc/auth_bloc.dart';
 import 'package:kaltim_report/modules/profile/blocs/profile/profile_bloc.dart';
 import 'package:kaltim_report/modules/profile/models/environment_model.dart';
 import 'package:kaltim_report/widgets/image_network_builder.dart';

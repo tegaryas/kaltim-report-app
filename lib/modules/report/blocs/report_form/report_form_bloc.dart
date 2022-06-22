@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kaltim_report/core/repositories/auth_repository_interface.dart';
+import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/repositories/report_repository_interface.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +24,7 @@ class ErrorPlaceholder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Ionicons.alert_circle,
+            Icons.warning_amber,
             color: Colors.red,
             size: 40.sp,
           ),

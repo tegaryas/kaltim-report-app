@@ -8,6 +8,7 @@ import 'package:kaltim_report/constant/constant.dart';
 import 'package:kaltim_report/modules/report/blocs/report_bookmark_user/report_bookmark_user_bloc.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/screens/components/report_card.dart';
+import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 
@@ -150,7 +151,7 @@ class ReportUserBookmarkScreen extends StatelessWidget {
               Text(
                 'Laporan yang kamu simpan nanti akan tampilkan disini',
                 style: TextStyle(
-                  color: Colors.black38,
+                  color: AppColors.textFaded,
                   fontSize: 10.sp,
                 ),
                 textAlign: TextAlign.center,

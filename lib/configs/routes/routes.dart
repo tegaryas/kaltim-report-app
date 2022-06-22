@@ -7,11 +7,11 @@ import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/covid_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/vaccination_screen.dart';
-import 'package:kaltim_report/modules/emergency/screens/emergency_call_data_validate_screen.dart';
-import 'package:kaltim_report/modules/emergency/screens/emergency_call_list_screen.dart';
-import 'package:kaltim_report/modules/emergency/screens/emergency_call_screen.dart';
-import 'package:kaltim_report/modules/emergency/screens/emergency_call_success_screen.dart';
-import 'package:kaltim_report/modules/emergency/screens/emergency_call_wrapper_screen.dart';
+import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_data_validate_screen.dart';
+import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_list_screen.dart';
+import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_screen.dart';
+import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_success_screen.dart';
+import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_screen.dart';
 import 'package:kaltim_report/modules/gempa_bumi/screens/gempa_bumi_wrapper_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_admin_screen.dart';
@@ -48,7 +48,7 @@ import 'package:kaltim_report/modules/report/screens/report_screen.dart';
 import 'package:kaltim_report/modules/report/screens/report_wrapper_screen.dart';
 import 'package:kaltim_report/modules/splash/splash_screen.dart';
 
-@MaterialAutoRouter(
+@AdaptiveAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: <AutoRoute>[
     AutoRoute(path: "/splash-screen", page: SplashScreen),
@@ -108,8 +108,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
       name: 'EmergencyCallRouter',
       page: EmergencyCallWrapperScreen,
       children: [
-        AutoRoute(path: "", page: EmergencyCallDataValidateScreen),
-        AutoRoute(path: "add", page: EmergencyCallScreen),
+        AutoRoute(path: "", page: EmergencyCallScreen),
         AutoRoute(path: "list-user", page: EmergencyCallListScreen),
         AutoRoute(path: "success", page: EmergencyCallSuccessScreen),
         RedirectRoute(path: '*', redirectTo: ''),

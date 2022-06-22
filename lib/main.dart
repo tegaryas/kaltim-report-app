@@ -2,12 +2,14 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:kaltim_report/core/notification/blocs/notification/notification_bloc.dart';
+import 'package:kaltim_report/core/notification/blocs/notification_send/notification_send_bloc.dart';
 import 'package:kaltim_report/main.extend.dart';
 import 'package:kaltim_report/modules/report/blocs/geolocation/geolocation_bloc.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/core/auth/bloc/auth_bloc.dart';
 
 import 'configs/injectable/injectable_core.dart';
 import 'configs/routes/routes.gr.dart';
@@ -32,6 +34,11 @@ class MyApp extends StatelessWidget {
       return MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(create: (context) => getIt.get<AuthBloc>()),
+          BlocProvider<NotificationBloc>(
+              create: (context) =>
+                  getIt.get<NotificationBloc>()..add(NotificationStarted())),
+          BlocProvider<NotificationSendBloc>(
+              create: (context) => getIt.get<NotificationSendBloc>()),
           BlocProvider<GeolocationBloc>(
             create: (context) =>
                 getIt.get<GeolocationBloc>()..add(LoadGeolocation()),
@@ -55,6 +62,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: const [
             Locale('id'),
           ],
+          debugShowCheckedModeBanner: false,
           theme: appTheme.light,
           darkTheme: appTheme.dark,
           builder: (context, child) => MultiBlocListener(

@@ -23,12 +23,6 @@ class HomeRepository implements HomeRepositoryInterface {
   }
 
   @override
-  Future<List<DocumentSnapshot<Object?>>> getReportNextList(
-      List<DocumentSnapshot<Object?>> documentList) {
-    return homeProvider.getReportNextList(documentList);
-  }
-
-  @override
   Future<List<BannerModel>> getBanner() {
     return homeProvider.getBanner();
   }

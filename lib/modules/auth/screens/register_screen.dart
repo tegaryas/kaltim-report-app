@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
-import 'package:kaltim_report/core/bloc/auth_bloc.dart';
+import 'package:kaltim_report/core/auth/bloc/auth_bloc.dart';
 import 'package:kaltim_report/modules/auth/blocs/login/login_bloc.dart';
 import 'package:kaltim_report/modules/auth/blocs/register/register_bloc.dart';
 import 'package:kaltim_report/widgets/custom_button.dart';
