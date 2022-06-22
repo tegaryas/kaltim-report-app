@@ -7,7 +7,6 @@ import 'package:kaltim_report/modules/call/screens/call_screen.dart';
 import 'package:kaltim_report/modules/call/screens/call_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/covid_wrapper_screen.dart';
 import 'package:kaltim_report/modules/covid/screens/vaccination_screen.dart';
-import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_data_validate_screen.dart';
 import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_list_screen.dart';
 import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_screen.dart';
 import 'package:kaltim_report/modules/emergency_button/screens/emergency_call_success_screen.dart';
