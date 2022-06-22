@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/emergency_button/models/emergency_call_form_model.dart';
 import 'package:kaltim_report/modules/emergency_button/repositories/emergency_call_repository_interface.dart';
@@ -13,10 +13,8 @@ part 'emergency_call_state.dart';
 class EmergencyCallBloc extends Bloc<EmergencyCallEvent, EmergencyCallState> {
   final EmergencyCallRepositoryInterface emergencyCallRepository;
   final ProfileRepositoryInterface profileRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
 
-  EmergencyCallBloc(this.emergencyCallRepository, this.firebaseCrashlytics,
-      this.profileRepository)
+  EmergencyCallBloc(this.emergencyCallRepository, this.profileRepository)
       : super(EmergencyCallInitial()) {
     on<EmergencyCallSendForm>(
       (event, emit) async {
@@ -36,7 +34,6 @@ class EmergencyCallBloc extends Bloc<EmergencyCallEvent, EmergencyCallState> {
           );
           emit(EmergencyCallSuccess());
         } catch (e, s) {
-          firebaseCrashlytics.recordError(e, s);
           emit(EmergencyCallFailed(e, s));
         }
       },

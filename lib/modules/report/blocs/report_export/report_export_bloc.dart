@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
 
@@ -12,9 +12,10 @@ part 'report_export_state.dart';
 @injectable
 class ReportExportBloc extends Bloc<ReportExportEvent, ReportExportState> {
   final ReportRepositoryInterface reportRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ReportExportBloc(this.reportRepository, this.firebaseCrashlytics)
-      : super(ReportExportInitial()) {
+
+  ReportExportBloc(
+    this.reportRepository,
+  ) : super(ReportExportInitial()) {
     on<ReportExportStart>((event, emit) async {
       try {
         emit(ReportExportLoading());
@@ -46,7 +47,6 @@ class ReportExportBloc extends Bloc<ReportExportEvent, ReportExportState> {
 
         emit(ReportExportSuccess());
       } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
         emit(ReportExportFailed(e, s));
       }
     });

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:injectable/injectable.dart';
 
 import 'package:kaltim_report/modules/profile/models/profile_model.dart';
@@ -15,11 +15,8 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   StreamSubscription? _profileSubsription;
   final ProfileRepositoryInterface profileRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ProfileBloc({
-    required this.profileRepository,
-    required this.firebaseCrashlytics,
-  }) : super(ProfileInitial()) {
+
+  ProfileBloc({required this.profileRepository}) : super(ProfileInitial()) {
     on<ProfileFetching>((event, emit) {
       _profileSubsription?.cancel();
       try {
@@ -28,8 +25,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             profileRepository.getCurrentUserData().listen((event) {
           add(ProfileUpdate(profile: event));
         });
-      } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
+      } catch (e) {
         emit(ProfileFailed());
       }
     });

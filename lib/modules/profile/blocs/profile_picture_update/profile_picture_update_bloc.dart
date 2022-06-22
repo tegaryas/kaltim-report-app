@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/models/profile_form_model.dart';
@@ -13,9 +13,10 @@ part 'profile_picture_update_state.dart';
 class ProfilePictureUpdateBloc
     extends Bloc<ProfilePictureUpdateEvent, ProfilePictureUpdateState> {
   final ProfileRepositoryInterface profileRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ProfilePictureUpdateBloc(this.profileRepository, this.firebaseCrashlytics)
-      : super(ProfilePictureUpdateInitial()) {
+
+  ProfilePictureUpdateBloc(
+    this.profileRepository,
+  ) : super(ProfilePictureUpdateInitial()) {
     on<ProfilePictureUpdateAdd>((event, emit) async {
       try {
         emit(ProfilePictureUpdateLoading());
@@ -37,7 +38,6 @@ class ProfilePictureUpdateBloc
 
         emit(ProfilePictureUpdateSuccess());
       } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
         emit(ProfilePictureUpdateFailed(e, s));
       }
     });

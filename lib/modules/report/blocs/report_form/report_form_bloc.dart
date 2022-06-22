@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
@@ -14,13 +14,9 @@ part 'report_form_state.dart';
 class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
   final ReportRepositoryInterface reportRepository;
   final AuthRepositoryInterface authRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
 
-  ReportFormBloc({
-    required this.reportRepository,
-    required this.authRepository,
-    required this.firebaseCrashlytics,
-  }) : super(ReportFormInitial()) {
+  ReportFormBloc({required this.reportRepository, required this.authRepository})
+      : super(ReportFormInitial()) {
     on<ReportFormAddAll>((event, emit) async {
       try {
         var userId = authRepository.loggedUser.uid;
@@ -43,7 +39,6 @@ class ReportFormBloc extends Bloc<ReportFormEvent, ReportFormState> {
         );
         emit(ReportFormAddedSucess(id: event.form.id));
       } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
         emit(ReportFormFailure(error: e, stackTrace: s));
       }
     });

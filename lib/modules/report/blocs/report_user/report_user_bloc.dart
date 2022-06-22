@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 
@@ -15,9 +15,10 @@ part 'report_user_state.dart';
 class ReportUserBloc extends Bloc<ReportUserEvent, ReportUserState> {
   StreamSubscription? _myReportSubscription;
   final ReportRepositoryInterface reportRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ReportUserBloc(this.reportRepository, this.firebaseCrashlytics)
-      : super(ReportUserInitial()) {
+
+  ReportUserBloc(
+    this.reportRepository,
+  ) : super(ReportUserInitial()) {
     on<FetchReportUserList>((event, emit) {
       _myReportSubscription?.cancel();
       try {
@@ -26,8 +27,7 @@ class ReportUserBloc extends Bloc<ReportUserEvent, ReportUserState> {
             reportRepository.getCurrentUserReport().listen((event) {
           add(ReportUserListUpdate(event));
         });
-      } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
+      } catch (e) {
         emit(ReportUserFailed());
       }
     });

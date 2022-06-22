@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
@@ -14,9 +14,10 @@ part 'report_bookmark_user_state.dart';
 class ReportBookmarkUserBloc
     extends Bloc<ReportBookmarkUserEvent, ReportBookmarkUserState> {
   final ReportRepositoryInterface reportRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ReportBookmarkUserBloc(this.reportRepository, this.firebaseCrashlytics)
-      : super(ReportBookmarkUserInitial()) {
+
+  ReportBookmarkUserBloc(
+    this.reportRepository,
+  ) : super(ReportBookmarkUserInitial()) {
     late PagingController<String, ReportModel> pagingController =
         PagingController(firstPageKey: "");
 
@@ -49,8 +50,7 @@ class ReportBookmarkUserBloc
           final nextLastDocument = items.last.id;
           pagingController.appendPage(items, nextLastDocument);
         }
-      } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
+      } catch (e) {
         pagingController.error = e;
       }
     });
@@ -69,7 +69,6 @@ class ReportBookmarkUserBloc
 
         emit(ReportBookmarkUserListSuccess(pagingController: pagingController));
       } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
         emit(ReportBookmarkUserListFailed(e, s));
       }
     });

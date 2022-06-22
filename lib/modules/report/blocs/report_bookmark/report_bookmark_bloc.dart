@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/modules/report/repositories/report_repository_interface.dart';
@@ -12,9 +11,8 @@ part 'report_bookmark_state.dart';
 class ReportBookmarkBloc
     extends Bloc<ReportBookmarkEvent, ReportBookmarkState> {
   final ReportRepositoryInterface reportRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
-  ReportBookmarkBloc(this.reportRepository, this.firebaseCrashlytics)
-      : super(ReportBookmarkInitial()) {
+
+  ReportBookmarkBloc(this.reportRepository) : super(ReportBookmarkInitial()) {
     on<ReportBookmarkAdd>((event, emit) async {
       await reportRepository.addBookmarkReport(event.report);
     });

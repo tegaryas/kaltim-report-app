@@ -12,11 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class RemoteConfigService implements RemoteConfigServiceInterface {
   final FirebaseRemoteConfig remoteConfig;
   final SharedPreferences sharedPreferences;
-  final FirebaseCrashlytics firebaseCrashlytics;
+
   RemoteConfigService({
     required this.remoteConfig,
     required this.sharedPreferences,
-    required this.firebaseCrashlytics,
   });
 
   @override
@@ -64,7 +63,7 @@ class RemoteConfigService implements RemoteConfigServiceInterface {
         await sharedPreferences.setBool("CONFIG_STALE", true);
       }
     } on PlatformException catch (exception, stack) {
-      firebaseCrashlytics.recordError(exception, stack);
+      FirebaseCrashlytics.instance.recordError(exception, stack);
     }
   }
 
@@ -81,7 +80,7 @@ class RemoteConfigService implements RemoteConfigServiceInterface {
       }
     } on PlatformException catch (exception, stack) {
       // Fetch exception.
-      firebaseCrashlytics.recordError(exception, stack);
+      FirebaseCrashlytics.instance.recordError(exception, stack);
     }
   }
 }

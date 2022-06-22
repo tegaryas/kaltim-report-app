@@ -189,8 +189,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i30.RegisterRepositoryInterface>(
       () => _i31.RegisterRepository(get<_i28.RegisterProviderInterface>()));
   gh.factory<_i32.ResetPasswordBloc>(() => _i32.ResetPasswordBloc(
-      registerRepository: get<_i30.RegisterRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+      registerRepository: get<_i30.RegisterRepositoryInterface>()));
   await gh.lazySingletonAsync<_i33.SharedPreferences>(
       () => nativeApiService.prefs,
       preResolve: true);
@@ -214,21 +213,17 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i48.EmergencyCallRepositoryInterface>(() =>
       _i49.EmergencyCallRepository(get<_i46.EmergencyCallProviderInterface>()));
   gh.factory<_i50.EmergencyCallStreamBloc>(() => _i50.EmergencyCallStreamBloc(
-      get<_i48.EmergencyCallRepositoryInterface>(),
-      get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i51.GempaBumiBloc>(() => _i51.GempaBumiBloc(
-      get<_i13.GempaBumiRepositoryInterface>(),
-      get<_i6.FirebaseCrashlytics>()));
+      get<_i48.EmergencyCallRepositoryInterface>()));
+  gh.factory<_i51.GempaBumiBloc>(
+      () => _i51.GempaBumiBloc(get<_i13.GempaBumiRepositoryInterface>()));
   gh.factory<_i52.GempaBumiLastRecentlyBloc>(() =>
-      _i52.GempaBumiLastRecentlyBloc(get<_i13.GempaBumiRepositoryInterface>(),
-          get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i53.GempaBumiMagnetudoBloc>(() => _i53.GempaBumiMagnetudoBloc(
-      get<_i13.GempaBumiRepositoryInterface>(),
-      get<_i6.FirebaseCrashlytics>()));
+      _i52.GempaBumiLastRecentlyBloc(get<_i13.GempaBumiRepositoryInterface>()));
+  gh.factory<_i53.GempaBumiMagnetudoBloc>(() =>
+      _i53.GempaBumiMagnetudoBloc(get<_i13.GempaBumiRepositoryInterface>()));
   gh.factory<_i54.GeolocationBloc>(() => _i54.GeolocationBloc(
       geolocatorRepository: get<_i15.GeolocatorRepositoryInterface>()));
-  gh.factory<_i55.HospitalProvinceBloc>(() => _i55.HospitalProvinceBloc(
-      get<_i44.CovidRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i55.HospitalProvinceBloc>(
+      () => _i55.HospitalProvinceBloc(get<_i44.CovidRepositoryInterface>()));
   gh.factory<_i56.NotificationBloc>(() => _i56.NotificationBloc(
       get<_i26.OneSignalNotificationProviderInterface>()));
   gh.factory<_i57.NotificationSendBloc>(() => _i57.NotificationSendBloc(
@@ -242,94 +237,82 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       profileProvider: get<_i58.ProfileProviderInterface>()));
   gh.factory<_i62.RegisterBloc>(() => _i62.RegisterBloc(
       registerRepository: get<_i30.RegisterRepositoryInterface>(),
-      authRepository: get<_i36.AuthRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+      authRepository: get<_i36.AuthRepositoryInterface>()));
   gh.factory<_i63.RemoteConfigServiceInterface>(() => _i64.RemoteConfigService(
       remoteConfig: get<_i9.FirebaseRemoteConfig>(),
-      sharedPreferences: get<_i33.SharedPreferences>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+      sharedPreferences: get<_i33.SharedPreferences>()));
   gh.factory<_i65.ReportProviderInterface>(() => _i66.ReportProvider(
       authRepository: get<_i36.AuthRepositoryInterface>(),
       firestore: get<_i7.FirebaseFirestore>(),
       imageStorage: get<_i10.FirebaseStorage>()));
   gh.factory<_i67.ReportRepositoryInterface>(() => _i68.ReportRepository(
       reportProvider: get<_i65.ReportProviderInterface>()));
-  gh.factory<_i69.ReportUpdateFormBloc>(() => _i69.ReportUpdateFormBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i70.ReportUserBloc>(() => _i70.ReportUserBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i69.ReportUpdateFormBloc>(
+      () => _i69.ReportUpdateFormBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i70.ReportUserBloc>(
+      () => _i70.ReportUserBloc(get<_i67.ReportRepositoryInterface>()));
   gh.factory<_i71.UpdatePasswordBloc>(() => _i71.UpdatePasswordBloc(
-      profileRepository: get<_i60.ProfileRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i72.VaccinationBloc>(() => _i72.VaccinationBloc(
-      get<_i44.CovidRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i73.AuthBloc>(() => _i73.AuthBloc(
-      authRepository: get<_i36.AuthRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i74.CallBloc>(() => _i74.CallBloc(
-      callRepository: get<_i40.CallRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+      profileRepository: get<_i60.ProfileRepositoryInterface>()));
+  gh.factory<_i72.VaccinationBloc>(
+      () => _i72.VaccinationBloc(get<_i44.CovidRepositoryInterface>()));
+  gh.factory<_i73.AuthBloc>(
+      () => _i73.AuthBloc(authRepository: get<_i36.AuthRepositoryInterface>()));
+  gh.factory<_i74.CallBloc>(
+      () => _i74.CallBloc(callRepository: get<_i40.CallRepositoryInterface>()));
   gh.factory<_i75.EmergencyCallBloc>(() => _i75.EmergencyCallBloc(
       get<_i48.EmergencyCallRepositoryInterface>(),
-      get<_i6.FirebaseCrashlytics>(),
       get<_i60.ProfileRepositoryInterface>()));
-  gh.factory<_i76.EmergencyCallListBloc>(() => _i76.EmergencyCallListBloc(
-      get<_i48.EmergencyCallRepositoryInterface>(),
-      get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i76.EmergencyCallListBloc>(() =>
+      _i76.EmergencyCallListBloc(get<_i48.EmergencyCallRepositoryInterface>()));
   gh.factory<_i77.EmergencyValidatePhoneNumberBloc>(() =>
       _i77.EmergencyValidatePhoneNumberBloc(
-          get<_i60.ProfileRepositoryInterface>(),
-          get<_i6.FirebaseCrashlytics>()));
+          get<_i60.ProfileRepositoryInterface>()));
   gh.factory<_i78.HomeProviderInterface>(() => _i79.HomeProvider(
       get<_i7.FirebaseFirestore>(), get<_i63.RemoteConfigServiceInterface>()));
-  gh.factory<_i80.HomeReportBloc>(() => _i80.HomeReportBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i80.HomeReportBloc>(
+      () => _i80.HomeReportBloc(get<_i67.ReportRepositoryInterface>()));
   gh.factory<_i81.HomeRepositoryInterface>(() =>
       _i82.HomeRepository(homeProvider: get<_i78.HomeProviderInterface>()));
-  gh.factory<_i83.HomeStatisticChartBloc>(() => _i83.HomeStatisticChartBloc(
-      get<_i81.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i84.HomeStatisticDataBloc>(() => _i84.HomeStatisticDataBloc(
-      get<_i81.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i83.HomeStatisticChartBloc>(
+      () => _i83.HomeStatisticChartBloc(get<_i81.HomeRepositoryInterface>()));
+  gh.factory<_i84.HomeStatisticDataBloc>(
+      () => _i84.HomeStatisticDataBloc(get<_i81.HomeRepositoryInterface>()));
   gh.factory<_i85.LoginBloc>(() => _i85.LoginBloc(
       loginRepository: get<_i20.LoginRepositoryInterface>(),
       authRepository: get<_i36.AuthRepositoryInterface>(),
       registerRepository: get<_i30.RegisterRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>(),
       notificationProvider: get<_i26.OneSignalNotificationProviderInterface>(),
       profileRepository: get<_i60.ProfileRepositoryInterface>()));
   gh.factory<_i86.NewsListNewBloc>(() => _i86.NewsListNewBloc(
       get<_i24.NewsRepositoryInterface>(),
       get<_i63.RemoteConfigServiceInterface>()));
   gh.factory<_i87.ProfileBloc>(() => _i87.ProfileBloc(
-      profileRepository: get<_i60.ProfileRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
+      profileRepository: get<_i60.ProfileRepositoryInterface>()));
   gh.factory<_i88.ProfileEditBloc>(() => _i88.ProfileEditBloc(
-      profileRepository: get<_i60.ProfileRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i89.ProfilePictureUpdateBloc>(() => _i89.ProfilePictureUpdateBloc(
-      get<_i60.ProfileRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i90.ReportBookmarkBloc>(() => _i90.ReportBookmarkBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i91.ReportBookmarkUserBloc>(() => _i91.ReportBookmarkUserBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i92.ReportCategoryBloc>(() => _i92.ReportCategoryBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i93.ReportDetailBloc>(() => _i93.ReportDetailBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i94.ReportExportBloc>(() => _i94.ReportExportBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+      profileRepository: get<_i60.ProfileRepositoryInterface>()));
+  gh.factory<_i89.ProfilePictureUpdateBloc>(() =>
+      _i89.ProfilePictureUpdateBloc(get<_i60.ProfileRepositoryInterface>()));
+  gh.factory<_i90.ReportBookmarkBloc>(
+      () => _i90.ReportBookmarkBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i91.ReportBookmarkUserBloc>(
+      () => _i91.ReportBookmarkUserBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i92.ReportCategoryBloc>(
+      () => _i92.ReportCategoryBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i93.ReportDetailBloc>(
+      () => _i93.ReportDetailBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i94.ReportExportBloc>(
+      () => _i94.ReportExportBloc(get<_i67.ReportRepositoryInterface>()));
   gh.factory<_i95.ReportFormBloc>(() => _i95.ReportFormBloc(
       reportRepository: get<_i67.ReportRepositoryInterface>(),
-      authRepository: get<_i36.AuthRepositoryInterface>(),
-      firebaseCrashlytics: get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i96.ReportListBloc>(() => _i96.ReportListBloc(
-      get<_i67.ReportRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
-  gh.factory<_i97.BannerBloc>(() => _i97.BannerBloc(
-      get<_i81.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+      authRepository: get<_i36.AuthRepositoryInterface>()));
+  gh.factory<_i96.ReportListBloc>(
+      () => _i96.ReportListBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i97.BannerBloc>(
+      () => _i97.BannerBloc(get<_i81.HomeRepositoryInterface>()));
   gh.factory<_i98.FeatureBloc>(() =>
       _i98.FeatureBloc(homeRepository: get<_i78.HomeProviderInterface>()));
-  gh.factory<_i99.HomeCovidBloc>(() => _i99.HomeCovidBloc(
-      get<_i81.HomeRepositoryInterface>(), get<_i6.FirebaseCrashlytics>()));
+  gh.factory<_i99.HomeCovidBloc>(
+      () => _i99.HomeCovidBloc(get<_i81.HomeRepositoryInterface>()));
   return get;
 }
 

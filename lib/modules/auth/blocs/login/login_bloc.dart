@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/core/notification/providers/notification_provider_interface.dart';
@@ -19,7 +18,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRepositoryInterface loginRepository;
   final AuthRepositoryInterface authRepository;
   final RegisterRepositoryInterface registerRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
   final OneSignalNotificationProviderInterface notificationProvider;
   final ProfileRepositoryInterface profileRepository;
 
@@ -28,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.loginRepository,
     required this.authRepository,
     required this.registerRepository,
-    required this.firebaseCrashlytics,
     required this.notificationProvider,
     required this.profileRepository,
   }) : super(LoginInitial()) {
@@ -48,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           emit(const LoginFailed(error: "Harap login beberapa saat lagi"));
         }
-      } on FirebaseAuthException catch (e, s) {
+      } on FirebaseAuthException catch (e) {
         switch (e.code) {
           case "wrong-password":
             errorMessage = "Password yang anda masukkan salah";
@@ -65,8 +62,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           default:
             errorMessage = e.message;
         }
-
-        firebaseCrashlytics.recordError(e, s);
 
         emit(LoginFailed(error: errorMessage!));
       }
@@ -101,7 +96,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
           emit(LoginSuccess());
         }
-      } on FirebaseAuthException catch (e, s) {
+      } on FirebaseAuthException catch (e) {
         switch (e.code) {
           case "wrong-password":
             errorMessage = "Password yang anda masukkan salah";
@@ -118,7 +113,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           default:
             errorMessage = e.message;
         }
-        firebaseCrashlytics.recordError(e, s);
 
         emit(LoginFailed(error: errorMessage!));
       } catch (e) {

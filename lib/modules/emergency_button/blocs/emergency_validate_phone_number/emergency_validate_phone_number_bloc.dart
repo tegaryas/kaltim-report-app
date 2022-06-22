@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/profile/repositories/profile_repository_interface.dart';
 
@@ -11,10 +11,10 @@ part 'emergency_validate_phone_number_state.dart';
 class EmergencyValidatePhoneNumberBloc extends Bloc<
     EmergencyValidatePhoneNumberEvent, EmergencyValidatePhoneNumberState> {
   final ProfileRepositoryInterface profileRepository;
-  final FirebaseCrashlytics firebaseCrashlytics;
+
   EmergencyValidatePhoneNumberBloc(
-      this.profileRepository, this.firebaseCrashlytics)
-      : super(EmergencyValidatePhoneNumberInitial()) {
+    this.profileRepository,
+  ) : super(EmergencyValidatePhoneNumberInitial()) {
     on<EmergencyValidatePhoneNumberCheck>((event, emit) async {
       try {
         emit(EmergencyValidatePhoneNumberLoading());
@@ -25,7 +25,6 @@ class EmergencyValidatePhoneNumberBloc extends Bloc<
           emit(EmergencyValidatePhoneNumberNotExist());
         }
       } catch (e, s) {
-        firebaseCrashlytics.recordError(e, s);
         emit(EmergencyValidatePhoneNumberFailed(e, s));
       }
     });
