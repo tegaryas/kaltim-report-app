@@ -19,6 +19,7 @@ import 'package:kaltim_report/modules/home/screens/home_screen.dart';
 import 'package:kaltim_report/modules/home/screens/home_screen_wrapper.dart';
 import 'package:kaltim_report/modules/navigation/screens/admin_navigation_screen.dart';
 import 'package:kaltim_report/modules/navigation/screens/navigation_screen.dart';
+import 'package:kaltim_report/modules/report/screens/report_discussion_screen.dart';
 import 'package:kaltim_report/widgets/webview_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_screen.dart';
 import 'package:kaltim_report/modules/news/screens/news_wrapper_screen.dart';
@@ -70,6 +71,7 @@ import 'package:kaltim_report/modules/splash/splash_screen.dart';
         AutoRoute(path: "add-status-admin", page: ReportAddProgressAdminScreen),
         AutoRoute(path: "export-data", page: ReportExportDataScreen),
         AutoRoute(path: "bookmark", page: ReportUserBookmarkScreen),
+        AutoRoute(path: "discussion", page: ReportDiscussionScreen),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),

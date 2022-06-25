@@ -5,6 +5,7 @@ class ApiPath {
   static const String emergencyButton = "EmergencyHelp";
   static const String feature = "Features";
   static const String report = "Report";
+  static const String reportDiscussion = "ReportDiscussion";
   static const String users = "Users";
   static const String banner = "banner";
   static const String reportCategory = "ReportCategory";
@@ -34,4 +35,6 @@ class ApiPath {
   //Vaksin
   static const String vaksin =
       'https://vaksincovid19-api.vercel.app/api/vaksin';
+
+  static const String feedbackUrl = "https://forms.gle/krTrsuRMFRsvS3GaA";
 }

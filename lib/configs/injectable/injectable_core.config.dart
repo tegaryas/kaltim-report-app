@@ -84,9 +84,9 @@ import '../../modules/gempa_bumi/repositories/gempa_bumi_repository.dart'
     as _i14;
 import '../../modules/gempa_bumi/repositories/gempa_bumi_repository_interface.dart'
     as _i13;
-import '../../modules/home/blocs/banner/banner_bloc.dart' as _i97;
-import '../../modules/home/blocs/feature/feature_bloc.dart' as _i98;
-import '../../modules/home/blocs/home_covid/home_covid_bloc.dart' as _i99;
+import '../../modules/home/blocs/banner/banner_bloc.dart' as _i99;
+import '../../modules/home/blocs/feature/feature_bloc.dart' as _i100;
+import '../../modules/home/blocs/home_covid/home_covid_bloc.dart' as _i101;
 import '../../modules/home/blocs/home_report/home_report_bloc.dart' as _i80;
 import '../../modules/home/blocs/home_statistic_chart/home_statistic_chart_bloc.dart'
     as _i83;
@@ -124,11 +124,15 @@ import '../../modules/report/blocs/report_category/report_category_bloc.dart'
     as _i92;
 import '../../modules/report/blocs/report_detail/report_detail_bloc.dart'
     as _i93;
-import '../../modules/report/blocs/report_export/report_export_bloc.dart'
+import '../../modules/report/blocs/report_discussion/report_discussion_bloc.dart'
     as _i94;
-import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i95;
-import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
+import '../../modules/report/blocs/report_discussion_send/report_discussion_send_bloc.dart'
+    as _i95;
+import '../../modules/report/blocs/report_export/report_export_bloc.dart'
     as _i96;
+import '../../modules/report/blocs/report_form/report_form_bloc.dart' as _i97;
+import '../../modules/report/blocs/report_list_bloc/report_list_bloc.dart'
+    as _i98;
 import '../../modules/report/blocs/report_update_form/report_update_form_bloc.dart'
     as _i69;
 import '../../modules/report/blocs/report_user/report_user_bloc.dart' as _i70;
@@ -139,7 +143,7 @@ import '../../modules/report/repositories/report_repository_interface.dart'
     as _i67;
 import '../../services/geolocator/geolocator_repository.dart' as _i16;
 import '../../services/geolocator/geolocator_repository_interface.dart' as _i15;
-import '../../services/native_api_service.dart' as _i100;
+import '../../services/native_api_service.dart' as _i102;
 import '../../services/remote_config_service/remote_config_service.dart'
     as _i64;
 import '../../services/remote_config_service/remote_config_service_interface.dart'
@@ -300,20 +304,25 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i92.ReportCategoryBloc(get<_i67.ReportRepositoryInterface>()));
   gh.factory<_i93.ReportDetailBloc>(
       () => _i93.ReportDetailBloc(get<_i67.ReportRepositoryInterface>()));
-  gh.factory<_i94.ReportExportBloc>(
-      () => _i94.ReportExportBloc(get<_i67.ReportRepositoryInterface>()));
-  gh.factory<_i95.ReportFormBloc>(() => _i95.ReportFormBloc(
+  gh.factory<_i94.ReportDiscussionBloc>(
+      () => _i94.ReportDiscussionBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i95.ReportDiscussionSendBloc>(() => _i95.ReportDiscussionSendBloc(
+      get<_i67.ReportRepositoryInterface>(),
+      get<_i36.AuthRepositoryInterface>()));
+  gh.factory<_i96.ReportExportBloc>(
+      () => _i96.ReportExportBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i97.ReportFormBloc>(() => _i97.ReportFormBloc(
       reportRepository: get<_i67.ReportRepositoryInterface>(),
       authRepository: get<_i36.AuthRepositoryInterface>()));
-  gh.factory<_i96.ReportListBloc>(
-      () => _i96.ReportListBloc(get<_i67.ReportRepositoryInterface>()));
-  gh.factory<_i97.BannerBloc>(
-      () => _i97.BannerBloc(get<_i81.HomeRepositoryInterface>()));
-  gh.factory<_i98.FeatureBloc>(() =>
-      _i98.FeatureBloc(homeRepository: get<_i78.HomeProviderInterface>()));
-  gh.factory<_i99.HomeCovidBloc>(
-      () => _i99.HomeCovidBloc(get<_i81.HomeRepositoryInterface>()));
+  gh.factory<_i98.ReportListBloc>(
+      () => _i98.ReportListBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i99.BannerBloc>(
+      () => _i99.BannerBloc(get<_i81.HomeRepositoryInterface>()));
+  gh.factory<_i100.FeatureBloc>(() =>
+      _i100.FeatureBloc(homeRepository: get<_i78.HomeProviderInterface>()));
+  gh.factory<_i101.HomeCovidBloc>(
+      () => _i101.HomeCovidBloc(get<_i81.HomeRepositoryInterface>()));
   return get;
 }
 
-class _$NativeApiService extends _i100.NativeApiService {}
+class _$NativeApiService extends _i102.NativeApiService {}

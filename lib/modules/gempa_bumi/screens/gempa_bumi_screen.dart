@@ -72,7 +72,7 @@ https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg''',
                 );
               },
               icon: Icon(
-                Iconsax.share,
+                Icons.share,
                 size: 16.sp,
               ),
             )

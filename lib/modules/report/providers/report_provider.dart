@@ -12,6 +12,7 @@ import 'package:kaltim_report/constant/constant.dart';
 
 import 'package:kaltim_report/core/auth/repositories/auth_repository_interface.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
+import 'package:kaltim_report/modules/report/models/report_discussion_model.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
 import 'package:kaltim_report/modules/report/models/report_list_filter_model.dart';
@@ -259,5 +260,30 @@ class ReportProvider implements ReportProviderInterface {
   @override
   Future<void> sendExportReportToEmail(Email email) {
     return FlutterEmailSender.send(email);
+  }
+
+  @override
+  Stream<List<ReportDiscussionModel>> getReportDiscussions(String id) {
+    return firestore
+        .collection(ApiPath.report)
+        .doc(id)
+        .collection(ApiPath.reportDiscussion)
+        .orderBy("dateInput", descending: true)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => ReportDiscussionModel.fromJson(doc.data()))
+          .toList();
+    });
+  }
+
+  @override
+  Future<void> sendReportDiscussion(ReportDiscussionModel form) {
+    return firestore
+        .collection(ApiPath.report)
+        .doc(form.reportId)
+        .collection(ApiPath.reportDiscussion)
+        .doc()
+        .set(form.toJson());
   }
 }

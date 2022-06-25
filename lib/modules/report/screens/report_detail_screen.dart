@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_bubble/bubble_type.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaltim_report/configs/injectable/injectable_core.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
 import 'package:kaltim_report/modules/report/blocs/report_detail/report_detail_bloc.dart';
+import 'package:kaltim_report/modules/report/blocs/report_discussion/report_discussion_bloc.dart';
 import 'package:kaltim_report/modules/report/models/report_model.dart';
 import 'package:kaltim_report/theme.dart';
 import 'package:kaltim_report/utils/converter_helper.dart';
@@ -30,6 +34,7 @@ class DetailReportScreen extends StatefulWidget {
 
 class _DetailReportScreenState extends State<DetailReportScreen> {
   late ReportDetailBloc reportDetailBloc;
+  late ReportDiscussionBloc reportDiscussionBloc;
 
   final Completer<GoogleMapController> _mapsController = Completer();
 
@@ -41,12 +46,15 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
   void initState() {
     reportDetailBloc = getIt.get<ReportDetailBloc>()
       ..add(ReportDetailFetch(id: widget.id));
+
+    reportDiscussionBloc = getIt.get<ReportDiscussionBloc>();
     super.initState();
   }
 
   @override
   void dispose() {
     reportDetailBloc.close();
+    reportDiscussionBloc.close();
     super.dispose();
   }
 
@@ -80,6 +88,9 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
         BlocProvider(
           create: (context) => reportDetailBloc,
         ),
+        BlocProvider(
+          create: (context) => reportDiscussionBloc,
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -97,6 +108,8 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
               bloc: reportDetailBloc,
               listener: (context, state) {
                 if (state is ReportDetailSucces) {
+                  reportDiscussionBloc
+                      .add(ReportDiscussionListFetch(widget.id));
                   latLng = LatLng(state.data.location.latitude,
                       state.data.location.longitude);
                   getMarkerandCircle();
@@ -156,6 +169,8 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
             _buildLocationSection(data),
             _buildDivider(),
             _buildStatusReportSection(context, data),
+            _buildDivider(),
+            _buildDiscussionSection(data),
             SizedBox(
               height: 5.h,
             ),
@@ -190,85 +205,89 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
   }
 
   Widget _buildStatusReportSection(BuildContext context, ReportModel data) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Status Laporan',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-            ),
+    return BlocBuilder<ReportDiscussionBloc, ReportDiscussionState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
           ),
-          SizedBox(
-            height: 1.5.h,
-          ),
-          Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ConverterHelper.convertDateTimeToFullDateFormat(
-                          data.reportProgress!.last.date, context),
-                      style: TextStyle(
-                        fontSize: 9.sp,
-                        color: AppColors.textFaded,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0.5.h,
-                    ),
-                    Text(
-                      data.reportProgress!.last.statusProgress,
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+              Text(
+                'Status Laporan',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-                width: 2.w,
+                height: 1.5.h,
               ),
-              _statusTypeToWidget(data.reportProgress!.last.statusType),
-            ],
-          ),
-          Divider(
-            height: 4.h,
-            color: Theme.of(context).dividerColor,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  context.pushRoute(ReportDetailProgressRoute(
-                      progress: data.reportProgress!.reversed.toList()));
-                },
-                child: Text(
-                  'Lihat Selengkapnya',
-                  style: TextStyle(
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ConverterHelper.convertDateTimeToFullDateFormat(
+                              data.reportProgress!.last.date, context),
+                          style: TextStyle(
+                            fontSize: 9.sp,
+                            color: AppColors.textFaded,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 0.5.h,
+                        ),
+                        Text(
+                          data.reportProgress!.last.statusProgress,
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 2.w,
+                  ),
+                  _statusTypeToWidget(data.reportProgress!.last.statusType),
+                ],
               ),
-              Icon(
-                Icons.chevron_right,
-                size: 20.sp,
+              Divider(
+                height: 4.h,
+                color: Theme.of(context).dividerColor,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.pushRoute(ReportDetailProgressRoute(
+                          progress: data.reportProgress!.reversed.toList()));
+                    },
+                    child: Text(
+                      'Riwayat Selengkapnya',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    size: 20.sp,
+                  )
+                ],
               )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -567,6 +586,231 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
         else
           widget,
       ],
+    );
+  }
+
+  Widget _buildDiscussionSection(ReportModel data) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Diskusi Laporan",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 1.5.h,
+          ),
+          BlocBuilder<ReportDiscussionBloc, ReportDiscussionState>(
+            bloc: reportDiscussionBloc,
+            builder: (context, state) {
+              if (state is ReportDiscussionListSuccess) {
+                if (state.data.isEmpty) {
+                  return Text(
+                    "Belum ada komentar",
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      color: AppColors.textFaded,
+                    ),
+                  );
+                }
+                return ListView.separated(
+                  itemCount: state.data.take(2).length,
+                  physics: const BouncingScrollPhysics(),
+                  reverse: true,
+                  shrinkWrap: true,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  itemBuilder: (context, index) {
+                    final chat = state.data[index];
+
+                    if (chat.userId == data.userId) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ChatBubble(
+                            clipper:
+                                ChatBubbleClipper4(type: BubbleType.sendBubble),
+                            backGroundColor: Colors.grey.shade600,
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.6,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    chat.userName!
+                                        .replaceAll(RegExp(r'.(?=.{3})'), '*'),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    chat.comment,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10.sp,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    ConverterHelper.differenceTimeParse(
+                                        chat.dateInput),
+                                    style: TextStyle(
+                                      color: Colors.grey.shade100,
+                                      fontSize: 6.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: const ProfileImageNetworkBuild(
+                              imageUrl: "",
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: const ProfileImageNetworkBuild(
+                            imageUrl: "",
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ChatBubble(
+                          backGroundColor: Colors.grey.shade200,
+                          clipper: ChatBubbleClipper4(
+                              type: BubbleType.receiverBubble),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width * 0.6,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  chat.userName!
+                                      .replaceAll(RegExp(r'.(?=.{3})'), '*'),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 8.sp,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  chat.comment,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10.sp,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  ConverterHelper.differenceTimeParse(
+                                      chat.dateInput),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 6.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: 20,
+                    );
+                  },
+                );
+              } else if (state is ReportDiscussionListFailed) {
+                return ErrorPlaceholder(
+                  title: 'Ups Terjadi Kesalahan',
+                  subtitle:
+                      'Jangan panik, kamu bisa memuat ulang data dengan menekan tombol dibawah ini!',
+                  onTap: () {
+                    reportDiscussionBloc
+                        .add(ReportDiscussionListFetch(widget.id));
+                  },
+                );
+              } else {
+                return Text(
+                  "Belum ada komentar",
+                  style: TextStyle(
+                    fontSize: 9.sp,
+                    color: AppColors.textFaded,
+                  ),
+                );
+              }
+            },
+          ),
+          Divider(
+            height: 4.h,
+            color: Theme.of(context).dividerColor,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  context.pushRoute(ReportDiscussionRoute(data: data));
+                },
+                child: Text(
+                  'Lihat Selengkapnya',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                size: 20.sp,
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

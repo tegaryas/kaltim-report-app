@@ -3,6 +3,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kaltim_report/modules/report/models/report_category_model.dart';
+import 'package:kaltim_report/modules/report/models/report_discussion_model.dart';
 import 'package:kaltim_report/modules/report/models/report_export_form_model.dart';
 
 import 'package:kaltim_report/modules/report/models/report_form_model.dart';
@@ -91,5 +92,15 @@ class ReportRepository implements ReportRepositoryInterface {
   @override
   Future<void> sendExportReportToEmail(Email email) {
     return reportProvider.sendExportReportToEmail(email);
+  }
+
+  @override
+  Stream<List<ReportDiscussionModel>> getReportDiscussions(String id) {
+    return reportProvider.getReportDiscussions(id);
+  }
+
+  @override
+  Future<void> sendReportDiscussion(ReportDiscussionModel form) {
+    return reportProvider.sendReportDiscussion(form);
   }
 }

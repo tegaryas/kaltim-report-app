@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kaltim_report/configs/routes/routes.gr.dart';
+import 'package:kaltim_report/constant/constant.dart';
 import 'package:kaltim_report/theme.dart';
+import 'package:kaltim_report/utils/launcher_helper.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:skeletons/skeletons.dart';
@@ -91,6 +93,16 @@ class ProfileScreen extends StatelessWidget {
             ),
             _buidlListTile(
               onTap: () {
+                LauncherHelper.openUrl(ApiPath.feedbackUrl);
+              },
+              icon: Iconsax.message_question,
+              title: "Kritik & Saran",
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            _buidlListTile(
+              onTap: () {
                 context.navigateTo(const AboutRoute());
               },
               icon: Iconsax.info_circle,
@@ -136,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 2.h,
+              height: 10.h,
             ),
           ],
         ),
