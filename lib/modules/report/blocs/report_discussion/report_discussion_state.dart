@@ -23,9 +23,10 @@ class ReportDiscussionListFailed extends ReportDiscussionState {
 
 class ReportDiscussionListSuccess extends ReportDiscussionState {
   final List<ReportDiscussionModel> data;
+  final String currentUserId;
 
-  const ReportDiscussionListSuccess(this.data);
+  const ReportDiscussionListSuccess(this.data, this.currentUserId);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [data, currentUserId];
 }

@@ -83,7 +83,7 @@ class _ReportDiscussionScreenState extends State<ReportDiscussionScreen> {
                     if (state.data.isEmpty) {
                       return const Center(child: Text('Belum ada komentar'));
                     }
-                    return _buildWidgetSuccess(state.data);
+                    return _buildWidgetSuccess(state.data, state.currentUserId);
                   } else if (state is ReportDiscussionListFailed) {
                     return _buildWidgetFailed();
                   } else {
@@ -116,7 +116,8 @@ class _ReportDiscussionScreenState extends State<ReportDiscussionScreen> {
     );
   }
 
-  Widget _buildWidgetSuccess(List<ReportDiscussionModel> data) {
+  Widget _buildWidgetSuccess(
+      List<ReportDiscussionModel> data, String currentUserId) {
     return ListView.separated(
       itemCount: data.length,
       physics: const BouncingScrollPhysics(),
@@ -125,7 +126,7 @@ class _ReportDiscussionScreenState extends State<ReportDiscussionScreen> {
       itemBuilder: (context, index) {
         final chat = data[index];
 
-        if (chat.userId == widget.data.userId) {
+        if (chat.userId == currentUserId) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,

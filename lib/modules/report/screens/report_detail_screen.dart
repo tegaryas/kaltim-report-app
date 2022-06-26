@@ -630,7 +630,7 @@ class _DetailReportScreenState extends State<DetailReportScreen> {
                   itemBuilder: (context, index) {
                     final chat = state.data[index];
 
-                    if (chat.userId == data.userId) {
+                    if (chat.userId == state.currentUserId) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,

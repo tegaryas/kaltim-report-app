@@ -36,5 +36,6 @@ class ApiPath {
   static const String vaksin =
       'https://vaksincovid19-api.vercel.app/api/vaksin';
 
-  static const String feedbackUrl = "https://forms.gle/krTrsuRMFRsvS3GaA";
+  static const String feedbackUrl =
+      "https://docs.google.com/forms/d/e/1FAIpQLSfcbSSTyLDeYp4PB17NaP7e1IS0qyQj5-Sek6RTOi2uRX-dIQ/viewform?usp=sf_link";
 }

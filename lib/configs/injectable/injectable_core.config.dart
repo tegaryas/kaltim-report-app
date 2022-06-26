@@ -304,8 +304,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i92.ReportCategoryBloc(get<_i67.ReportRepositoryInterface>()));
   gh.factory<_i93.ReportDetailBloc>(
       () => _i93.ReportDetailBloc(get<_i67.ReportRepositoryInterface>()));
-  gh.factory<_i94.ReportDiscussionBloc>(
-      () => _i94.ReportDiscussionBloc(get<_i67.ReportRepositoryInterface>()));
+  gh.factory<_i94.ReportDiscussionBloc>(() => _i94.ReportDiscussionBloc(
+      get<_i67.ReportRepositoryInterface>(),
+      get<_i36.AuthRepositoryInterface>()));
   gh.factory<_i95.ReportDiscussionSendBloc>(() => _i95.ReportDiscussionSendBloc(
       get<_i67.ReportRepositoryInterface>(),
       get<_i36.AuthRepositoryInterface>()));
