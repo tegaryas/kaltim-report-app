@@ -1,6 +1,7 @@
 # kaltim_report
 
-A new Flutter project.
+Project ini adalah sebuah aplikasi layanan informasi dan aduan masyarakat Desa Singa Gembara.
+Menggunakan Bloc sebagai state management, Firebase sebagai layanan backend aplikasi, dan Implementasi Bloc Testing 
 
 ## Getting Started
 
