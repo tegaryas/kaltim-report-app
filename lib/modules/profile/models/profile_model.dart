@@ -15,7 +15,6 @@ class ProfileModel {
   final String name;
   final String username;
   final String email;
-  final String password;
   final String? phoneNumber;
   final String? profilePic;
   final String? idToken;
@@ -28,7 +27,6 @@ class ProfileModel {
     required this.name,
     required this.email,
     required this.username,
-    required this.password,
     this.phoneNumber,
     this.profilePic,
     this.idToken,

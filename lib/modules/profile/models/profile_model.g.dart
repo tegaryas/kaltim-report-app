@@ -17,8 +17,6 @@ abstract class _$ProfileModelCWProxy {
 
   ProfileModel name(String name);
 
-  ProfileModel password(String password);
-
   ProfileModel phoneNumber(String? phoneNumber);
 
   ProfileModel profilePic(String? profilePic);
@@ -39,7 +37,6 @@ abstract class _$ProfileModelCWProxy {
     String? email,
     String? idToken,
     String? name,
-    String? password,
     String? phoneNumber,
     String? profilePic,
     UserRole? role,
@@ -70,9 +67,6 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
   ProfileModel name(String name) => this(name: name);
 
   @override
-  ProfileModel password(String password) => this(password: password);
-
-  @override
   ProfileModel phoneNumber(String? phoneNumber) =>
       this(phoneNumber: phoneNumber);
 
@@ -99,7 +93,6 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
     Object? email = const $CopyWithPlaceholder(),
     Object? idToken = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
-    Object? password = const $CopyWithPlaceholder(),
     Object? phoneNumber = const $CopyWithPlaceholder(),
     Object? profilePic = const $CopyWithPlaceholder(),
     Object? role = const $CopyWithPlaceholder(),
@@ -126,10 +119,6 @@ class _$ProfileModelCWProxyImpl implements _$ProfileModelCWProxy {
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      password: password == const $CopyWithPlaceholder() || password == null
-          ? _value.password
-          // ignore: cast_nullable_to_non_nullable
-          : password as String,
       phoneNumber: phoneNumber == const $CopyWithPlaceholder()
           ? _value.phoneNumber
           // ignore: cast_nullable_to_non_nullable
@@ -163,7 +152,6 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       name: json['name'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
-      password: json['password'] as String,
       phoneNumber: json['phone_number'] as String?,
       profilePic: json['profile_pic'] as String?,
       idToken: json['id_token'] as String?,
@@ -179,7 +167,6 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'name': instance.name,
       'username': instance.username,
       'email': instance.email,
-      'password': instance.password,
       'phone_number': instance.phoneNumber,
       'profile_pic': instance.profilePic,
       'id_token': instance.idToken,

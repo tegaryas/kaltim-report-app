@@ -64,7 +64,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
               name: event.data.username,
               email: event.data.email,
               username: event.data.username,
-              password: event.data.password,
               idToken: userId,
               phoneNumber: event.data.phoneNumber,
             ));

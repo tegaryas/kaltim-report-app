@@ -7,11 +7,13 @@ class ErrorPlaceholder extends StatelessWidget {
   final Function()? onTap;
   final String title;
   final String subtitle;
+  final String? buttonText;
   const ErrorPlaceholder({
     Key? key,
     this.onTap,
     required this.title,
     required this.subtitle,
+    this.buttonText,
   }) : super(key: key);
 
   @override
@@ -55,7 +57,7 @@ class ErrorPlaceholder extends StatelessWidget {
             height: 3.h,
           ),
           CustomButton(
-            text: 'Muat Ulang Data',
+            text: buttonText ?? 'Muat Ulang Data',
             onTap: onTap!,
           )
         ],

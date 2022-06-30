@@ -32,9 +32,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AuthLogout>((event, emit) async {
-      emit(AuthUnauthenticated());
       await authRepository.deleteDeviceToken();
       await authRepository.logOut();
+      emit(AuthUnauthenticated());
     });
   }
 }

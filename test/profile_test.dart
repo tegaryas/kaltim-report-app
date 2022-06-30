@@ -27,7 +27,6 @@ void main() {
         name: "tegar",
         email: "email@gmail.com",
         username: "cek cek",
-        password: 'coba coba',
         role: UserRole.user,
       );
 

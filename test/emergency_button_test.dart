@@ -45,7 +45,6 @@ void main() {
         name: "name",
         email: "email",
         username: "username",
-        password: "password",
         role: UserRole.user,
       );
 

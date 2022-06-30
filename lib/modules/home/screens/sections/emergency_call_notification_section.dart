@@ -42,55 +42,58 @@ class EmergencyCallNotificationSection extends StatelessWidget {
               children: [EmergencyCallListRoute(isAdmin: isAdmin)]));
         },
         child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 20,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 20,
-          ),
-          decoration: BoxDecoration(
-            color: Theme.of(context).errorColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Pemberitahuan",
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).errorColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Pemberitahuan",
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Sekarang lagi ada ${data.length} warga yang meminta bantuan, segera bantu ke lokasi mereka!",
-                      style: TextStyle(
-                        fontSize: 9.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        height: 1.5,
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                  ],
+                      Text(
+                        "Sekarang lagi ada ${data.length} warga yang meminta bantuan, segera bantu ke lokasi mereka!",
+                        style: TextStyle(
+                          fontSize: 9.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Icon(
-                Icons.keyboard_arrow_right,
-                color: Colors.white,
-              ),
-            ],
+                const SizedBox(
+                  width: 10,
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_right,
+                  color: Colors.white,
+                ),
+              ],
+            ),
           ),
         ),
       ),

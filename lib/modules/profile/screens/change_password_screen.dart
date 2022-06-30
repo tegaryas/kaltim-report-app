@@ -52,71 +52,73 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   horizontal: 20,
                   vertical: 20,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Ubah Kata Sandi Anda',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Ubah Kata Sandi Anda',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      'Buat kata sandi yang kuat untuk akun Anda',
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textFaded,
+                      SizedBox(
+                        height: 1.h,
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    PasswordTextField(
-                      label: 'Kata Sandi Baru',
-                      hint: 'Masukkan Kata Sandi Baru Anda',
-                      validator: MultiValidator([
-                        RequiredValidator(
-                            errorText: "Harap Masukkan Kata Sandi Baru Anda"),
-                        MinLengthValidator(8,
-                            errorText: "Masukkan minimal 8 karakter")
-                      ]),
-                      onChanged: (val) {
-                        newPassword = val;
-                      },
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    PasswordTextField(
-                      label: 'Ketik Ulang Kata Sandi Baru',
-                      hint: 'Masukkan Kata Sandi Baru Anda',
-                      validator: (val) {
-                        return MatchValidator(
-                                errorText: "Kata Sandi Tidak Cocok ")
-                            .validateMatch(val!, newPassword ?? "");
-                      },
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    CustomButton(
-                      text: 'Lanjutkan',
-                      isLoading: isLoading,
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          context
-                              .read<UpdatePasswordBloc>()
-                              .add(UpdatePasswordUser(newPassword!));
-                        }
-                      },
-                    )
-                  ],
+                      Text(
+                        'Buat kata sandi yang kuat untuk akun Anda',
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textFaded,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      PasswordTextField(
+                        label: 'Kata Sandi Baru',
+                        hint: 'Masukkan Kata Sandi Baru Anda',
+                        validator: MultiValidator([
+                          RequiredValidator(
+                              errorText: "Harap Masukkan Kata Sandi Baru Anda"),
+                          MinLengthValidator(8,
+                              errorText: "Masukkan minimal 8 karakter")
+                        ]),
+                        onChanged: (val) {
+                          newPassword = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      PasswordTextField(
+                        label: 'Ketik Ulang Kata Sandi Baru',
+                        hint: 'Masukkan Kata Sandi Baru Anda',
+                        validator: (val) {
+                          return MatchValidator(
+                                  errorText: "Kata Sandi Tidak Cocok ")
+                              .validateMatch(val!, newPassword ?? "");
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      CustomButton(
+                        text: 'Lanjutkan',
+                        isLoading: isLoading,
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            context
+                                .read<UpdatePasswordBloc>()
+                                .add(UpdatePasswordUser(newPassword!));
+                          }
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             );
