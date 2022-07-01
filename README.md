@@ -1,4 +1,4 @@
-# kaltim_report
+# Aplikasi SIGAP
 
 Project ini adalah sebuah aplikasi layanan informasi dan aduan masyarakat Desa Singa Gembara.
 Menggunakan Bloc sebagai state management, Firebase sebagai layanan backend aplikasi, dan Implementasi Bloc Testing 
